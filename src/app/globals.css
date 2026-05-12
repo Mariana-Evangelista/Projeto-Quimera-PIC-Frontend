@@ -21,8 +21,6 @@ body,
 }
 
 @theme inline {
-  --font-heading: var(--font-poppins);
-  --font-sans: var(--font-sans);
   --font-poppins: var(--font-poppins);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -134,10 +132,7 @@ body,
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
-    @apply bg-background text-foreground font-poppins;
+    @apply bg-background font-poppins;
   }
 }

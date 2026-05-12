@@ -1,4 +1,4 @@
-import { Header } from './_components/hero';
+import { Header } from './_components/header';
 
 export default function Home() {
   return (

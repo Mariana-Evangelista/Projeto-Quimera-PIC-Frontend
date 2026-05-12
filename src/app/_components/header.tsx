@@ -4,7 +4,7 @@ import { FaPaw } from 'react-icons/fa';
 
 export function Header() {
   return (
-    <header className="my-10 flex items-center justify-center gap-8 text-gray-700">
+    <header className="my-10 flex items-center justify-center gap-8">
       <div className="text-center text-lg">
         <h1 className="text-6xl font-semibold">
           Seja bem-vindo(a) ao <br />
@@ -25,7 +25,7 @@ export function Header() {
           <FaPaw />
         </span>
       </div>
-      <Image src={HomeImage} alt="Gato e cachorro juntos" className="w-1/3" priority={true} />
+      <Image src={HomeImage} alt="Gato e cachorro juntos" className="max-w-1/3" priority={true} />
     </header>
   );
 }
