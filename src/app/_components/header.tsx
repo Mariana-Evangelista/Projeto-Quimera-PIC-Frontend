@@ -8,13 +8,13 @@ export function Header() {
       <Image
         src={HomeImage}
         alt="Gato e cachorro juntos"
-        className="w-full max-w-60 sm:max-w-sm"
+        className="w-full max-w-56 sm:max-w-80"
         priority={true}
       />
       <section className="w-full max-w-3xl text-center">
-        <h1 className="text-xl font-light sm:text-2xl">
+        <h1 className="text-lg font-light sm:text-xl">
           Seja bem-vindo(a) ao <br />
-          <strong className="text-6xl font-semibold text-green-500 sm:text-7xl">QUIMERA</strong>
+          <strong className="text-5xl font-semibold text-green-500 sm:text-6xl">QUIMERA</strong>
         </h1>
 
         <div className="text-sm max-[500px]:text-justify sm:text-base">
