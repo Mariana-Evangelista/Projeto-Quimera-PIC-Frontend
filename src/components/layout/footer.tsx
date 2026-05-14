@@ -4,7 +4,7 @@ export function Footer() {
       <p>
         © 2024 Quimera - Todos os direitos reservado | Desenvolvido por{' '}
         <a href="https://github.com/MaryNascimento" className="font-semibold">
-          Mariana do Nascimento{' '}
+          Mariana Evangelista{' '}
         </a>
         <br />
         Baseado no projeto original de{' '}

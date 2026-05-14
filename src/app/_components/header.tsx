@@ -4,28 +4,36 @@ import { FaPaw } from 'react-icons/fa';
 
 export function Header() {
   return (
-    <header className="my-10 flex items-center justify-center gap-8">
-      <div className="text-center text-lg">
-        <h1 className="text-6xl font-semibold">
+    <header className="my-10 flex flex-col items-center justify-center gap-8">
+      <Image
+        src={HomeImage}
+        alt="Gato e cachorro juntos"
+        className="w-full max-w-60 sm:max-w-sm"
+        priority={true}
+      />
+      <section className="w-full max-w-3xl text-center">
+        <h1 className="text-xl font-light sm:text-2xl">
           Seja bem-vindo(a) ao <br />
-          <strong className="text-green-500">QUIMERA</strong>
+          <strong className="text-6xl font-semibold text-green-500 sm:text-7xl">QUIMERA</strong>
         </h1>
-        <p className="my-8">
-          Somos uma plataforma que permite a criação de <strong>experimentos interativos</strong>{' '}
-          para aulas de ciências em
-          <strong> medicina veterinária</strong>. Através dela, professores podem criar experimentos
-          e alunos podem interagir com eles em tempo real.
-        </p>
 
-        <p>Escolha seu experimento e teste seus conhecimentos!</p>
+        <div className="text-sm max-[500px]:text-justify sm:text-base">
+          <p className="my-8">
+            Somos uma plataforma que permite a criação de <strong>experimentos interativos</strong>{' '}
+            para aulas de ciências em
+            <strong> medicina veterinária</strong>. Através dela, professores podem criar
+            experimentos e alunos podem interagir com eles em tempo real.
+          </p>
 
-        <span className="mt-4 flex justify-center gap-2">
+          <p>Escolha seu experimento e teste seus conhecimentos!</p>
+        </div>
+
+        <span className="mt-5 flex justify-center gap-2">
           <FaPaw />
           <FaPaw />
           <FaPaw />
         </span>
-      </div>
-      <Image src={HomeImage} alt="Gato e cachorro juntos" className="max-w-1/3" priority={true} />
+      </section>
     </header>
   );
 }

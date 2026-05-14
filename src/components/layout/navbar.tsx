@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 
 export function NavBar() {
   return (
-    <header className="text-light flex items-center justify-between bg-green-400 px-10 py-2">
+    <nav className="text-light flex items-center justify-between bg-green-400 px-3 py-2 md:px-10">
       <Image src={Logo} alt="Brand logo" className="w-16" />
       <div className="flex items-center gap-5">
         <p className="text-sm">É professor?</p>
@@ -12,6 +12,6 @@ export function NavBar() {
           Faça Login
         </Button>
       </div>
-    </header>
+    </nav>
   );
 }
