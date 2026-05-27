@@ -1,4 +1,4 @@
-import HomeImage from '@/assets/art/HomeImageQuimera.png';
+import HomeImage from '../assets/HomeImageQuimera.png';
 import Image from 'next/image';
 import { FaPaw } from 'react-icons/fa';
 

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Logo from '@/assets/brand/LogoQuimeraSymbol.svg';
+import Logo from '@/assets/LogoQuimeraSymbol.svg';
 import { Button } from '../ui/button';
 
 export function NavBar() {
