@@ -21,8 +21,6 @@ body,
 }
 
 @theme inline {
-  --font-heading: var(--font-poppins);
-  --font-sans: var(--font-sans);
   --font-poppins: var(--font-poppins);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -68,7 +66,7 @@ body,
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(37.3% 0.034 259.733);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
@@ -134,10 +132,7 @@ body,
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
-    @apply bg-background text-foreground font-poppins;
+    @apply bg-background font-poppins;
   }
 }
