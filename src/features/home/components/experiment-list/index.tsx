@@ -5,9 +5,9 @@ export async function ExperimentList() {
   const experiments = await getExperiments();
 
   return (
-    <section className="grid grid-cols-1 p-4 md:grid-cols-2">
+    <section className="my-16 flex flex-col items-center justify-center gap-8 md:flex-row">
       {experiments.map((experiment) => (
-        <ExperimentCard key={experiment.id} />
+        <ExperimentCard key={experiment.id} experiment={experiment} />
       ))}
     </section>
   );

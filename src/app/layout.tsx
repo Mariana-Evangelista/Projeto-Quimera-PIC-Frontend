@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={poppins.variable}>
       <body className="flex min-h-full flex-col text-gray-700 antialiased">
         <NavBar />
-        <main className="flex-1">{children}</main>
+        <main className="mx-5 flex-1">{children}</main>
         <Footer />
       </body>
     </html>

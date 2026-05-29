@@ -8,7 +8,7 @@ export function NavBar() {
       <Image src={Logo} alt="Brand logo" className="w-12 sm:w-16" />
       <div className="flex items-center gap-5">
         <p className="text-xs sm:text-sm">É professor?</p>
-        <Button variant={'secondary'} className="cursor-pointer text-xs text-green-600 sm:text-sm">
+        <Button variant="secondary" className="cursor-pointer text-xs text-green-600 sm:text-sm">
           Faça Login
         </Button>
       </div>
