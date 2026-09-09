@@ -17,7 +17,7 @@ export function Header() {
           <strong className="text-primary text-5xl font-semibold sm:text-6xl">QUIMERA</strong>
         </h1>
 
-        <div className="text-sm max-[500px]:text-justify sm:text-base">
+        <div className="text-sm max-[500px]:text-start sm:text-base">
           <p className="my-8">
             Somos uma plataforma que permite a criação de <strong>experimentos interativos</strong>{' '}
             para aulas de fisiologia da graduação em

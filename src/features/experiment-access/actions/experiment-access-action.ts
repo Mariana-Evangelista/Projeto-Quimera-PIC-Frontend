@@ -44,5 +44,5 @@ export async function ExperimentAccessAction(
     };
   }
 
-  redirect(`/experiment/${slug}/${validatedData.data.pin}`);
+  redirect(`/experiment/${slug}/${validatedData.data.pin}?start_experiment_room=false`);
 }

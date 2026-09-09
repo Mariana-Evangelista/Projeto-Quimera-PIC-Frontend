@@ -24,7 +24,7 @@ export function ExperimentCard({ experiment }: ExperimentCardProps) {
         </div>
 
         <CardTitle>{experiment.title}</CardTitle>
-        <CardDescription className="max-[500px]:text-justify sm:h-18">
+        <CardDescription className="max-[500px]:text-justify sm:max-h-24">
           {experiment.description}
         </CardDescription>
       </CardHeader>

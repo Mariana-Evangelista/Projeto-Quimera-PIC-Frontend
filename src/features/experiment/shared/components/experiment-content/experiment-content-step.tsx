@@ -13,18 +13,24 @@ export function ExperimentContentStep({
   onChangeStep,
 }: ExperimentContentStepProps) {
   return (
-    <button onClick={onChangeStep} className="flex items-center gap-3">
+    <button
+      onClick={onChangeStep}
+      className={cn(
+        'md:border-border flex w-full flex-col items-start gap-3 rounded-3xl p-2 max-[933px]:min-h-24 md:flex-row md:border',
+        isActive && 'shadow-primary/80 md:shadow-md'
+      )}
+    >
       <div
         className={cn(
-          'border-border flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 text-xl',
-          isActive && 'border-primary'
+          'flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-3 text-xl',
+          isActive ? 'border-primary' : 'border-border text-muted-foreground'
         )}
       >
         {content.id}
       </div>
-      <div className="text-start text-sm">
-        <h3>{content.title}</h3>
-        <p>{content.description}</p>
+      <div className={cn('text-start text-xs sm:text-sm', !isActive && 'text-muted-foreground')}>
+        <h3 className="font-semibold">{content.title}</h3>
+        <p className="text-muted-foreground">{content.description}</p>
       </div>
     </button>
   );

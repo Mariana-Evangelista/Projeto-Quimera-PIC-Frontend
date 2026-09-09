@@ -101,6 +101,10 @@ body,
   --primary: oklch(70.7% 0.165 254.624);
 }
 
+.theme-glycemic-control {
+  --primary: oklch(0.7875 0.1179 46.35);
+}
+
 /* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

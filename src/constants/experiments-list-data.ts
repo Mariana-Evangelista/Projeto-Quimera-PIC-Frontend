@@ -13,7 +13,7 @@ export const EXPERIMENTS_LIST_DATA: ExperimentTypes[] = [
     slug: 'glycemic-control',
     title: 'Controle Glicêmico',
     description:
-      'Analise uma série de casos clínicos sobre o controle glicêmico em animais e veja o quanto você domina o assunto. ',
+      'Descubra como os hormônios atuam na regulação da glicose sanguínea e compreenda os processos envolvidos no diagnóstico do Diabetes Mellitus.',
     Icon: FlaskConical,
   },
 ];

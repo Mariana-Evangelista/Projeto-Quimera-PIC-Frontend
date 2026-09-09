@@ -9,7 +9,7 @@ export function ExperimentHeader({ header }: ExperimentHeaderProps) {
   const header_data = header.data ?? { title: 'Experimento', description: 'Descrição' };
 
   return (
-    <header className="my-10 flex flex-col-reverse items-center justify-center gap-8 sm:flex-row sm:justify-between">
+    <header className="mt-10 mb-16 flex flex-col-reverse items-center justify-center gap-8 sm:flex-row sm:justify-between">
       <section className="space-y-3 sm:max-w-lg sm:space-y-8">
         <div>
           <p className="text-muted-foreground font-medium lg:text-lg">Experimento</p>

@@ -1,21 +1,20 @@
 import { StartExperimentRoomType } from '@/app/experiment/[slug]/[pin]/page';
 import { ExperimentContent } from '../shared/components/experiment-content';
 import { ExperimentHeader } from '../shared/components/experiment-header';
-import { BODY_WATER_LOSS_DEFAULT_DATA } from './constants/body-water-loss-default-data';
-import { ExperimentRoomBWL } from './components/experiment-room-bwl';
+import { GLYCEMIC_CONTROL_DEFAULT_DATA } from './constants/glycemic-control-default-data';
+import { ExperimentRoomGC } from './components/experiment-room-gc';
 
-export function BodyWaterLoss({ start_experiment_room }: StartExperimentRoomType) {
-  const data = BODY_WATER_LOSS_DEFAULT_DATA;
+export function GlycemicControl({ start_experiment_room }: StartExperimentRoomType) {
+  const data = GLYCEMIC_CONTROL_DEFAULT_DATA;
 
   return (
-    <>
+    <div className="theme-glycemic-control pt-8">
       <ExperimentHeader header={data.header} />
-
       {start_experiment_room === 'true' ? (
-        <ExperimentRoomBWL />
+        <ExperimentRoomGC />
       ) : (
         <ExperimentContent content={data.content} />
       )}
-    </>
+    </div>
   );
 }
