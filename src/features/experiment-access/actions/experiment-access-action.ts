@@ -1,20 +1,18 @@
 'use server';
 
 import z from 'zod';
-import { ExperimentAccessSchema } from '../schemas/experiment-access-schema';
+import {
+  ExperimentAccessFormData,
+  ExperimentAccessSchema,
+} from '../schemas/experiment-access-schema';
 import { ExperimentAccessFormState } from '../types/experiment-acces-form-state';
-import { redirect } from 'next/navigation';
+import { GetExperimentByPinService } from '../services/get-experiment-by-pin-service';
+import { ApiError } from '@/lib/api/errors';
 
 export async function ExperimentAccessAction(
-  slug: string,
   _prevState: ExperimentAccessFormState,
-  formData: FormData
+  data: ExperimentAccessFormData
 ): Promise<ExperimentAccessFormState> {
-  const data = {
-    student: formData.get('student'),
-    pin: formData.get('pin'),
-  };
-
   const validatedData = ExperimentAccessSchema.safeParse(data);
 
   if (!validatedData.success) {
@@ -29,20 +27,36 @@ export async function ExperimentAccessAction(
     };
   }
 
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+  const { pin, student } = validatedData.data;
 
-    if (validatedData.data.pin === '000000') {
-      throw new Error('API Error: Este PIN foi bloqueado pelo sistema externo.');
-    }
+  try {
+    const experiment = await GetExperimentByPinService(pin);
+
+    console.log(experiment);
+
+    return {
+      success: true,
+      field_errors: undefined,
+      message: 'Sucesso na solicitação!',
+      inputs: { pin, student },
+    };
   } catch (error) {
+    if (error instanceof ApiError) {
+      return {
+        success: false,
+        field_errors: undefined,
+        message: error.error.message,
+        inputs: { pin, student },
+      };
+    }
     return {
       success: false,
       field_errors: undefined,
-      message: (error as Error).message,
-      inputs: validatedData.data,
+      message:
+        'Não foi possível validar o experimento. Tente novamente ou entre em contato com o suporte.',
+      inputs: { pin, student },
     };
   }
 
-  redirect(`/experiment/${slug}/${validatedData.data.pin}?start_experiment_room=false`);
+  // redirect(`/experiment/${slug}/${validatedData.data.pin}?start_experiment_room=false`);
 }

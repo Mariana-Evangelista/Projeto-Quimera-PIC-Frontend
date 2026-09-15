@@ -1,7 +1,7 @@
-import { ExperimentTypes } from '@/types/experiment-types';
+import { ExperimentListTypes } from '@/types/experiment-list-types';
 import { FlaskConical, GlassWater } from 'lucide-react';
 
-export const EXPERIMENTS_LIST_DATA: ExperimentTypes[] = [
+export const EXPERIMENTS_LIST_DATA: ExperimentListTypes[] = [
   {
     slug: 'body-water-loss',
     title: 'Queda de Água Corporal',

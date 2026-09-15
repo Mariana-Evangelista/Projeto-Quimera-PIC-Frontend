@@ -1,3 +1,5 @@
+'use client';
+
 import { ExperimentAccessForm } from './experiment-access-form';
 import Image from 'next/image';
 import LogoQuimera from '@/assets/LogoQuimera.png';

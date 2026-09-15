@@ -1,4 +1,4 @@
-import { ExperimentTypes } from '@/types/experiment-types';
+import { ExperimentTypes } from '@/types/experiment-list-types';
 import { StaticImageData } from 'next/image';
 
 export interface ExperimentHeaderTypes {
