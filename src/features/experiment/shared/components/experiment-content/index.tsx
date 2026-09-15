@@ -22,7 +22,7 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
   const handleStartExperimentRoom = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('start_experiment_room', 'true');
-    router.push(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -48,8 +48,10 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
           <div className="my-8 flex justify-end">
             <Button
               className="cursor-pointer"
+              type="button"
               onClick={() => {
                 setActiveStep(content[1]);
+                console.log('Clicando');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
@@ -61,6 +63,7 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
           <div className="my-8 flex justify-between">
             <Button
               className="border-border cursor-pointer border"
+              type="button"
               onClick={() => {
                 setActiveStep(content[0]);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -70,7 +73,7 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
               <ChevronLeft />
               Voltar
             </Button>
-            <Button className="cursor-pointer" onClick={handleStartExperimentRoom}>
+            <Button className="cursor-pointer" type="button" onClick={handleStartExperimentRoom}>
               <ClipboardPlus />
               Iniciar Tratamento
             </Button>
