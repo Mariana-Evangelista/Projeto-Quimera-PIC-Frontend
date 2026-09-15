@@ -14,12 +14,14 @@ import {
 } from '../schemas/experiment-access-schema';
 import { useActionState, useTransition } from 'react';
 import { ExperimentAccessAction } from '../actions/experiment-access-action';
+import { useParams } from 'next/navigation';
 
 const ExperimentAccessInitialFormState: ExperimentAccessFormState = {
   success: false,
 };
 
 export function ExperimentAccessForm() {
+  const { slug } = useParams();
   const [state, formAction] = useActionState(
     ExperimentAccessAction,
     ExperimentAccessInitialFormState
@@ -32,6 +34,7 @@ export function ExperimentAccessForm() {
     defaultValues: {
       student: '',
       pin: '',
+      slug: String(slug),
     },
   });
 

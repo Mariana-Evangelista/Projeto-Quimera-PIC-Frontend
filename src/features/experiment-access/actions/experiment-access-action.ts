@@ -8,6 +8,8 @@ import {
 import { ExperimentAccessFormState } from '../types/experiment-acces-form-state';
 import { GetExperimentByPinService } from '../services/get-experiment-by-pin-service';
 import { ApiError } from '@/lib/api/errors';
+import { ExperimentAccessClaims, setExperimentAccessCookie } from '../services/set-data-cookies';
+import { redirect } from 'next/navigation';
 
 export async function ExperimentAccessAction(
   _prevState: ExperimentAccessFormState,
@@ -27,19 +29,15 @@ export async function ExperimentAccessAction(
     };
   }
 
-  const { pin, student } = validatedData.data;
+  const { pin, student, slug } = validatedData.data;
 
   try {
     const experiment = await GetExperimentByPinService(pin);
-
-    console.log(experiment);
-
-    return {
-      success: true,
-      field_errors: undefined,
-      message: 'Sucesso na solicitação!',
-      inputs: { pin, student },
+    const cookieData: ExperimentAccessClaims = {
+      studentName: student,
+      experiment,
     };
+    await setExperimentAccessCookie(cookieData);
   } catch (error) {
     if (error instanceof ApiError) {
       return {
@@ -58,5 +56,6 @@ export async function ExperimentAccessAction(
     };
   }
 
-  // redirect(`/experiment/${slug}/${validatedData.data.pin}?start_experiment_room=false`);
+  redirect(`/experiment/${slug}/${pin}?start_experiment_room=false`);
+  //fazer lógica que verifica o tipo de experimento que se está tentando acessar, enviar slug para api validar
 }
