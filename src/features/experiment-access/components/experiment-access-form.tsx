@@ -47,7 +47,7 @@ export function ExperimentAccessForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {!state.success && state.message && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="destructive" className="mb-4 text-start">
           <AlertCircleIcon className="mr-2 h-4 w-4" />
 
           <AlertDescription>{state.message}</AlertDescription>

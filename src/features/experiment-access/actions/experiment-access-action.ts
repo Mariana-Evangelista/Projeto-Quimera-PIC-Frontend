@@ -32,7 +32,7 @@ export async function ExperimentAccessAction(
   const { pin, student, slug } = validatedData.data;
 
   try {
-    const experiment = await GetExperimentByPinService(pin);
+    const experiment = await GetExperimentByPinService(pin, slug);
     const cookieData: ExperimentAccessClaims = {
       studentName: student,
       experiment,
@@ -57,5 +57,4 @@ export async function ExperimentAccessAction(
   }
 
   redirect(`/experiment/${slug}/${pin}?start_experiment_room=false`);
-  //fazer lógica que verifica o tipo de experimento que se está tentando acessar, enviar slug para api validar
 }
