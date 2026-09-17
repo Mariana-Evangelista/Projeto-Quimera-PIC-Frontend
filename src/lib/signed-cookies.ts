@@ -109,7 +109,7 @@ export async function verifyCookiePayload<T extends Record<string, unknown>>(
 }
 
 export const privateCookieDefaults: SignedCookieOptions = {
-  maxAgeSeconds: 6 * 60 * 60,
+  maxAgeSeconds: 3 * 60 * 60,
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'lax',

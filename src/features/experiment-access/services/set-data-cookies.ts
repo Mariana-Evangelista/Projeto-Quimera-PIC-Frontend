@@ -23,7 +23,5 @@ export async function setExperimentAccessCookie(claims: ExperimentAccessClaims):
 
   cookieStore.set(EXPERIMENT_ACCESS_COOKIE, token, {
     ...privateCookieDefaults,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
   });
 }

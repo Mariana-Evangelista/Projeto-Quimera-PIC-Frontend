@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ClipboardPlus } from 'lucide-react';
 import { ExperimentContentTypes } from '../../types/experiment-content-types';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { DialogConfirmAction } from '../dialog-confirm-action';
 
 interface ExperimentContentProps {
   content: ExperimentContentTypes[];
@@ -73,10 +74,17 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
               <ChevronLeft />
               Voltar
             </Button>
-            <Button className="cursor-pointer" type="button" onClick={handleStartExperimentRoom}>
-              <ClipboardPlus />
-              Iniciar Tratamento
-            </Button>
+
+            <DialogConfirmAction
+              title="Tem certeza que deseja Iniciar o Experimento?"
+              description="Não será possível voltar para estudar o caso clínico após confirmar."
+              onConfirmAction={handleStartExperimentRoom}
+            >
+              <Button className="cursor-pointer">
+                <ClipboardPlus />
+                Iniciar Tratamento
+              </Button>
+            </DialogConfirmAction>
           </div>
         )}
       </section>
