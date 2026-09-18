@@ -64,22 +64,22 @@ body,
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(37.3% 0.034 259.733);
   --card: oklch(1 0 0);
   --card-foreground: oklch(37.3% 0.034 259.733);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(72.3% 0.219 149.579);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(37.3% 0.034 259.733);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --input: oklch(1 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
@@ -97,7 +97,15 @@ body,
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+.theme-experiment {
+  --primary: oklch(70.7% 0.165 254.624);
+}
+
+.theme-glycemic-control {
+  --primary: oklch(0.7875 0.1179 46.35);
+}
+
+/* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -129,10 +137,10 @@ body,
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-}
+} */
 
 @layer base {
   body {
-    @apply bg-background font-poppins;
+    @apply bg-background font-poppins text-foreground;
   }
 }
