@@ -15,14 +15,28 @@ import {
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
 import { BODY_WATER_LOSS_EXPERIMENT_OPTIONS } from '../../constants/body-water-loss-experiment-options';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export function ExperimentOptions() {
   const experimentOptions = BODY_WATER_LOSS_EXPERIMENT_OPTIONS;
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const setSendResponseState = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('is_send_response', 'true');
+    router.replace(`${pathname}?${params.toString()}`);
+  };
   return (
     <Questionnaire
       className="mt-12"
       shortcuts="letters"
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSendResponseState();
+      }}
     >
       <QuestionnaireProgress
         className="w-full"

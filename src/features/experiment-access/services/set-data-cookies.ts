@@ -2,7 +2,7 @@ import 'server-only';
 
 import { cookies } from 'next/headers';
 import { privateCookieDefaults, signCookiePayload } from '@/lib/signed-cookies';
-import { ExperimentDataTypes } from '@/types/experiment-data-types';
+import { ExperimentsMap } from '@/constants/experiments-map';
 
 export const EXPERIMENT_ACCESS_COOKIE =
   process.env.EXPERIMENT_ACCESS_COOKIE_NAME ?? 'experiment-access-cookie';
@@ -10,7 +10,10 @@ const SECRET_ENV_NAME = 'EXPERIMENT_ACCESS_SECRET';
 
 export type ExperimentAccessClaims = {
   studentName: string;
-  experiment: ExperimentDataTypes;
+  class: string;
+  pin: string;
+  experiment_id: string;
+  type: ExperimentsMap;
 };
 
 export async function setExperimentAccessCookie(claims: ExperimentAccessClaims): Promise<void> {

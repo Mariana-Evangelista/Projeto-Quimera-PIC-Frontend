@@ -1,3 +1,5 @@
+'use client';
+
 import { WavesArrowDown } from 'lucide-react';
 import { ExperimentOptions } from './experiment-options';
 

@@ -12,6 +12,6 @@ export async function StudentData() {
   );
 
   if (student) {
-    return <User name={student.studentName} description={'Turma: ' + student.experiment.class} />;
+    return <User name={student.studentName} description={'Turma: ' + student?.class} />;
   }
 }

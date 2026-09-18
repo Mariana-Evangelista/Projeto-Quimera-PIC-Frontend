@@ -19,10 +19,10 @@ export async function GetExperimentCookiesValidationProxy(request: NextRequest) 
     'EXPERIMENT_ACCESS_SECRET'
   );
 
-  const experiment = access?.experiment;
+  const experiment = access;
 
   const hasValidAccess =
-    experiment !== undefined && experiment.type === slug && experiment.pin === pin;
+    experiment !== undefined && experiment?.type === slug && experiment?.pin === pin;
 
   if (!hasValidAccess) {
     return redirectToAccessForm(request, slug);

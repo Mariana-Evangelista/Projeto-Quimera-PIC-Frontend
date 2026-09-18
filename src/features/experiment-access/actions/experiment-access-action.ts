@@ -35,7 +35,10 @@ export async function ExperimentAccessAction(
     const experiment = await GetExperimentByPinService(pin, slug);
     const cookieData: ExperimentAccessClaims = {
       studentName: student,
-      experiment,
+      class: experiment.class,
+      experiment_id: experiment._id,
+      pin: experiment.pin,
+      type: experiment.type,
     };
     await setExperimentAccessCookie(cookieData);
   } catch (error) {
