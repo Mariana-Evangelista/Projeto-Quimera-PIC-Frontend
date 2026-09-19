@@ -6,7 +6,7 @@ export function ExperimentErrorRoom({ message }: { message: string }) {
       <LogoQuimera className="text-destructive border-border rounded-full border text-7xl sm:text-8xl" />
       <div className="text-center">
         <h2 className="text-destructive text-lg font-semibold sm:text-xl">Algo deu errado!</h2>
-        <p className="text-muted-foreground text-sm sm:text-base">{message}</p>
+        <p className="text-muted-foreground max-w-lg text-sm sm:text-base">{message}</p>
       </div>
     </div>
   );

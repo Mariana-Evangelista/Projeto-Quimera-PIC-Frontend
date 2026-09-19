@@ -1,6 +1,6 @@
-import { QuestionTypes } from '../types/question-types';
+import { GlycemicControlQuestionTypes } from '../types/glycemic-control-question-types';
 
-export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
+export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: GlycemicControlQuestionTypes[] = [
   {
     title: 'Questão 1',
     description:

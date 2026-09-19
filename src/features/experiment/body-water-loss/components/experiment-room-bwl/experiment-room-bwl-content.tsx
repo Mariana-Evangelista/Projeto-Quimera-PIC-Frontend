@@ -4,7 +4,7 @@ import { ExperimentsMap } from '@/constants/experiments-map';
 import { ExperimentWaitingRoom } from '../../../shared/components/experiment-waiting-room';
 import { ExperimentState } from '../../../shared/store/experiment-socket-store';
 import { ExperimentStatementBWL } from '../experiment-statement-bwl';
-import { useExperimentSocket } from '@/features/experiment/shared/hooks/useExperimentSocket';
+import { useExperimentSocket } from '@/features/experiment/shared/hooks/use-experiment-socket';
 import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 import { useSearchParams } from 'next/navigation';
 
@@ -31,9 +31,7 @@ export function ExperimentRoomBWLContent({ pin, slug, initialState }: Experiment
 
   return (
     <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160">
-      {!liberateSend && !isSendResponse && (
-        <ExperimentWaitingRoom message="O professor irá liberar a sala do experimento." />
-      )}
+      {!liberateSend && !isSendResponse && <ExperimentStatementBWL />}
 
       {liberateSend && !isSendResponse && <ExperimentStatementBWL />}
 

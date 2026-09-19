@@ -5,7 +5,7 @@ export interface OptionTypes {
   label: string;
 }
 
-export interface QuestionTypes {
+export interface GlycemicControlQuestionTypes {
   title: string;
   description: string;
   answer: OptionValue;

@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Spinner } from '@/components/ui/spinner';
 import { DialogTitle } from 'radix-ui/dialog';
 import { ReactNode } from 'react';
 
@@ -15,6 +16,7 @@ interface DialogConfirmActionProps {
   children: ReactNode;
   title: string;
   description: string;
+  isPending: boolean;
   onConfirmAction: () => void;
 }
 
@@ -22,6 +24,7 @@ export function DialogConfirmAction({
   children,
   title,
   description,
+  isPending,
   onConfirmAction,
 }: DialogConfirmActionProps) {
   return (
@@ -36,15 +39,17 @@ export function DialogConfirmAction({
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" className="cursor-pointer">
+            <Button variant="outline" disabled={isPending} className="cursor-pointer">
               Cancelar
             </Button>
           </DialogClose>
           <Button
             type="button"
             onClick={onConfirmAction}
+            disabled={isPending}
             className="cursor-pointer bg-blue-400 hover:bg-blue-300"
           >
+            {isPending && <Spinner />}
             Confirmar
           </Button>
         </DialogFooter>
