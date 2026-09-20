@@ -46,7 +46,6 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
               type="button"
               onClick={() => {
                 setActiveStep(content[1]);
-                console.log('Clicando');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >

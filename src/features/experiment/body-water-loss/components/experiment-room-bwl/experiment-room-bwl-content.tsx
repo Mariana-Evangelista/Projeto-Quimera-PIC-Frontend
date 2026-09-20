@@ -31,7 +31,9 @@ export function ExperimentRoomBWLContent({ pin, slug, initialState }: Experiment
 
   return (
     <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160">
-      {!liberateSend && !isSendResponse && <ExperimentStatementBWL />}
+      {!liberateSend && !isSendResponse && (
+        <ExperimentWaitingRoom message="O professor logo irá liberar a sala do experimento." />
+      )}
 
       {liberateSend && !isSendResponse && <ExperimentStatementBWL />}
 

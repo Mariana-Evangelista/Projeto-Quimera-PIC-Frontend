@@ -1,5 +1,4 @@
 export interface BodyWaterLossAnswerTypes {
-  label: string;
   value: string;
   weight: number;
 }

@@ -1,4 +1,4 @@
-import { User } from '@/components/user';
+import { User } from '@/components/user/user';
 import {
   EXPERIMENT_ACCESS_COOKIE,
   ExperimentAccessClaims,

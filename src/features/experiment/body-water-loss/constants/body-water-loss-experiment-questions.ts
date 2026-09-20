@@ -1,22 +1,22 @@
 import {
   BodyWaterLossAnswerTypes,
   BodyWaterLossQuestionTypes,
-} from '../types/answer-question-types';
+} from '../types/body-water-loss-question-types';
 
 export const BODY_WATER_LOSS_EXPERIMENT_OPTIONS: Record<string, BodyWaterLossAnswerTypes[]> = {
   options_one: [
-    { value: 'hipotalamo', label: 'Hipotálamo', weight: 80 },
-    { value: 'crh', label: 'CRH', weight: 0 },
-    { value: 'acth', label: 'ACTH', weight: 0 },
-    { value: 'cortisol', label: 'Cortisol', weight: 0 },
-    { value: 'na+', label: 'Na+', weight: 0 },
+    { value: 'Hipotálamo', weight: 80 },
+    { value: 'CRH', weight: 0 },
+    { value: 'ACTH', weight: 0 },
+    { value: 'Cortisol', weight: 0 },
+    { value: 'Na+', weight: 0 },
   ],
   options_two: [
-    { value: 'adh', label: 'ADH', weight: 20 },
-    { value: 'paratormônio', label: 'Paratormônio', weight: 0 },
-    { value: 't3-e-t4', label: 'T3 e T4', weight: 0 },
-    { value: 'k+', label: 'K+', weight: 0 },
-    { value: 'glicemia', label: 'Glicemia', weight: 0 },
+    { value: 'ADH', weight: 20 },
+    { value: 'Paratormônio', weight: 0 },
+    { value: 'T3 e T4', weight: 0 },
+    { value: 'K+', weight: 0 },
+    { value: 'Glicemia', weight: 0 },
   ],
 } as const;
 

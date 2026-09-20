@@ -44,8 +44,7 @@ export function DialogConfirmAction({
             </Button>
           </DialogClose>
           <Button
-            type="button"
-            onClick={onConfirmAction}
+            onClick={() => onConfirmAction()}
             disabled={isPending}
             className="cursor-pointer bg-blue-400 hover:bg-blue-300"
           >

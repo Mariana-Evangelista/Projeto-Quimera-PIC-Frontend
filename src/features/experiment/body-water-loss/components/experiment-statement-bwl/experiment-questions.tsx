@@ -15,20 +15,34 @@ import {
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
 import { BODY_WATER_LOSS_EXPERIMENT_QUESTIONS } from '../../constants/body-water-loss-experiment-questions';
-import { usePathnameNavigation } from '@/features/experiment/shared/hooks/use-pathname-navigation';
 import { DialogConfirmAction } from '@/features/experiment/shared/components/dialog-confirm-action';
+import {
+  BodyWaterLoosResponseFormData,
+  BodyWaterLossResponseSchema,
+} from '../../schemas/create-body-water-loss-response-schema';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { UseCreateBodyWaterLossResponse } from '../../hooks/use-create-body-water-loss-response';
 
 export function ExperimentQuestions() {
   const experimentQuestions = BODY_WATER_LOSS_EXPERIMENT_QUESTIONS;
 
-  const { isPending, startPathnameNavigation } = usePathnameNavigation({
-    name: 'is_send_response',
-    value: 'true',
-  });
+  const { isLoading, onSubmit } = UseCreateBodyWaterLossResponse();
 
-  const handleSubmitResponse = () => {
-    startPathnameNavigation();
-  };
+  const { control, handleSubmit } = useForm<BodyWaterLoosResponseFormData>({
+    resolver: zodResolver(BodyWaterLossResponseSchema),
+    defaultValues: {
+      option_1: {
+        value: '',
+        weight: 0,
+      },
+      option_2: {
+        value: '',
+        weight: 0,
+      },
+    },
+  });
 
   return (
     <Questionnaire className="mt-12">
@@ -55,19 +69,30 @@ export function ExperimentQuestions() {
         )}
       />
       {experimentQuestions.map((question, index) => (
-        <QuestionnaireItem key={index} name={`option_${index + 1}`} required>
-          <QuestionnaireTitle className="mb-4">{question.title}</QuestionnaireTitle>
-          <QuestionnaireDescription>{question.description}</QuestionnaireDescription>
+        <Controller
+          key={index}
+          name={index === 0 ? 'option_1' : 'option_2'}
+          control={control}
+          render={({ field }) => (
+            <QuestionnaireItem name={`option_${index + 1}`} required>
+              <QuestionnaireTitle className="mb-4">{question.title}</QuestionnaireTitle>
+              <QuestionnaireDescription>{question.description}</QuestionnaireDescription>
 
-          <QuestionnaireChoices>
-            {question.options.map((option) => (
-              <QuestionnaireChoice key={option.value} value={option.value}>
-                {option.label}
-              </QuestionnaireChoice>
-            ))}
-          </QuestionnaireChoices>
-          <QuestionnaireError>Selecione uma opção para continuar.</QuestionnaireError>
-        </QuestionnaireItem>
+              <QuestionnaireChoices>
+                {question.options.map((option) => (
+                  <QuestionnaireChoice
+                    key={option.value}
+                    value={field.value.value}
+                    onChange={() => field.onChange(option)}
+                  >
+                    {option.value}
+                  </QuestionnaireChoice>
+                ))}
+              </QuestionnaireChoices>
+              <QuestionnaireError>Selecione uma opção para continuar.</QuestionnaireError>
+            </QuestionnaireItem>
+          )}
+        />
       ))}
 
       <QuestionnaireActions>
@@ -77,8 +102,8 @@ export function ExperimentQuestions() {
         <DialogConfirmAction
           title="Tem certeza que deseja enviar sua resposta?"
           description="Não será possível voltar para editar ao clicar em confirmar."
-          onConfirmAction={handleSubmitResponse}
-          isPending={isPending}
+          isPending={isLoading}
+          onConfirmAction={handleSubmit(onSubmit)}
         >
           <QuestionnaireSubmit className="cursor-pointer">Enviar Respostas</QuestionnaireSubmit>
         </DialogConfirmAction>
