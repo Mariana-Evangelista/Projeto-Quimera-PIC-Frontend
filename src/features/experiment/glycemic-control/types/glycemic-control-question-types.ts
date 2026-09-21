@@ -6,6 +6,7 @@ export interface OptionTypes {
 }
 
 export interface GlycemicControlQuestionTypes {
+  question: number;
   title: string;
   description: string;
   answer: OptionValue;
