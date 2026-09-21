@@ -1,20 +1,21 @@
 'use client';
 
 import { ExperimentsMap } from '@/constants/experiments-map';
-import { ExperimentWaitingRoom } from '../../../shared/components/experiment-waiting-room';
-import { ExperimentState } from '../../../shared/store/experiment-socket-store';
-import { ExperimentStatementBWL } from '../experiment-statement-bwl';
+import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
+import { ExperimentState } from '@/features/experiment/shared/store/experiment-socket-store';
+
 import { useExperimentSocket } from '@/features/experiment/shared/hooks/use-experiment-socket';
 import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 import { useSearchParams } from 'next/navigation';
+import { ExperimentStatementGC } from '../experiment-statement-gc';
 
-interface ExperimentRoomBWLProps {
+interface ExperimentRoomGCContentProps {
   pin: string;
   slug: ExperimentsMap;
   initialState: ExperimentState;
 }
 
-export function ExperimentRoomBWLContent({ pin, slug, initialState }: ExperimentRoomBWLProps) {
+export function ExperimentRoomGCContent({ pin, slug, initialState }: ExperimentRoomGCContentProps) {
   const { liberateSend, liberateResult, error } = useExperimentSocket(pin, slug, initialState);
 
   const searchParams = useSearchParams();
@@ -35,7 +36,7 @@ export function ExperimentRoomBWLContent({ pin, slug, initialState }: Experiment
         <ExperimentWaitingRoom message="O professor logo irá liberar a sala do experimento." />
       )}
 
-      {liberateSend && !isSendResponse && <ExperimentStatementBWL />}
+      {liberateSend && !isSendResponse && <ExperimentStatementGC />}
 
       {!liberateResult && isSendResponse && (
         <ExperimentWaitingRoom message="O professor logo irá liberar os resultados." />

@@ -1,7 +1,7 @@
 'use client';
 
 import { WavesArrowDown } from 'lucide-react';
-import { ExperimentOptions } from './experiment-options';
+import { ExperimentQuestions } from './experiment-questions';
 
 export function ExperimentStatementBWL() {
   return (
@@ -29,7 +29,7 @@ export function ExperimentStatementBWL() {
         </p>
       </div>
 
-      <ExperimentOptions />
+      <ExperimentQuestions />
     </div>
   );
 }

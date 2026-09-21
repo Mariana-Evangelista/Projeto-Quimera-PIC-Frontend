@@ -1,7 +1,8 @@
-import { QuestionTypes } from '../types/question-types';
+import { GlycemicControlQuestionTypes } from '../types/glycemic-control-question-types';
 
-export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
+export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: GlycemicControlQuestionTypes[] = [
   {
+    question: 1,
     title: 'Questão 1',
     description:
       'As dosagens glicêmicas de Pipoca superam repetidamente 280 mg/dL, mesmo com uma alimentação de boa qualidade. Do ponto de vista fisiológico, o que esse achado sugere sobre o eixo insulina-glucagon do animal?',
@@ -28,6 +29,7 @@ export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
     ],
   },
   {
+    question: 2,
     title: 'Questão 2',
     description:
       'Manuel pergunta por que, mesmo em jejum, a glicemia de Pipoca continua elevada, diferente do que ocorreria em um cão saudável. Qual é a explicação mais adequada?',
@@ -56,7 +58,8 @@ export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
     ],
   },
   {
-    title: 'Questão 3 ',
+    question: 3,
+    title: 'Questão 3',
     description:
       'Manuel relata que Pipoca ficou muito agitado durante um susto no parque, e a glicemia medida logo em seguida estava elevada. Qual hormônio está mais associado a esse pico rápido e pontual de glicose observado em situações de estresse agudo?',
     answer: 'c',
@@ -68,6 +71,7 @@ export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
     ],
   },
   {
+    question: 4,
     title: 'Questão 4',
     description:
       'Você orienta Manuel sobre os cuidados com Pipoca. Qual das recomendações abaixo está mais alinhada com o controle da glicemia em um cão diabético?',
@@ -94,7 +98,8 @@ export const GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS: QuestionTypes[] = [
     ],
   },
   {
-    title: 'Questão 5 ',
+    question: 5,
+    title: 'Questão 5',
     description:
       'Considerando o quadro crônico de Pipoca e a necessidade de acompanhamento indefinido, qual estratégia terapêutica é mais coerente com a fisiologia hormonal descrita no caso?',
     answer: 'a',

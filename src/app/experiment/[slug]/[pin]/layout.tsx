@@ -1,7 +1,7 @@
 import { Footer } from '@/components/layout/footer';
 import { NavBar } from '@/components/layout/navbar';
 import { Suspense } from 'react';
-import { StudentData } from '@/features/experiment/shared/components/student-data';
+import { StudentData } from '@/components/user/student-data';
 
 export default function ExperimentsPageLayout({ children }: { children: React.ReactNode }) {
   return (

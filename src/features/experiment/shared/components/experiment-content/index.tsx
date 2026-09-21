@@ -6,8 +6,8 @@ import { ExperimentContentCard } from './experiment-content-card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ClipboardPlus } from 'lucide-react';
 import { ExperimentContentTypes } from '../../types/experiment-content-types';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DialogConfirmAction } from '../dialog-confirm-action';
+import { usePathnameNavigation } from '../../hooks/use-pathname-navigation';
 
 interface ExperimentContentProps {
   content: ExperimentContentTypes[];
@@ -15,16 +15,10 @@ interface ExperimentContentProps {
 
 export function ExperimentContent({ content }: ExperimentContentProps) {
   const [activeStep, setActiveStep] = useState<ExperimentContentTypes>(content[0]);
-
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const handleStartExperimentRoom = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('start_experiment_room', 'true');
-    router.replace(`${pathname}?${params.toString()}`);
-  };
+  const { isPending, startPathnameNavigation } = usePathnameNavigation({
+    name: 'start_experiment_room',
+    value: 'true',
+  });
 
   return (
     <div className="space-y-16">
@@ -52,7 +46,6 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
               type="button"
               onClick={() => {
                 setActiveStep(content[1]);
-                console.log('Clicando');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
@@ -78,7 +71,8 @@ export function ExperimentContent({ content }: ExperimentContentProps) {
             <DialogConfirmAction
               title="Tem certeza que deseja Iniciar o Experimento?"
               description="Não será possível voltar para estudar o caso clínico após confirmar."
-              onConfirmAction={handleStartExperimentRoom}
+              onConfirmAction={startPathnameNavigation}
+              isPending={isPending}
             >
               <Button className="cursor-pointer">
                 <ClipboardPlus />

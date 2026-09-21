@@ -14,30 +14,33 @@ import {
   QuestionnaireSubmit,
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
-import { GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS } from '../../constants/glycemic-control-experiment-questions';
+import { BODY_WATER_LOSS_EXPERIMENT_QUESTIONS } from '../../constants/body-water-loss-experiment-questions';
 import { DialogConfirmAction } from '@/features/experiment/shared/components/dialog-confirm-action';
 import {
-  GlycemicControlResponseFormData,
-  GlycemicControlResponseSchema,
-} from '../../schemas/create-glycemic-control-response-schema';
+  BodyWaterLoosResponseFormData,
+  BodyWaterLossResponseSchema,
+} from '../../schemas/create-body-water-loss-response-schema';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { UseCreateGlycemicControlResponse } from '../../hooks/use-create-glycemic-control-response';
+import { UseCreateBodyWaterLossResponse } from '../../hooks/use-create-body-water-loss-response';
 
 export function ExperimentQuestions() {
-  const experimentQuestions = GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS;
+  const experimentQuestions = BODY_WATER_LOSS_EXPERIMENT_QUESTIONS;
 
-  const { isLoading, onSubmit } = UseCreateGlycemicControlResponse();
+  const { isLoading, onSubmit } = UseCreateBodyWaterLossResponse();
 
-  const { control, handleSubmit } = useForm<GlycemicControlResponseFormData>({
-    resolver: zodResolver(GlycemicControlResponseSchema),
+  const { control, handleSubmit } = useForm<BodyWaterLoosResponseFormData>({
+    resolver: zodResolver(BodyWaterLossResponseSchema),
     defaultValues: {
-      question_1: '',
-      question_2: '',
-      question_3: '',
-      question_4: '',
-      question_5: '',
+      option_1: {
+        value: '',
+        weight: 0,
+      },
+      option_2: {
+        value: '',
+        weight: 0,
+      },
     },
   });
 
@@ -65,35 +68,32 @@ export function ExperimentQuestions() {
           </div>
         )}
       />
-      {experimentQuestions.map((question, index) => {
-        const fieldName = `question_${index + 1}` as "question_1" | "question_2" | "question_3" | "question_4" | "question_5";
-        return (
-          <Controller
-            key={index}
-            name={fieldName}
-            control={control}
-            render={({ field }) => (
-              <QuestionnaireItem name={fieldName} required>
-                <QuestionnaireTitle className="mb-4">{question.title}</QuestionnaireTitle>
-                <QuestionnaireDescription>{question.description}</QuestionnaireDescription>
+      {experimentQuestions.map((question, index) => (
+        <Controller
+          key={index}
+          name={index === 0 ? 'option_1' : 'option_2'}
+          control={control}
+          render={({ field }) => (
+            <QuestionnaireItem name={`option_${index + 1}`} required>
+              <QuestionnaireTitle className="mb-4">{question.title}</QuestionnaireTitle>
+              <QuestionnaireDescription>{question.description}</QuestionnaireDescription>
 
-                <QuestionnaireChoices>
-                  {question.options.map((option) => (
-                    <QuestionnaireChoice
-                      key={option.value}
-                      value={field.value}
-                      onChange={() => field.onChange(option.value)}
-                    >
-                      {option.label}
-                    </QuestionnaireChoice>
-                  ))}
-                </QuestionnaireChoices>
-                <QuestionnaireError>Selecione uma opção para continuar.</QuestionnaireError>
-              </QuestionnaireItem>
-            )}
-          />
-        );
-      })}
+              <QuestionnaireChoices>
+                {question.options.map((option) => (
+                  <QuestionnaireChoice
+                    key={option.value}
+                    value={field.value.value}
+                    onChange={() => field.onChange(option)}
+                  >
+                    {option.value}
+                  </QuestionnaireChoice>
+                ))}
+              </QuestionnaireChoices>
+              <QuestionnaireError>Selecione uma opção para continuar.</QuestionnaireError>
+            </QuestionnaireItem>
+          )}
+        />
+      ))}
 
       <QuestionnaireActions>
         <QuestionnairePrevious className="cursor-pointer">Voltar</QuestionnairePrevious>
