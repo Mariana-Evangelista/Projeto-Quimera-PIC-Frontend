@@ -5,14 +5,14 @@ import {
 
 export const BODY_WATER_LOSS_EXPERIMENT_OPTIONS: Record<string, BodyWaterLossAnswerTypes[]> = {
   options_one: [
-    { value: 'Hipotálamo', weight: 80 },
+    { value: 'Hipotálamo', weight: 20 },
     { value: 'CRH', weight: 0 },
     { value: 'ACTH', weight: 0 },
     { value: 'Cortisol', weight: 0 },
     { value: 'Na+', weight: 0 },
   ],
   options_two: [
-    { value: 'ADH', weight: 20 },
+    { value: 'ADH', weight: 80 },
     { value: 'Paratormônio', weight: 0 },
     { value: 'T3 e T4', weight: 0 },
     { value: 'K+', weight: 0 },

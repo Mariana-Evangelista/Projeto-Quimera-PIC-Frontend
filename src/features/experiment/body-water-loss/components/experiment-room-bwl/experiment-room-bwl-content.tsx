@@ -7,6 +7,7 @@ import { ExperimentStatementBWL } from '../experiment-statement-bwl';
 import { useExperimentSocket } from '@/features/experiment/shared/hooks/use-experiment-socket';
 import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 import { useSearchParams } from 'next/navigation';
+import { ExperimentResultBWL } from '../experiment-result-bwl';
 
 interface ExperimentRoomBWLProps {
   pin: string;
@@ -41,7 +42,7 @@ export function ExperimentRoomBWLContent({ pin, slug, initialState }: Experiment
         <ExperimentWaitingRoom message="O professor logo irá liberar os resultados." />
       )}
 
-      {!liberateSend && liberateResult && isSendResponse && <div>Resultados Liberados</div>}
+      {!liberateSend && liberateResult && isSendResponse && <ExperimentResultBWL />}
     </section>
   );
 }
