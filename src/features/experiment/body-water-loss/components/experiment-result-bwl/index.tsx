@@ -1,8 +1,33 @@
+'use client';
+
+import { useSyncExternalStore } from 'react';
 import { WavesArrowDown } from 'lucide-react';
 import { BodyWaterLossResponseChart } from '../body-water-loss-response-chart';
 import { RadialChartResult } from './radial-chart-result';
+import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
+
+const SCORE_KEY = 'student-score';
+
+function subscribe(callback: () => void) {
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
+}
+
+function getSnapshot() {
+  return localStorage.getItem(SCORE_KEY) ?? null;
+}
+
+function getServerSnapshot() {
+  return null;
+}
 
 export function ExperimentResultBWL() {
+  const score = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  if (!score) {
+    return <ExperimentWaitingRoom message="" />;
+  }
+
   return (
     <div className="w-full space-y-4 sm:p-8">
       <div className="text-primary space-y-4">
@@ -15,7 +40,7 @@ export function ExperimentResultBWL() {
         </p>
       </div>
 
-      <RadialChartResult score="20" />
+      <RadialChartResult score={score} />
 
       <BodyWaterLossResponseChart />
     </div>

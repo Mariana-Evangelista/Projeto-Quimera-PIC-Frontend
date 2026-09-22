@@ -16,29 +16,29 @@ export function RadialChartResult({ score }: { score: string }) {
       label: 'Não foi dessa vez.',
       description:
         'Você não conseguiu aplicar o tratamento correto ao paciente e ele teve complicações. Estude mais para ter sucesso nos próximos atendimentos.',
-      color: 'var(--color-red-400)',
-      icon: <CircleX className="text-red-400" />,
+      color: 'var(--color-red-500)',
+      icon: <CircleX />,
     },
     '20': {
       label: 'Não foi dessa vez.',
       description:
         'Seu tratamento atingiu somento 20% de eficácia. Estude mais para ter sucesso nos próximos atendimentos.',
-      color: 'var(--color-orange-400)',
-      icon: <MessageCircleWarning className="text-orange-600" />,
+      color: 'var(--color-orange-500)',
+      icon: <MessageCircleWarning />,
     },
     '80': {
       label: 'Muito bom',
       description:
         'Seu tratamento atingiu 80% de eficácia. É um bom desempenho, busque melhorar ainda mais nos próximos atendimentos.',
-      color: 'var(--color-green-300)',
-      icon: <CheckCircle2 className="text-green-300" />,
+      color: 'var(--color-blue-500)',
+      icon: <CheckCircle2 />,
     },
     '100': {
       label: 'Excelente',
       description:
         'Seu tratamento atingiu 100% de eficácia e seu paciente está bem. Continue assim nos próximos atendimentos.',
       color: 'var(--color-green-500)',
-      icon: <BadgeCheck className="text-green-500" />,
+      icon: <BadgeCheck />,
     },
   };
 
