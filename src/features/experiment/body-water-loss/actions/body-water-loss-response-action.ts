@@ -63,7 +63,7 @@ export async function BodyWaterLossResponseAction(
     return {
       success: true,
       field_errors: undefined,
-      message: JSON.stringify(response),
+      message: JSON.stringify(response?.score),
       inputs: { option_1, option_2 },
     };
   } catch (error) {
