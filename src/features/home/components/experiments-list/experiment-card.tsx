@@ -6,11 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ExperimentTypes } from '../../../../types/experiment-list-types';
+import { ExperimentListTypes } from '../../../../types/experiment-list-types';
 import { Button } from '@/components/ui/button';
 
 interface ExperimentCardProps {
-  experiment: ExperimentTypes;
+  experiment: ExperimentListTypes;
 }
 
 export function ExperimentCard({ experiment }: ExperimentCardProps) {
