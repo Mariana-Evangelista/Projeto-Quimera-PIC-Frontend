@@ -25,7 +25,7 @@ export function UseCreateBodyWaterLossResponse() {
       setState(result);
 
       if (result.success && result.message) {
-        localStorage.setItem('student-score', result.message);
+        sessionStorage.setItem('student-score', result.message);
         startPathnameNavigation();
       }
     });

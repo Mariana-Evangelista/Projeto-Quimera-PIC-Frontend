@@ -11,4 +11,6 @@ export interface GlycemicControlResponseTypes {
   pin: string;
   answers: GlycemicControlAnswerTypes[];
   score?: number;
+  __v?: number;
+  _id?: string;
 }

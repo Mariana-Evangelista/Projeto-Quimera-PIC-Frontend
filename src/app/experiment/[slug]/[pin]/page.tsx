@@ -1,6 +1,5 @@
 import { ExperimentsMap } from '@/constants/experiments-map';
 import { ExperimentRender } from '@/features/experiment';
-import { Suspense } from 'react';
 
 export type StartExperimentRoomType = {
   start_experiment_room: 'true' | 'false';
@@ -21,9 +20,7 @@ export const metadata = {
 export default async function ExperimentPage({ params, searchParams }: ExperimentPageProps) {
   return (
     <div className="mx-5 sm:mx-8">
-      <Suspense fallback="loading...">
-        <ExperimentRender params={params} searchParams={searchParams} />
-      </Suspense>
+      <ExperimentRender params={params} searchParams={searchParams} />
     </div>
   );
 }

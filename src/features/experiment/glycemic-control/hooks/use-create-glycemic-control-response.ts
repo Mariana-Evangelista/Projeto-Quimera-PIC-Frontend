@@ -25,7 +25,7 @@ export function UseCreateGlycemicControlResponse() {
       setState(result);
 
       if (result.success && result.message) {
-        localStorage.setItem('student-response', result.message);
+        sessionStorage.setItem('student-response', result.message);
         startPathnameNavigation();
       }
     });
