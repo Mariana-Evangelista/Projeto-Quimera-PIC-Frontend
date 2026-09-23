@@ -8,6 +8,7 @@ import { useExperimentSocket } from '@/features/experiment/shared/hooks/use-expe
 import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 import { useSearchParams } from 'next/navigation';
 import { ExperimentStatementGC } from '../experiment-statement-gc';
+import { ExperimentResultGC } from '../experiment-result-gc';
 
 interface ExperimentRoomGCContentProps {
   pin: string;
@@ -42,7 +43,7 @@ export function ExperimentRoomGCContent({ pin, slug, initialState }: ExperimentR
         <ExperimentWaitingRoom message="O professor logo irá liberar os resultados." />
       )}
 
-      {!liberateSend && liberateResult && isSendResponse && <div>Resultados Liberados</div>}
+      {!liberateSend && liberateResult && isSendResponse && <ExperimentResultGC />}
     </section>
   );
 }

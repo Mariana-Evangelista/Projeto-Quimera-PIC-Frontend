@@ -14,7 +14,7 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot() {
-  return localStorage.getItem(SCORE_KEY) ?? null;
+  return sessionStorage.getItem(SCORE_KEY) ?? null;
 }
 
 function getServerSnapshot() {
