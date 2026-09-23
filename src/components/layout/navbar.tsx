@@ -1,7 +1,6 @@
 import Logo from '@/assets/LogoQuimeraSymbol.svg';
 import { Button } from '../ui/button';
 import { ReactNode } from 'react';
-import Link from 'next/link';
 
 interface NavbarProps {
   currentUser?: ReactNode;
@@ -17,8 +16,10 @@ export async function NavBar({ currentUser }: NavbarProps) {
           <>
             <p className="text-xs sm:text-sm">É professor?</p>
 
-            <Button variant="secondary" className="cursor-pointer text-xs sm:text-sm" asChild>
-              <Link href="/login">Faça Login</Link>
+            <Button variant="secondary" className="cursor-pointer text-xs sm:text-sm">
+              <a href={`/login`} target="_blank" rel="noopener noreferrer">
+                Faça Login
+              </a>
             </Button>
           </>
         )}
