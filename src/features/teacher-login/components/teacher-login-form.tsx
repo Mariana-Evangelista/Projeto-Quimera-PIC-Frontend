@@ -12,6 +12,7 @@ import { TeacherLoginFormData, TeacherLoginSchema } from '../schemas/teacher-log
 import { useActionState, useTransition } from 'react';
 import { TeacherLoginAction } from '../actions/teacher-login-action';
 import { Spinner } from '@/components/ui/spinner';
+import Link from 'next/link';
 
 const TeacherLoginInitialFormState: TeacherLoginFormState = {
   success: false,
@@ -86,6 +87,12 @@ export function TeacherLoginForm() {
           Entrar
         </Button>
       </FieldGroup>
+
+      <p className="mt-4 text-center text-sm">
+        <Link href="/signup" className="hover:text-primary/80 underline">
+          Não tem uma conta? Cadastre-se aqui
+        </Link>
+      </p>
     </form>
   );
 }
