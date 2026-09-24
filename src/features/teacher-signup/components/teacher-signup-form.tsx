@@ -113,7 +113,7 @@ export function TeacherSignupForm() {
         </FieldGroup>
 
         <p className="mt-4 text-center text-sm">
-          <Link href="/login" className="hover:text-primary/80 underline">
+          <Link href="/login" className="hover:text-muted-foreground underline">
             Já possui uma conta? Faça Login!
           </Link>
         </p>
