@@ -2,44 +2,36 @@
 
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { ExperimentAccessFormState } from '../types/experiment-acces-form-state';
+import { TeacherLoginFormState } from '../types/teacher-login-form-state';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  ExperimentAccessFormData,
-  ExperimentAccessSchema,
-} from '../schemas/experiment-access-schema';
+import { TeacherLoginFormData, TeacherLoginSchema } from '../schemas/teacher-login-schema';
 import { useActionState, useTransition } from 'react';
-import { ExperimentAccessAction } from '../actions/experiment-access-action';
-import { useParams } from 'next/navigation';
+import { TeacherLoginAction } from '../actions/teacher-login-action';
 import { Spinner } from '@/components/ui/spinner';
+import Link from 'next/link';
 
-const ExperimentAccessInitialFormState: ExperimentAccessFormState = {
+const TeacherLoginInitialFormState: TeacherLoginFormState = {
   success: false,
 };
 
-export function ExperimentAccessForm() {
-  const { slug } = useParams();
-  const [state, formAction] = useActionState(
-    ExperimentAccessAction,
-    ExperimentAccessInitialFormState
-  );
+export function TeacherLoginForm() {
+  const [state, formAction] = useActionState(TeacherLoginAction, TeacherLoginInitialFormState);
   const [isPending, startTransition] = useTransition();
 
-  const { control, handleSubmit } = useForm<ExperimentAccessFormData>({
-    resolver: zodResolver(ExperimentAccessSchema),
+  const { control, handleSubmit } = useForm<TeacherLoginFormData>({
+    resolver: zodResolver(TeacherLoginSchema),
     mode: 'onBlur',
     defaultValues: {
-      student: '',
-      pin: '',
-      slug: String(slug),
+      email: '',
+      password: '',
     },
   });
 
-  function onSubmit(data: ExperimentAccessFormData) {
+  function onSubmit(data: TeacherLoginFormData) {
     startTransition(() => {
       formAction(data);
     });
@@ -50,23 +42,23 @@ export function ExperimentAccessForm() {
       {!state.success && state.message && (
         <Alert variant="destructive" className="mb-4 text-start">
           <AlertCircleIcon className="mr-2 h-4 w-4" />
-
           <AlertDescription>{state.message}</AlertDescription>
         </Alert>
       )}
 
       <FieldGroup>
         <Controller
-          name="student"
+          name="email"
           control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Nome do Aluno</FieldLabel>
+              <FieldLabel htmlFor={field.name}>E-mail</FieldLabel>
               <Input
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}
-                placeholder="Digite o seu nome"
+                placeholder="Digite seu e-mail"
+                type="email"
               />
               <FieldError errors={[fieldState.error]} />
             </Field>
@@ -74,16 +66,17 @@ export function ExperimentAccessForm() {
         />
 
         <Controller
-          name="pin"
+          name="password"
           control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>PIN</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Senha</FieldLabel>
               <Input
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}
-                placeholder="Digite o PIN do experimento"
+                placeholder="Digite sua senha"
+                type="password"
               />
               <FieldError errors={[fieldState.error]} />
             </Field>
@@ -94,6 +87,12 @@ export function ExperimentAccessForm() {
           Entrar
         </Button>
       </FieldGroup>
+
+      <p className="mt-4 text-center text-sm">
+        <Link href="/signup" className="hover:text-muted-foreground underline">
+          Não tem uma conta? Cadastre-se aqui
+        </Link>
+      </p>
     </form>
   );
 }

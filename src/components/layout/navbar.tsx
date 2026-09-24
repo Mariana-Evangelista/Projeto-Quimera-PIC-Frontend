@@ -15,9 +15,12 @@ export async function NavBar({ currentUser }: NavbarProps) {
         {currentUser ?? (
           <>
             <p className="text-xs sm:text-sm">É professor?</p>
+
             <Button variant="secondary" className="cursor-pointer text-xs sm:text-sm">
-              Faça Login
-            </Button>{' '}
+              <a href={`/login`} target="_blank" rel="noopener noreferrer">
+                Faça Login
+              </a>
+            </Button>
           </>
         )}
       </div>
