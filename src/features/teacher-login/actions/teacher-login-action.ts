@@ -7,6 +7,7 @@ import { LoginTeacherService } from '../services/login-teacher-service';
 import { setTeacherAuthCookies } from '../services/set-teacher-auth-cookies';
 import { ApiError } from '@/lib/api/errors';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 export async function TeacherLoginAction(
   _prevState: TeacherLoginFormState,
@@ -44,14 +45,6 @@ export async function TeacherLoginAction(
     teacherId = response.teacher._id;
   } catch (error) {
     if (error instanceof ApiError) {
-      if (error.error.status === 401 || error.error.code === 'INVALID_CREDENTIALS') {
-        return {
-          success: false,
-          field_errors: undefined,
-          message: 'Credenciais inválidas. Verifique seu e-mail e senha.',
-          inputs: { email },
-        };
-      }
       return {
         success: false,
         field_errors: undefined,
@@ -67,5 +60,7 @@ export async function TeacherLoginAction(
     };
   }
 
-  redirect(`/teacher/${teacherId}`);
+  const cookieStore = await cookies();
+  cookieStore.set('teacher-id', teacherId);
+  redirect(`/teacher/analytics`);
 }

@@ -14,7 +14,11 @@ function isExternalApiErrorBody(value: unknown): value is ExternalApiErrorBody {
   );
 }
 
-export function normalizeError(response: Response | null, body: unknown, cause?: unknown): ApiClientError {
+export function normalizeError(
+  response: Response | null,
+  body: unknown,
+  cause?: unknown
+): ApiClientError {
   if (!response) {
     return {
       kind: 'transport',

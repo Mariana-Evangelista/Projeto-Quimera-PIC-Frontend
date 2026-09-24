@@ -2,7 +2,8 @@ import 'server-only';
 
 import { getApiConfig } from './config';
 import { readAccessToken } from './cookies';
-import { normalizeError, createAuthRequiredError, ApiError } from '../errors';
+import { normalizeError, ApiError } from '../errors';
+import { redirect } from 'next/navigation';
 
 export type ApiAuthMode = 'public' | 'authenticated';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -89,6 +90,12 @@ async function parseResponse<T>(
   return { data: parsed as T, error: null };
 }
 
+function isAuthError(error: ApiError): boolean {
+  const authError = error.error.status === 401 && error.error.code === 'AUTH_UNAUTHORIZED';
+  const forbiddenError = error.error.status === 403 && error.error.code === 'TEACHER_FORBIDDEN';
+  return authError || forbiddenError;
+}
+
 export async function executeRequest<TResponse, TBody = unknown>(
   method: HttpMethod,
   path: string,
@@ -107,7 +114,7 @@ export async function executeRequest<TResponse, TBody = unknown>(
   let token: string | null = null;
   if (auth === 'authenticated') {
     token = await readAccessToken();
-    if (!token) throw new ApiError(createAuthRequiredError());
+    if (!token) redirect('/');
   }
 
   const url = new URL(path, config.baseUrl);
@@ -142,7 +149,13 @@ export async function executeRequest<TResponse, TBody = unknown>(
   }
 
   const { data, error } = await parseResponse<TResponse>(response);
-  if (error) throw new ApiError(error);
+  if (error) {
+    const apiError = new ApiError(error);
+    if (isAuthError(apiError)) {
+      redirect('/auth/logout');
+    }
+    throw apiError;
+  }
 
   return { data, status: response.status, headers: response.headers };
 }

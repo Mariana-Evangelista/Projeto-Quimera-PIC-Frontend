@@ -1,12 +1,8 @@
 import { api } from '@/lib/api';
+import { TeacherDataTypes } from '@/types/teacher-data-types';
 
 export interface TeacherLoginResponse {
-  teacher: {
-    _id: string;
-    name: string;
-    email: string;
-    __v?: number;
-  };
+  teacher: TeacherDataTypes;
   token: string;
 }
 
