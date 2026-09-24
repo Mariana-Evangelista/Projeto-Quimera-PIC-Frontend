@@ -1,29 +1,18 @@
 import Logo from '@/assets/LogoQuimeraSymbol.svg';
-import { Button } from '../ui/button';
 import { ReactNode } from 'react';
+import { HandlerConfirmNavigation } from './handler-confirm-navigation';
 
 interface NavbarProps {
-  currentUser?: ReactNode;
+  currentUser?: ReactNode | null;
 }
 
-export async function NavBar({ currentUser }: NavbarProps) {
+export function NavBar({ currentUser }: NavbarProps) {
   return (
     <nav className="text-light bg-primary/80 flex items-center justify-between px-3 py-2 md:px-10">
-      <Logo className="text-background text-6xl" />
-
-      <div className="flex items-center gap-5">
-        {currentUser ?? (
-          <>
-            <p className="text-xs sm:text-sm">É professor?</p>
-
-            <Button variant="secondary" className="cursor-pointer text-xs sm:text-sm">
-              <a href={`/login`} target="_blank" rel="noopener noreferrer">
-                Faça Login
-              </a>
-            </Button>
-          </>
-        )}
-      </div>
+      <HandlerConfirmNavigation>
+        <Logo className="text-background text-6xl" />
+      </HandlerConfirmNavigation>
+      <div className="flex items-center gap-5">{currentUser}</div>
     </nav>
   );
 }

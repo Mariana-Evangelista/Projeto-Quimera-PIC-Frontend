@@ -1,21 +1,14 @@
 import { api } from '@/lib/api';
-
-export interface TeacherSignupResponse {
-  name: string;
-  email: string;
-  _id: string;
-  __v: number;
-}
+import { TeacherDataTypes } from '@/types/teacher-data-types';
 
 export async function SignupTeacherService(
   name: string,
   email: string,
   password: string
-): Promise<TeacherSignupResponse> {
-  const { data } = await api.post<TeacherSignupResponse, { name: string; email: string; password: string }>(
-    '/teacher/',
-    { name, email, password },
-    { auth: 'public' }
-  );
+): Promise<TeacherDataTypes> {
+  const { data } = await api.post<
+    TeacherDataTypes,
+    { name: string; email: string; password: string }
+  >('/teacher/', { name, email, password }, { auth: 'public' });
   return data;
 }
