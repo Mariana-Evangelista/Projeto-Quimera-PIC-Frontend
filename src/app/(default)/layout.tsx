@@ -21,7 +21,7 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
           </Suspense>
         }
       />
-      <main className="mx-5 flex-1">{children}</main>
+      <main className="mx-5 flex flex-1 flex-col justify-center">{children}</main>
       <Footer />
     </div>
   );
