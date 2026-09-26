@@ -5,7 +5,7 @@ import { TeacherLoginSchema, TeacherLoginFormData } from '../schemas/teacher-log
 import { TeacherLoginFormState } from '../types/teacher-login-form-state';
 import { LoginTeacherService } from '../services/login-teacher-service';
 import { setTeacherAuthCookies } from '../services/set-teacher-auth-cookies';
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 

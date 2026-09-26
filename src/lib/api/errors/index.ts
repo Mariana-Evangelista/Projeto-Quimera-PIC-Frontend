@@ -68,10 +68,3 @@ export function createConfigurationError(code: string, message: string): ApiClie
 export function createAuthRequiredError(): ApiClientError {
   return createConfigurationError('AUTH_REQUIRED', 'Token de acesso não encontrado no cookie');
 }
-
-export class ApiError extends Error {
-  constructor(public readonly error: ApiClientError) {
-    super(error.message);
-    this.name = 'ApiError';
-  }
-}

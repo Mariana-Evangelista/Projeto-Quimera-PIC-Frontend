@@ -2,8 +2,9 @@ import 'server-only';
 
 import { getApiConfig } from './config';
 import { readAccessToken } from './cookies';
-import { normalizeError, ApiError } from '../errors';
+import { normalizeError } from '../errors';
 import { redirect } from 'next/navigation';
+import { ApiError } from '../errors/api-error';
 
 export type ApiAuthMode = 'public' | 'authenticated';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

@@ -1,7 +1,7 @@
 'use server';
 
 import { api } from '@/lib/api';
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 import { BodyWaterLossResponseChartTypes } from '../types/body-water-loss-response-chart-types';
 
 export async function GetBodyWaterLossResponseChartService(

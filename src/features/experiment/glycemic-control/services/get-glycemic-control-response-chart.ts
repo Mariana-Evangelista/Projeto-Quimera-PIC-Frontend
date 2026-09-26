@@ -1,7 +1,7 @@
 'use server';
 
 import { api } from '@/lib/api';
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 import { GlycemicControlResponseChartTypes } from '../types/glycemic-control-response-chart-types';
 
 export async function GetGlycemicControlResponseChartService(

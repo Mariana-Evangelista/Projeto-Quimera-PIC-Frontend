@@ -7,7 +7,7 @@ import {
 } from '../schemas/experiment-access-schema';
 import { ExperimentAccessFormState } from '../types/experiment-acces-form-state';
 import { GetExperimentByPinService } from '../services/get-experiment-by-pin-service';
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 import { ExperimentAccessClaims, setExperimentAccessCookie } from '../services/set-data-cookies';
 import { redirect } from 'next/navigation';
 
