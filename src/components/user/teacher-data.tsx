@@ -1,4 +1,3 @@
-import { User } from '@/components/user/user';
 import { api } from '@/lib/api';
 import { getApiConfig } from '@/lib/api/core/config';
 import { verifyCookiePayload } from '@/lib/signed-cookies';
@@ -6,6 +5,8 @@ import { TeacherDataTypes } from '@/types/teacher-data-types';
 import { cookies } from 'next/headers';
 import { DefaultData } from './default-data';
 import { unstable_rethrow } from 'next/navigation';
+import { FaUser } from 'react-icons/fa';
+import { ChevronDown } from 'lucide-react';
 
 async function fetchTeacherData(): Promise<TeacherDataTypes | null> {
   const config = getApiConfig();
@@ -42,5 +43,22 @@ export async function TeacherData() {
     return <DefaultData />;
   }
 
-  return <User name={data.name} description={data.email} />;
+  const name = data.name.split(' ')[0];
+  const [user, domain] = data.email.split('@');
+  const email = user.length > 10 ? `${user.slice(0, 10)}...@${domain}` : data.email;
+
+  return (
+    <div className="flex items-center gap-4 text-start text-sm sm:min-w-40">
+      <div className="bg-muted text-muted-foreground/60 flex h-9 w-9 items-center justify-center rounded-full">
+        <FaUser size={24} />
+      </div>
+      <div className="hidden sm:block">
+        <p className="font-semibold">Olá, {name}</p>
+        <span title={data.email} className="w-full">
+          {email}
+        </span>
+      </div>
+      <ChevronDown size={16} />
+    </div>
+  );
 }
