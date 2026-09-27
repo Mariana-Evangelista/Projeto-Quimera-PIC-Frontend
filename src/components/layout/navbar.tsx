@@ -1,6 +1,6 @@
 import Logo from '@/assets/LogoQuimeraSymbol.svg';
 import { ReactNode } from 'react';
-import { HandlerConfirmNavigation } from './handler-confirm-navigation';
+import { HandlerConfirmNavigation } from './navigation/handler-confirm-navigation';
 
 interface NavbarProps {
   currentUser?: ReactNode | null;
