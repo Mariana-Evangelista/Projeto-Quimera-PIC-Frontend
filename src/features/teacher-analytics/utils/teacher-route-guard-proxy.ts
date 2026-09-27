@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getApiConfig } from '@/lib/api/core/config';
 import { verifyCookiePayload } from '@/lib/signed-cookies';
+import { revalidatePath } from 'next/cache';
 
 const TEACHER_ID_COOKIE = 'teacher-id';
 const TEACHER_ACCESS_TOKEN_SECRET = 'TEACHER_ACCESS_TOKEN_SECRET';
@@ -10,6 +11,8 @@ export function clearTeacherSessionCookies(response: NextResponse): NextResponse
 
   response.cookies.delete(tokenCookieName);
   response.cookies.delete(TEACHER_ID_COOKIE);
+
+  revalidatePath('/default', 'layout');
 
   return response;
 }
