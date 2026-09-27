@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { getApiConfig } from '@/lib/api/core/config';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: NextRequest) {
   const config = getApiConfig();
@@ -9,5 +10,7 @@ export async function GET(request: NextRequest) {
   cookieStore.delete(config.tokenCookieName);
   cookieStore.delete('teacher-id');
 
-  return NextResponse.redirect(new URL('/login', request.url));
+  revalidatePath('/default', 'layout');
+
+  return NextResponse.redirect(new URL('/', request.url));
 }
