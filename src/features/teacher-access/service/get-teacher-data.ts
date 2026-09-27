@@ -11,19 +11,22 @@ export async function GetTeacherDataService(): Promise<TeacherDataTypes | null> 
   const cookieStore = await cookies();
 
   const accessToken = cookieStore.get(config.tokenCookieName)?.value;
-
   const validAccessToken = await verifyCookiePayload<{ token: string }>(
     accessToken,
     'TEACHER_ACCESS_TOKEN_SECRET'
   );
 
   const teacherId = cookieStore.get('teacher-id')?.value;
+  const validTeacherId = await verifyCookiePayload<{ teacher: string }>(
+    teacherId,
+    'TEACHER_ACCESS_TOKEN_SECRET'
+  );
 
-  if (!validAccessToken || !teacherId) {
+  if (!validAccessToken || !validTeacherId) {
     return null;
   }
 
-  const { data } = await api.get<TeacherDataTypes>(`/teacher/${teacherId}`, {
+  const { data } = await api.get<TeacherDataTypes>(`/teacher/${validTeacherId.teacher}`, {
     auth: 'authenticated',
   });
 

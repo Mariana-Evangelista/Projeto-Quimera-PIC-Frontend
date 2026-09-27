@@ -14,10 +14,16 @@ export async function setTeacherAuthCookies(response: TeacherLoginResponse): Pro
     SECRET_ENV_NAME,
     privateCookieDefaults.maxAgeSeconds
   );
+  const teacherIdSign = await signCookiePayload(
+    { teacher: response.teacher._id },
+    SECRET_ENV_NAME,
+    privateCookieDefaults.maxAgeSeconds
+  );
+
   const cookieStore = await cookies();
 
   cookieStore.set(config.tokenCookieName, tokenSign, {
     ...privateCookieDefaults,
   });
-  cookieStore.set('teacher-id', response.teacher._id);
+  cookieStore.set('teacher-id', teacherIdSign, { ...privateCookieDefaults });
 }
