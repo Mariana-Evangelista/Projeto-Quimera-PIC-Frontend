@@ -5,9 +5,5 @@ export const metadata = {
 };
 
 export default function SignupPage() {
-  return (
-    <div className="flex items-center justify-center sm:my-12">
-      <TeacherSignupCard />
-    </div>
-  );
+  return <TeacherSignupCard />;
 }

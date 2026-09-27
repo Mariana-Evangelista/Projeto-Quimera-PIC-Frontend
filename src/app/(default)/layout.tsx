@@ -2,9 +2,11 @@ import { NavBar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { TeacherData } from '@/components/user/teacher-data';
+import { GetTeacherDataService } from '@/features/teacher-analytics/services/get-teacher-data';
+import { TeacherData } from '@/components/user/teacher-data/teacher-user';
 
-export default function DefaultLayout({ children }: { children: React.ReactNode }) {
+export default async function DefaultLayout({ children }: { children: React.ReactNode }) {
+  const data = await GetTeacherDataService();
   return (
     <div className="flex min-h-screen flex-col antialiased">
       <NavBar
@@ -17,11 +19,11 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
               </div>
             }
           >
-            <TeacherData />
+            <TeacherData data={data} />
           </Suspense>
         }
       />
-      <main className="mx-5 flex-1">{children}</main>
+      <main className="mx-5 flex flex-1 flex-col justify-center">{children}</main>
       <Footer />
     </div>
   );

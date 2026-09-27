@@ -2,7 +2,7 @@
 
 import z from 'zod';
 
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 import {
   BodyWaterLoosResponseFormData,
   BodyWaterLossResponseSchema,

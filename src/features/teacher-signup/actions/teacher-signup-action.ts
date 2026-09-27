@@ -4,7 +4,7 @@ import z from 'zod';
 import { TeacherSignupSchema, TeacherSignupFormData } from '../schemas/teacher-signup-schema';
 import { TeacherSignupFormState } from '../types/teacher-signup-form-state';
 import { SignupTeacherService } from '../services/signup-teacher-service';
-import { ApiError } from '@/lib/api/errors';
+import { ApiError } from '@/lib/api/errors/api-error';
 
 export async function TeacherSignupAction(
   _prevState: TeacherSignupFormState,
