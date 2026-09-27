@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetGlycemicControlResponseChartService } from '../services/get-glycemic-control-response-chart';
+import { GetGlycemicControlResponseChartService } from '../services/get-glycemic-control-response-chart-service';
 
 export function useGetGlycemicControlResponseChart(pin: string) {
   return useQuery({

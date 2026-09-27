@@ -1,5 +1,4 @@
 import { useParams } from 'next/navigation';
-import { useGetGlycemicControlResponseChart } from '../hooks/use-get-glycemic-control-response-chart';
 import {
   ChartConfig,
   ChartContainer,
@@ -11,6 +10,7 @@ import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
+import { useGetBodyWaterLossResponseChart } from '../hooks/use-get-body-water-loss-response-chart';
 
 const chartConfig = {
   students: {
@@ -19,16 +19,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function GlycemicControlResponseChart() {
+export function BodyWaterLossResponseChart() {
   const params = useParams<{ pin: string }>();
-  const { data, isLoading, isError, error } = useGetGlycemicControlResponseChart(params.pin);
+  const { data, isLoading, isError, error } = useGetBodyWaterLossResponseChart(params.pin);
 
   return (
     <Card className="border-none shadow-none ring-0">
       <CardHeader className="p-0">
-        <CardTitle>Desempenho da Turma por Questão</CardTitle>
+        <CardTitle>Distribuição da Pontuação dos Alunos</CardTitle>
         <CardDescription>
-          Quantidade de alunos que responderam corretamente cada uma das 5 questões.
+          Quantidade de alunos por faixa de pontuação, considerando os dois exercícios propostos.
         </CardDescription>
       </CardHeader>
       <CardContent className="sm:py-8">
@@ -41,14 +41,14 @@ export function GlycemicControlResponseChart() {
             >
               <CartesianGrid vertical={false} />
               <XAxis
-                dataKey="question"
+                dataKey="score"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={16}
                 minTickGap={32}
                 padding={{ left: 20, right: 20 }}
                 tickFormatter={(value) => {
-                  return `Q${value}`;
+                  return `${value} pontos`;
                 }}
               />
               <ChartTooltip

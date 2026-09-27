@@ -4,7 +4,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 
 import { type DataTableFeatures } from './data-table-features';
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
-import { GetExperiment } from '@/utils/get-experiment';
+import { GetExperiment } from '@/utils/get-experiment-by-slug';
 
 const columnHelper = createColumnHelper<DataTableFeatures, ExperimentDataTypes>();
 

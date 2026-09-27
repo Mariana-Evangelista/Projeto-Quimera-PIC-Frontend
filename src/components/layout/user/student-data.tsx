@@ -1,17 +1,8 @@
-import {
-  EXPERIMENT_ACCESS_COOKIE,
-  ExperimentAccessClaims,
-} from '@/features/experiment-access/services/set-data-cookies';
-import { getSignedCookieAccess } from '@/utils/get-signed-cookies';
+import { ExperimentAccessClaims } from '@/features/experiment-access/services/set-data-cookies';
 import { DefaultData } from './default-data';
 import { FaUser } from 'react-icons/fa';
 
-export async function StudentData() {
-  const student = await getSignedCookieAccess<ExperimentAccessClaims>(
-    EXPERIMENT_ACCESS_COOKIE,
-    'EXPERIMENT_ACCESS_SECRET'
-  );
-
+export async function StudentData({ student }: { student: ExperimentAccessClaims | null }) {
   if (!student) {
     return <DefaultData />;
   }

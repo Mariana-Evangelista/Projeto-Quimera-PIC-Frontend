@@ -1,4 +1,4 @@
-import { GetExperiment } from '@/utils/get-experiment';
+import { GetExperiment } from '@/utils/get-experiment-by-slug';
 import { ExperimentDefaultDataTypes } from '../../shared/types/experiment-default-data-types';
 import { MakdownReadContent } from '../../shared/utils/markdown-read-content';
 import DogIlustration from '../assets/DogIlustration.png';

@@ -7,7 +7,6 @@ import { LoginTeacherService } from '../services/login-teacher-service';
 import { setTeacherAuthCookies } from '../services/set-teacher-auth-cookies';
 import { ApiError } from '@/lib/api/errors/api-error';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 
 export async function TeacherLoginAction(
   _prevState: TeacherLoginFormState,
@@ -27,7 +26,6 @@ export async function TeacherLoginAction(
   }
 
   const { email, password } = validatedData.data;
-  let teacherId: string;
 
   try {
     const response = await LoginTeacherService(email, password);
@@ -41,8 +39,7 @@ export async function TeacherLoginAction(
       };
     }
 
-    await setTeacherAuthCookies(response.token);
-    teacherId = response.teacher._id;
+    await setTeacherAuthCookies(response);
   } catch (error) {
     if (error instanceof ApiError) {
       return {
@@ -60,7 +57,5 @@ export async function TeacherLoginAction(
     };
   }
 
-  const cookieStore = await cookies();
-  cookieStore.set('teacher-id', teacherId);
   redirect(`/teacher/analytics`);
 }

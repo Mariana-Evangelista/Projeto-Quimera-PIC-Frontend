@@ -2,9 +2,9 @@
 
 import { useSyncExternalStore } from 'react';
 import { WavesArrowDown } from 'lucide-react';
-import { BodyWaterLossResponseChart } from '../body-water-loss-response-chart';
 import { RadialChartResult } from './radial-chart-result';
 import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
+import { BodyWaterLossResponseChart } from '@/features/experiment-charts';
 
 const SCORE_KEY = 'student-score';
 

@@ -12,7 +12,7 @@ export function NavBar({ currentUser }: NavbarProps) {
       <HandlerConfirmNavigation>
         <Logo className="text-background text-6xl" />
       </HandlerConfirmNavigation>
-      <div className="flex items-center gap-5">{currentUser}</div>
+      {currentUser}
     </nav>
   );
 }

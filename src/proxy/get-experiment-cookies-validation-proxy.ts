@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { EXPERIMENT_ACCESS_COOKIE, ExperimentAccessClaims } from './set-data-cookies';
+import {
+  EXPERIMENT_ACCESS_COOKIE,
+  ExperimentAccessClaims,
+} from '../features/experiment-access/services/set-data-cookies';
 import { verifyCookiePayload } from '@/lib/signed-cookies';
 
 export async function GetExperimentCookiesValidationProxy(request: NextRequest) {

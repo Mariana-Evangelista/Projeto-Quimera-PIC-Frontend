@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetBodyWaterLossResponseChartService } from '../services/get-body-water-loss-response-chart';
+import { GetBodyWaterLossResponseChartService } from '../services/get-body-water-loss-response-chart-service';
 
 export function useGetBodyWaterLossResponseChart(pin: string) {
   return useQuery({
