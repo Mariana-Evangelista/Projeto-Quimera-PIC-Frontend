@@ -31,7 +31,7 @@ export function TeacherData({ data }: { data: TeacherDataTypes | null }) {
           <FaUser size={24} />
         </div>
         <div className="hidden sm:block">
-          <p className="font-medium">Olá, {name}</p>
+          <p className="font-semibold">Olá, {name}</p>
         </div>
 
         <DropdownMenu>

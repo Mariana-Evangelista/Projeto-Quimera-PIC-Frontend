@@ -11,5 +11,5 @@ export async function useClientLogout() {
   cookieStore.delete(config.tokenCookieName);
   cookieStore.delete('teacher-id');
 
-  redirect('/login');
+  redirect('/');
 }
