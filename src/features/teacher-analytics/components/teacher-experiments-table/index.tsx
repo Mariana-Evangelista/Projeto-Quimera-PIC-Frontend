@@ -1,4 +1,4 @@
-import { GetTeacherExperimentsService } from '../../services/get-teacher-experiments';
+import { GetTeacherExperimentsService } from '../../services/get-teacher-experiments-service';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 
