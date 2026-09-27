@@ -1,10 +1,20 @@
 'use client';
 
 import { FaUser } from 'react-icons/fa';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, LogOut } from 'lucide-react';
 import { TeacherDataTypes } from '@/types/teacher-data-types';
 import { DefaultData } from './default-data';
 import { TeacherNavLinks } from '../navigation/teacher-nav-links';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useClientLogout } from '@/hooks/use-client-logout';
 
 export function TeacherData({ data }: { data: TeacherDataTypes | null }) {
   if (!data) {
@@ -21,9 +31,34 @@ export function TeacherData({ data }: { data: TeacherDataTypes | null }) {
           <FaUser size={24} />
         </div>
         <div className="hidden sm:block">
-          <p className="font-semibold">Olá, {name}</p>
+          <p className="font-medium">Olá, {name}</p>
         </div>
-        <ChevronDown size={16} />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className="cursor-pointer">
+            <ChevronDown size={16} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-fit rounded-lg md:mr-4" align="start">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="pb-0">Nome</DropdownMenuLabel>
+              <DropdownMenuItem className="focus:bg-transparent">{data.name}</DropdownMenuItem>
+              <DropdownMenuLabel className="pb-0">Email</DropdownMenuLabel>
+              <DropdownMenuItem className="focus:bg-transparent">{data.email}</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                variant="destructive"
+                className="cursor-pointer"
+                onClick={useClientLogout}
+              >
+                <LogOut />
+                Sair
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </>
   );
