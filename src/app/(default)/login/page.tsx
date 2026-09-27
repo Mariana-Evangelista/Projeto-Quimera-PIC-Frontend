@@ -1,9 +1,13 @@
-import { TeacherLogin } from '@/features/teacher-access';
+import { TeacherLoginCard } from '@/features/teacher-access';
 
 export const metadata = {
   title: 'Login  | Quimera',
 };
 
 export default function LoginPage() {
-  return <TeacherLogin />;
+  return (
+    <div className="sm:my-8">
+      <TeacherLoginCard />
+    </div>
+  );
 }

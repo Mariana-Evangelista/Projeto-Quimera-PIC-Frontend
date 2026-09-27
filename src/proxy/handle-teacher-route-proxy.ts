@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { clearTeacherSessionCookies, hasValidTeacherSession } from './utils/teacher-route-guard';
+import {
+  clearTeacherSessionCookies,
+  hasValidTeacherSession,
+} from './utils/teacher-route-guard-proxy';
 
 const TEACHER_ROUTE_PREFIX = '/teacher/analytics';
 

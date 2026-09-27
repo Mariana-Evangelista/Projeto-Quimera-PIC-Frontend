@@ -9,7 +9,7 @@ import { AlertCircleIcon } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TeacherSignupFormData, TeacherSignupSchema } from '../schemas/teacher-signup-schema';
-import { useActionState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { TeacherSignupAction } from '../actions/teacher-signup-action';
 import { Spinner } from '@/components/ui/spinner';
 import Link from 'next/link';
@@ -20,10 +20,11 @@ const TeacherSignupInitialFormState: TeacherSignupFormState = {
 };
 
 export function TeacherSignupForm() {
-  const [state, formAction] = useActionState(TeacherSignupAction, TeacherSignupInitialFormState);
+  const [state, setState] = useState<TeacherSignupFormState>(TeacherSignupInitialFormState);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const { control, handleSubmit } = useForm<TeacherSignupFormData>({
+  const { control, handleSubmit, reset } = useForm<TeacherSignupFormData>({
     resolver: zodResolver(TeacherSignupSchema),
     mode: 'onBlur',
     defaultValues: {
@@ -34,8 +35,16 @@ export function TeacherSignupForm() {
   });
 
   function onSubmit(data: TeacherSignupFormData) {
-    startTransition(() => {
-      formAction(data);
+    startTransition(async () => {
+      const result = await TeacherSignupAction(state, data);
+
+      setState(result);
+
+      if (result.success) {
+        reset();
+        (document.activeElement as HTMLElement)?.blur();
+        setDialogOpen(true);
+      }
     });
   }
 
@@ -119,7 +128,7 @@ export function TeacherSignupForm() {
         </p>
       </form>
 
-      {state.success && <TeacherSignupSuccessDialog />}
+      <TeacherSignupSuccessDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </>
   );
 }

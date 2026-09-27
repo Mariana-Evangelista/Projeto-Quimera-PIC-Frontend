@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { hasValidTeacherSession } from './utils/teacher-route-guard';
+import { hasValidTeacherSession } from './utils/teacher-route-guard-proxy';
 
 const AUTH_ROUTES = ['/login', '/signup'];
 const TEACHER_ROUTE_PREFIX = '/teacher/analytics';

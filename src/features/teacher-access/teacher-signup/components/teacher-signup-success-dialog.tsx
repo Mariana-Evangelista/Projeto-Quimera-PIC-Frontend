@@ -10,11 +10,21 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { CheckCircleIcon } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export function TeacherSignupSuccessDialog() {
+type TeacherSignupSuccessDialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+export function TeacherSignupSuccessDialog({
+  open,
+  onOpenChange,
+}: TeacherSignupSuccessDialogProps) {
+  const router = useRouter();
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="mb-2 flex items-center justify-center">
@@ -27,7 +37,13 @@ export function TeacherSignupSuccessDialog() {
         </DialogHeader>
 
         <DialogFooter className="px-24">
-          <Button onClick={() => redirect('/login')} className="w-full cursor-pointer">
+          <Button
+            onClick={() => {
+              onOpenChange(false);
+              router.push('/login');
+            }}
+            className="w-full cursor-pointer"
+          >
             Faça Login
           </Button>
         </DialogFooter>
