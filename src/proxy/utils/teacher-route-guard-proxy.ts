@@ -35,16 +35,21 @@ export async function hasValidAccessToken(request: NextRequest): Promise<boolean
   return Boolean(validAccessToken?.token && validAccessToken.token.trim().length > 0);
 }
 
-export function hasTeacherId(request: NextRequest): boolean {
+export async function hasValidTeacherId(request: NextRequest): Promise<boolean> {
   const teacherId = getTeacherId(request);
 
-  return Boolean(teacherId?.trim());
+  const validTeacherId = await verifyCookiePayload<{ teacher: string }>(
+    teacherId,
+    TEACHER_ACCESS_TOKEN_SECRET
+  );
+
+  return Boolean(validTeacherId?.teacher && validTeacherId.teacher.trim().length > 0);
 }
 
 export async function hasValidTeacherSession(request: NextRequest): Promise<boolean> {
   const [validAccessToken, validTeacherId] = await Promise.all([
     hasValidAccessToken(request),
-    hasTeacherId(request),
+    hasValidTeacherId(request),
   ]);
 
   return validAccessToken && validTeacherId;
