@@ -3,10 +3,10 @@
 import { useSyncExternalStore } from 'react';
 import { GlycemicControlResponseTypes } from '../../types/glycemic-control-response-types';
 import { RadialChartResult } from './radial-chart-result';
-import { GlycemicControlResponseChart } from '../glycemic-control-response-chart';
 import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
 import { QuestionComparison } from './question-comparison';
 import { TestTubeDiagonal } from 'lucide-react';
+import { GlycemicControlResponseChart } from '@/features/experiment-charts';
 
 const RESPONSE_KEY = 'student-response';
 

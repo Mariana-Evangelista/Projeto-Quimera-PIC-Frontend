@@ -1,6 +1,6 @@
 import Logo from '@/assets/LogoQuimeraSymbol.svg';
 import { ReactNode } from 'react';
-import { HandlerConfirmNavigation } from './handler-confirm-navigation';
+import { HandlerConfirmNavigation } from './navigation/handler-confirm-navigation';
 
 interface NavbarProps {
   currentUser?: ReactNode | null;
@@ -12,7 +12,7 @@ export function NavBar({ currentUser }: NavbarProps) {
       <HandlerConfirmNavigation>
         <Logo className="text-background text-6xl" />
       </HandlerConfirmNavigation>
-      <div className="flex items-center gap-5">{currentUser}</div>
+      {currentUser}
     </nav>
   );
 }

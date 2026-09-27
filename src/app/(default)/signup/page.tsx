@@ -1,9 +1,13 @@
-import { TeacherSignupCard } from '@/features/teacher-signup/components/teacher-signup-card';
+import { TeacherSignupCard } from '@/features/teacher-access';
 
 export const metadata = {
   title: 'SignUp | Quimera',
 };
 
 export default function SignupPage() {
-  return <TeacherSignupCard />;
+  return (
+    <div className="sm:my-8">
+      <TeacherSignupCard />
+    </div>
+  );
 }

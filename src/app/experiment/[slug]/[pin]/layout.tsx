@@ -1,10 +1,20 @@
 import { Footer } from '@/components/layout/footer';
 import { NavBar } from '@/components/layout/navbar';
 import { Suspense } from 'react';
-import { StudentData } from '@/components/user/student-data';
+import { StudentData } from '@/components/layout/user/student-data';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  EXPERIMENT_ACCESS_COOKIE,
+  ExperimentAccessClaims,
+} from '@/features/experiment-access/services/set-data-cookies';
+import { getSignedCookieAccess } from '@/utils/get-signed-cookies';
 
-export default function ExperimentsPageLayout({ children }: { children: React.ReactNode }) {
+export default async function ExperimentsPageLayout({ children }: { children: React.ReactNode }) {
+  const student = await getSignedCookieAccess<ExperimentAccessClaims>(
+    EXPERIMENT_ACCESS_COOKIE,
+    'EXPERIMENT_ACCESS_SECRET'
+  );
+
   return (
     <div className="flex min-h-screen flex-col antialiased">
       <NavBar
@@ -17,7 +27,7 @@ export default function ExperimentsPageLayout({ children }: { children: React.Re
               </div>
             }
           >
-            <StudentData />
+            <StudentData student={student} />
           </Suspense>
         }
       />
