@@ -6,7 +6,7 @@ export default async function TeacherExperimentsTable() {
   const data = await GetTeacherExperimentsService();
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-4 sm:py-10">
       <DataTable columns={columns} data={data} />
     </div>
   );
