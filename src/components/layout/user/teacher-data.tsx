@@ -35,7 +35,7 @@ export function TeacherData({ data }: { data: TeacherDataTypes | null }) {
         </div>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="cursor-pointer">
+          <DropdownMenuTrigger className="cursor-pointer rounded-full">
             <ChevronDown size={16} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-fit rounded-lg md:mr-4" align="start">

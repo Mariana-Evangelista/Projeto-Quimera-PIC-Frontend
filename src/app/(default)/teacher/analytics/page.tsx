@@ -1,9 +1,9 @@
-import TeacherExperimentsTable from '@/features/teacher-analytics/components/teacher-experiments-table';
+import { TeacherAnalytics } from '@/features/teacher-analytics';
 
 export const metadata = {
   title: 'Área do Professor | Quimera',
 };
 
 export default function TeacherPage() {
-  return <TeacherExperimentsTable />;
+  return <TeacherAnalytics />;
 }
