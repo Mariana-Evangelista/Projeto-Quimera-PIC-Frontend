@@ -8,9 +8,10 @@ export type ExperimentManageFormState = {
     university?: string[];
     class?: string[];
   };
-  inputs: {
+  inputs?: {
     type: ExperimentsMap;
     university: string;
     class: string;
+    _id?: string;
   };
 };
