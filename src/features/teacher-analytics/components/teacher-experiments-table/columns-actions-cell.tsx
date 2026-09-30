@@ -10,8 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { DialogUpdateExperiment } from '@/features/experiment-manage/components/dialog-update-experiment';
-import { DeleteExperimentFeature } from '@/features/experiment-manage/components/delete-experiment-feature';
+import {
+  DeleteExperimentFeature,
+  DialogUpdateExperiment,
+} from '@/features/teacher-experiment-manage';
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
 import { useRouter } from 'next/navigation';
 
