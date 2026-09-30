@@ -1,4 +1,4 @@
-import { DialogCreateNewExperiment } from '@/features/experiment-manage/components/dialog-create-new-experiment';
+import { DialogCreateNewExperiment } from '@/features/teacher-experiment-manage';
 
 export function TeacherAnalyticsHeader() {
   return (

@@ -1,3 +1,5 @@
+'use client';
+
 import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import { CircleAlert } from 'lucide-react';
 import { useState, useTransition } from 'react';
