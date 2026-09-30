@@ -4,7 +4,7 @@ import {
   hasValidTeacherSession,
 } from './utils/teacher-route-guard-proxy';
 
-const TEACHER_ROUTE_PREFIX = '/teacher/analytics';
+const TEACHER_ROUTE_PREFIX = '/teacher';
 
 export function isTeacherRoute(pathname: string): boolean {
   return pathname.startsWith(TEACHER_ROUTE_PREFIX);
