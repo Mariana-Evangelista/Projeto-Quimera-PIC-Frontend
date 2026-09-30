@@ -19,7 +19,7 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
   const createdAtColumn = table.getColumn('createdAt');
   const typeColumn = table.getColumn('type');
   return (
-    <section className="mb-4 flex gap-8">
+    <section className="mb-8 flex gap-8">
       <div className="space-y-2">
         <Label className="text-sm">Tipo</Label>
         <Select

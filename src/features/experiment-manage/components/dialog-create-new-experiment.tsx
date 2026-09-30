@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogClose,
@@ -6,6 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState, useTransition } from 'react';
 import { ExperimentManageFormState } from '../types/experiment-manage-form-state';
@@ -16,7 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircleIcon } from 'lucide-react';
+import { AlertCircleIcon, ClipboardPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ExperimentManageForm } from './experiment-manage-form';
@@ -27,6 +30,7 @@ export function DialogCreateNewExperiment() {
   const CreateNewExperimentFormState: ExperimentManageFormState = {
     success: false,
   };
+  const [createOpen, setCreateOpen] = useState(false);
   const [state, setState] = useState<ExperimentManageFormState>(CreateNewExperimentFormState);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -36,8 +40,8 @@ export function DialogCreateNewExperiment() {
     mode: 'onBlur',
     defaultValues: {
       type: state.inputs?.type,
-      class: state.inputs?.class,
-      university: state.inputs?.university,
+      class: state.inputs?.class ?? '',
+      university: state.inputs?.university ?? '',
     },
   });
 
@@ -51,50 +55,63 @@ export function DialogCreateNewExperiment() {
         reset();
         (document.activeElement as HTMLElement)?.blur();
         setDialogOpen(true);
+        setCreateOpen(false);
       }
     });
   }
 
   return (
     <>
-      <Dialog>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent>
+      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+        <DialogTrigger asChild>
+          <Button className="cursor-pointer">
+            <ClipboardPlus />
+            Novo Experimento
+          </Button>
+        </DialogTrigger>
+
+        <DialogContent className="pt-8 md:min-w-2xl">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
-              <DialogTitle>Criar novo experimento</DialogTitle>
+              <DialogTitle className="flex items-center gap-2">
+                <ClipboardPlus size={18} />
+                Criar novo experimento
+              </DialogTitle>
               <DialogDescription>
                 Selecione o tipo de experimento a ser criado e digite informações da sua turma
               </DialogDescription>
             </DialogHeader>
+
             {!state.success && state.message && (
-              <Alert variant="destructive" className="mb-4 text-start">
+              <Alert variant="destructive" className="text-start">
                 <AlertCircleIcon className="mr-2 h-4 w-4" />
                 <AlertDescription>{state.message}</AlertDescription>
               </Alert>
             )}
 
-            <ExperimentManageForm control={control} formState={state.inputs} type="created" />
+            <ExperimentManageForm control={control} type="created" />
 
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline">Cancelar</Button>{' '}
+                <Button type="button" variant="outline" className="cursor-pointer">
+                  Cancelar
+                </Button>
               </DialogClose>
               <Button type="submit" className="cursor-pointer" disabled={isPending}>
                 {isPending && <Spinner />}
                 Criar Experimento
               </Button>
             </DialogFooter>
-          </DialogContent>
-        </form>
+          </form>
+        </DialogContent>
       </Dialog>
-      ;
       <DialogSuccess
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         title="Experimento criado com sucesso!"
         description="Deseja ir para a página do experimento?"
       >
-        <Button>Ver Experimento</Button>
+        <Button className="cursor-pointer">Ver Experimento</Button>
       </DialogSuccess>
     </>
   );

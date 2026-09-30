@@ -13,7 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Edit, ExternalLink, MoreHorizontal, Trash2Icon } from 'lucide-react';
+import { ExternalLink, MoreHorizontal, Trash2Icon } from 'lucide-react';
+import { DialogUpdateExperiment } from '@/features/experiment-manage/components/dialog-update-experiment';
 
 const columnHelper = createColumnHelper<DataTableFeatures, ExperimentDataTypes>();
 
@@ -40,7 +41,7 @@ export const columns = columnHelper.columns([
   }),
   columnHelper.display({
     id: 'actions',
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer rounded-full">
@@ -52,9 +53,8 @@ export const columns = columnHelper.columns([
               <ExternalLink />
               Abrir
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <Edit />
-              Editar
+            <DropdownMenuItem className="cursor-pointer" asChild>
+              <DialogUpdateExperiment experiment={row.original} />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer" variant="destructive">

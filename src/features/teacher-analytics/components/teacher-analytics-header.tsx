@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { ClipboardPlus } from 'lucide-react';
+import { DialogCreateNewExperiment } from '@/features/experiment-manage/components/dialog-create-new-experiment';
 
 export function TeacherAnalyticsHeader() {
   return (
@@ -14,10 +13,7 @@ export function TeacherAnalyticsHeader() {
           gerencie seus experimentos antigos. Aqui o aprendizado é real e dinâmico.
         </p>
 
-        <Button className="cursor-pointer">
-          <ClipboardPlus />
-          Novo Experimento
-        </Button>
+        <DialogCreateNewExperiment />
       </section>
       <section className="bg-border h-72 w-72 rounded-full"></section>
     </header>

@@ -39,9 +39,11 @@ export function DialogSuccess({
           <DialogDescription className="text-center">{description}</DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="px-24">
+        <DialogFooter>
           <DialogClose asChild>
-            <Button>Fechar</Button>
+            <Button variant={'outline'} className="cursor-pointer">
+              Fechar
+            </Button>
           </DialogClose>
 
           {children}
