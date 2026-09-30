@@ -9,7 +9,7 @@ export type ExperimentManageFormState = {
     class?: string[];
   };
   inputs?: {
-    type: ExperimentsMap;
+    type?: ExperimentsMap;
     university: string;
     class: string;
     _id?: string;

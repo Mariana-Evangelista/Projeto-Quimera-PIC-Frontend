@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { TeacherSignupFormState } from '../types/teacher-signup-form-state';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircleIcon } from 'lucide-react';
+import { AlertCircleIcon, CheckCircle } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TeacherSignupFormData, TeacherSignupSchema } from '../schemas/teacher-signup-schema';
@@ -13,7 +13,8 @@ import { useState, useTransition } from 'react';
 import { TeacherSignupAction } from '../actions/teacher-signup-action';
 import { Spinner } from '@/components/ui/spinner';
 import Link from 'next/link';
-import { TeacherSignupSuccessDialog } from './teacher-signup-success-dialog';
+import { DialogConfirmAction } from '@/components/dialog-confirm-action';
+import { useRouter } from 'next/navigation';
 
 const TeacherSignupInitialFormState: TeacherSignupFormState = {
   success: false,
@@ -23,6 +24,8 @@ export function TeacherSignupForm() {
   const [state, setState] = useState<TeacherSignupFormState>(TeacherSignupInitialFormState);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const { control, handleSubmit, reset } = useForm<TeacherSignupFormData>({
     resolver: zodResolver(TeacherSignupSchema),
@@ -128,7 +131,18 @@ export function TeacherSignupForm() {
         </p>
       </form>
 
-      <TeacherSignupSuccessDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      <DialogConfirmAction
+        variant="success"
+        Icon={CheckCircle}
+        open={dialogOpen}
+        setOpen={setDialogOpen}
+        title="Cadastro realizado com sucesso!"
+        description="Deseja ir para a página de login?"
+        onConfirmAction={() => {
+          setDialogOpen(false);
+          router.push('/login');
+        }}
+      />
     </>
   );
 }

@@ -16,6 +16,8 @@ export interface ApiRequestOptions<TBody = unknown> {
   timeout?: number;
   signal?: AbortSignal;
   body?: TBody;
+  tags?: string[];
+  revalidate?: number | false;
 }
 
 export interface ApiResponse<T> {
@@ -110,6 +112,8 @@ export async function executeRequest<TResponse, TBody = unknown>(
     timeout = config.timeout,
     signal,
     body,
+    tags,
+    revalidate,
   } = options;
 
   let token: string | null = null;
@@ -133,8 +137,10 @@ export async function executeRequest<TResponse, TBody = unknown>(
 
   const controller = createAbortController(timeout);
   const abortSignal = signal ? AbortSignal.any([controller.signal, signal]) : controller.signal;
+  const hasNextOptions = tags !== undefined || revalidate !== undefined;
 
   let response: Response;
+
   try {
     response = await fetch(url.toString(), {
       method,
@@ -144,6 +150,12 @@ export async function executeRequest<TResponse, TBody = unknown>(
       cache,
       redirect: 'manual',
       credentials: 'omit',
+      ...(hasNextOptions && {
+        next: {
+          ...(tags && { tags }),
+          ...(revalidate !== undefined && { revalidate }),
+        },
+      }),
     });
   } catch (cause) {
     throw new ApiError(normalizeError(null, null, cause));

@@ -6,7 +6,7 @@ import { ExperimentContentCard } from './experiment-content-card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ClipboardPlus } from 'lucide-react';
 import { ExperimentContentTypes } from '../../types/experiment-content-types';
-import { DialogConfirmAction } from '../dialog-confirm-action';
+import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import { usePathnameNavigation } from '../../hooks/use-pathname-navigation';
 
 interface ExperimentContentProps {

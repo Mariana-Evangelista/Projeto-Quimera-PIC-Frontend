@@ -19,12 +19,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircleIcon, ClipboardPlus } from 'lucide-react';
+import { AlertCircleIcon, CheckCircle, ClipboardPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ExperimentManageForm } from './experiment-manage-form';
 import { CreateNewExperimentAction } from '../actions/create-new-experiment-actions';
-import { DialogSuccess } from './dialog-success';
+import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 
 export function DialogCreateNewExperiment() {
   const CreateNewExperimentFormState: ExperimentManageFormState = {
@@ -69,8 +69,7 @@ export function DialogCreateNewExperiment() {
             Novo Experimento
           </Button>
         </DialogTrigger>
-
-        <DialogContent className="pt-8 md:min-w-2xl">
+        <DialogContent className="max-h-[95vh] overflow-y-auto pt-8 md:min-w-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
@@ -105,14 +104,16 @@ export function DialogCreateNewExperiment() {
           </form>
         </DialogContent>
       </Dialog>
-      <DialogSuccess
+
+      <DialogConfirmAction
+        variant="success"
+        Icon={CheckCircle}
         open={dialogOpen}
-        onOpenChange={setDialogOpen}
+        setOpen={setDialogOpen}
         title="Experimento criado com sucesso!"
         description="Deseja ir para a página do experimento?"
-      >
-        <Button className="cursor-pointer">Ver Experimento</Button>
-      </DialogSuccess>
+        onConfirmAction={() => console.log('action')}
+      />
     </>
   );
 }
