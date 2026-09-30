@@ -42,6 +42,8 @@ export function DataTable<TData extends RowData>({ columns, data }: DataTablePro
     },
   });
 
+  const stickyBase = 'sticky right-0 z-10 shadow-[-8px_0_8px_-8px_rgba(0,0,0,0.15)]';
+
   return (
     <>
       <div className="my-8 sm:mt-0">
@@ -58,9 +60,13 @@ export function DataTable<TData extends RowData>({ columns, data }: DataTablePro
           <TableHeader className="bg-accent">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="border-border">
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.map((header, index) => {
+                  const isLast = index === headerGroup.headers.length - 1;
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className={isLast ? `${stickyBase} bg-accent` : undefined}
+                    >
                       {header.isPlaceholder ? null : <table.FlexRender header={header} />}
                     </TableHead>
                   );
@@ -76,11 +82,19 @@ export function DataTable<TData extends RowData>({ columns, data }: DataTablePro
                   data-state={row.getIsSelected() && 'selected'}
                   className="border-b-border"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      <table.FlexRender cell={cell} />
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell, index, cells) => {
+                    const isLast = index === cells.length - 1;
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        className={
+                          isLast ? `${stickyBase} bg-background group-hover:bg-muted` : undefined
+                        }
+                      >
+                        <table.FlexRender cell={cell} />
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (

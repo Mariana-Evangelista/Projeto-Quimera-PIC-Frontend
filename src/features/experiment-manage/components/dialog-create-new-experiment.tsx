@@ -25,6 +25,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ExperimentManageForm } from './experiment-manage-form';
 import { CreateNewExperimentAction } from '../actions/create-new-experiment-actions';
 import { DialogConfirmAction } from '@/components/dialog-confirm-action';
+import { useRouter } from 'next/navigation';
 
 export function DialogCreateNewExperiment() {
   const CreateNewExperimentFormState: ExperimentManageFormState = {
@@ -34,6 +35,8 @@ export function DialogCreateNewExperiment() {
   const [state, setState] = useState<ExperimentManageFormState>(CreateNewExperimentFormState);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const { control, handleSubmit, reset } = useForm<ExperimentManageFormData>({
     resolver: zodResolver(ExperimentManageSchema),
@@ -112,7 +115,10 @@ export function DialogCreateNewExperiment() {
         setOpen={setDialogOpen}
         title="Experimento criado com sucesso!"
         description="Deseja ir para a página do experimento?"
-        onConfirmAction={() => console.log('action')}
+        onConfirmAction={() => {
+          setDialogOpen(false);
+          router.push(`/teacher/experiment/${state.inputs?._id}`);
+        }}
       />
     </>
   );

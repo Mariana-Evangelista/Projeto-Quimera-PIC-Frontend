@@ -25,6 +25,7 @@ import { ExperimentManageForm } from './experiment-manage-form';
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
 import { UpdateExperimentAction } from '../actions/update-experiment-action';
 import { DialogConfirmAction } from '@/components/dialog-confirm-action';
+import { useRouter } from 'next/navigation';
 
 interface DialogUpdateExperimentProps {
   experiment: ExperimentDataTypes;
@@ -46,6 +47,8 @@ export function DialogUpdateExperiment({ experiment, open, setOpen }: DialogUpda
   const [state, setState] = useState<ExperimentManageFormState>(UpdateExperimentFormState);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const { control, handleSubmit, reset } = useForm<ExperimentManageFormData>({
     resolver: zodResolver(ExperimentManageSchema),
@@ -114,7 +117,10 @@ export function DialogUpdateExperiment({ experiment, open, setOpen }: DialogUpda
         setOpen={setDialogOpen}
         title="Experimento atualizado com sucesso!"
         description="Deseja ir para a página do experimento?"
-        onConfirmAction={() => console.log('action')}
+        onConfirmAction={() => {
+          setDialogOpen(false);
+          router.push(`/teacher/experiment/${state.inputs?._id}`);
+        }}
       />
     </>
   );

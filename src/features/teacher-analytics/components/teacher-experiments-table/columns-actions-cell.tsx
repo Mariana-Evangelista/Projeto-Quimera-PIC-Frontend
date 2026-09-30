@@ -13,10 +13,13 @@ import {
 import { DialogUpdateExperiment } from '@/features/experiment-manage/components/dialog-update-experiment';
 import { DeleteExperimentFeature } from '@/features/experiment-manage/components/delete-experiment-feature';
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
+import { useRouter } from 'next/navigation';
 
 export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDataTypes }) {
   const [updateOpen, setUpdateOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const router = useRouter();
 
   return (
     <>
@@ -26,7 +29,10 @@ export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDa
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() => router.push(`/teacher/experiment/${experiment._id}`)}
+          >
             <ExternalLink />
             Abrir
           </DropdownMenuItem>

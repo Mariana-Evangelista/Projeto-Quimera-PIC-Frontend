@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { hasValidTeacherSession } from './utils/teacher-route-guard-proxy';
 
 const AUTH_ROUTES = ['/login', '/signup'];
-const TEACHER_ROUTE_PREFIX = '/teacher/analytics';
+const TEACHER_ROUTE_PREFIX = '/teacher';
 
 export function isAuthRoute(pathname: string): boolean {
   return AUTH_ROUTES.some((route) => pathname.startsWith(route));
