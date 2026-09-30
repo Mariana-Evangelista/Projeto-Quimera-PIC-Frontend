@@ -12,10 +12,10 @@ import {
 import { CheckCircleIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-type TeacherSignupSuccessDialogProps = {
+interface TeacherSignupSuccessDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-};
+}
 
 export function TeacherSignupSuccessDialog({
   open,
