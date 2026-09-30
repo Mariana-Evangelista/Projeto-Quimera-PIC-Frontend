@@ -27,8 +27,11 @@ export async function CreateNewExperimentAction(
 
   const ExperimentData = validatedData.data;
 
+  let experimentResponse;
+
   try {
-    await CreateNewExperimentService(ExperimentData);
+    const experiment = await CreateNewExperimentService(ExperimentData);
+    experimentResponse = experiment;
   } catch (error) {
     if (error instanceof ApiError) {
       return {
@@ -50,6 +53,11 @@ export async function CreateNewExperimentAction(
     success: true,
     field_errors: undefined,
     message: 'Experimento criado com sucesso',
-    inputs: ExperimentData,
+    inputs: {
+      type: experimentResponse.type,
+      university: experimentResponse.university,
+      class: experimentResponse.class,
+      _id: experimentResponse._id,
+    },
   };
 }
