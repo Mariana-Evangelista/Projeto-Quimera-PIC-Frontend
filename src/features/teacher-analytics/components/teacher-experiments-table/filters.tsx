@@ -18,10 +18,12 @@ interface FilterProps<TData extends RowData> {
 export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
   const createdAtColumn = table.getColumn('createdAt');
   const typeColumn = table.getColumn('type');
+
   return (
     <section className="mb-8 flex gap-8">
       <div className="space-y-2">
         <Label className="text-sm">Tipo</Label>
+
         <Select
           value={(typeColumn?.getFilterValue() as string) ?? 'all'}
           onValueChange={(value) => typeColumn?.setFilterValue(value === 'all' ? undefined : value)}
@@ -53,7 +55,7 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
           defaultValue="asc"
           onValueChange={(value) => createdAtColumn?.toggleSorting(value === 'asc')}
         >
-          <SelectTrigger className="border-border w-45 cursor-pointer border">
+          <SelectTrigger className="border-border cursor-pointer border">
             <SelectValue placeholder="Ordenar" />
           </SelectTrigger>
           <SelectContent>

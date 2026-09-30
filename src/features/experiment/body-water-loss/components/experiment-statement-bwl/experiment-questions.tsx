@@ -15,7 +15,7 @@ import {
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
 import { BODY_WATER_LOSS_EXPERIMENT_QUESTIONS } from '../../constants/body-water-loss-experiment-questions';
-import { DialogConfirmAction } from '@/features/experiment/shared/components/dialog-confirm-action';
+import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import {
   BodyWaterLoosResponseFormData,
   BodyWaterLossResponseSchema,

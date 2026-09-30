@@ -6,6 +6,8 @@ import { ExperimentDataTypes } from '@/types/experiment-data-types';
 export async function GetTeacherExperimentsService(): Promise<ExperimentDataTypes[]> {
   const { data } = await api.get<ExperimentDataTypes[]>('/experiment/me', {
     auth: 'authenticated',
+    cache: 'force-cache',
+    tags: ['experiments'],
   });
 
   return data;

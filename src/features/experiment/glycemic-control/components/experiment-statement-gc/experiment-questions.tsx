@@ -15,7 +15,7 @@ import {
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
 import { GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS } from '../../constants/glycemic-control-experiment-questions';
-import { DialogConfirmAction } from '@/features/experiment/shared/components/dialog-confirm-action';
+import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import {
   GlycemicControlResponseFormData,
   GlycemicControlResponseSchema,
@@ -66,7 +66,12 @@ export function ExperimentQuestions() {
         )}
       />
       {experimentQuestions.map((question, index) => {
-        const fieldName = `question_${index + 1}` as "question_1" | "question_2" | "question_3" | "question_4" | "question_5";
+        const fieldName = `question_${index + 1}` as
+          | 'question_1'
+          | 'question_2'
+          | 'question_3'
+          | 'question_4'
+          | 'question_5';
         return (
           <Controller
             key={index}
