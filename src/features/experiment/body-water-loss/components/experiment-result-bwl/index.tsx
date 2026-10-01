@@ -4,7 +4,7 @@ import { useSyncExternalStore } from 'react';
 import { WavesArrowDown } from 'lucide-react';
 import { RadialChartResult } from './radial-chart-result';
 import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
-import { BodyWaterLossResponseChart } from '@/features/experiment-charts';
+import { ResponseChartResult } from './response-chart-result';
 
 const SCORE_KEY = 'student-score';
 
@@ -42,7 +42,7 @@ export function ExperimentResultBWL() {
 
       <RadialChartResult score={score} />
 
-      <BodyWaterLossResponseChart />
+      <ResponseChartResult />
     </div>
   );
 }
