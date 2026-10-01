@@ -1,3 +1,5 @@
+import { TeacherExperiment } from '@/features/teacher-experiment';
+
 export interface TeacherExperimentPageProps {
   params: Promise<{
     id: string;
@@ -9,6 +11,5 @@ export const metadata = {
 };
 
 export default async function TeacherExperimentPage({ params }: TeacherExperimentPageProps) {
-  const { id } = await params;
-  return <h1>{id}</h1>;
+  return <TeacherExperiment params={params} />;
 }

@@ -6,7 +6,7 @@ import { RadialChartResult } from './radial-chart-result';
 import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/experiment-waiting-room';
 import { QuestionComparison } from './question-comparison';
 import { TestTubeDiagonal } from 'lucide-react';
-import { GlycemicControlResponseChart } from '@/features/experiment-charts';
+import { ResponseChartResult } from './response-chart-result';
 
 const RESPONSE_KEY = 'student-response';
 
@@ -72,7 +72,7 @@ export function ExperimentResultGC() {
 
       <RadialChartResult score={response.score ?? 0} />
       <QuestionComparison answers={response.answers} />
-      <GlycemicControlResponseChart />
+      <ResponseChartResult />
     </div>
   );
 }
