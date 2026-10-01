@@ -12,7 +12,7 @@ export function TeacherBodyWaterLossView({ experiment }: { experiment: Experimen
   return (
     <div className="theme-experiment">
       <ExperimentControlRoomHeader image={image} experiment={experiment} />
-      <ControlPanel experimentId={experiment._id} />
+      <ControlPanel experimentId={experiment._id} status={experiment.status} />
     </div>
   );
 }

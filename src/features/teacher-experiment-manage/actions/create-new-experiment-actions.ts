@@ -9,6 +9,7 @@ import {
   ExperimentManageSchema,
 } from '../schema/experiment-manage-schema';
 import { CreateNewExperimentService } from '../services/create-new-experiment-service';
+import { updateTag } from 'next/cache';
 
 export async function CreateNewExperimentAction(
   _prevState: ExperimentManageFormState,
@@ -49,6 +50,8 @@ export async function CreateNewExperimentAction(
       inputs: ExperimentData,
     };
   }
+
+  updateTag('experiments');
   return {
     success: true,
     field_errors: undefined,

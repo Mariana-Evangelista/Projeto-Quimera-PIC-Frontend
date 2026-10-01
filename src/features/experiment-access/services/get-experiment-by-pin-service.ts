@@ -5,8 +5,11 @@ export async function GetExperimentByPinService(
   pin: string,
   slug: string
 ): Promise<ExperimentDataTypes> {
-  const { data } = await api.get<ExperimentDataTypes>(`/experiment/pin/${pin}/${slug}`, {
-    auth: 'public',
-  });
+  const { data } = await api.get<ExperimentDataTypes>(
+    `/experiment/participant/pin/${pin}/${slug}`,
+    {
+      auth: 'public',
+    }
+  );
   return data;
 }

@@ -9,6 +9,7 @@ import {
   ExperimentManageSchema,
 } from '../schema/experiment-manage-schema';
 import { UpdateExperimentService } from '../services/update-experiment-service';
+import { updateTag } from 'next/cache';
 
 export async function UpdateExperimentAction(
   _prevState: ExperimentManageFormState,
@@ -25,10 +26,20 @@ export async function UpdateExperimentAction(
     };
   }
 
-  const ExperimentData = validatedData.data;
+  const ExperimentData = {
+    class: validatedData.data.class,
+    university: validatedData.data.university,
+    _id: validatedData.data._id,
+  };
 
   try {
-    await UpdateExperimentService(ExperimentData);
+    await UpdateExperimentService(
+      {
+        class: ExperimentData.class,
+        university: ExperimentData.university,
+      },
+      ExperimentData._id ?? ''
+    );
   } catch (error) {
     if (error instanceof ApiError) {
       return {
@@ -46,6 +57,8 @@ export async function UpdateExperimentAction(
       inputs: ExperimentData,
     };
   }
+
+  updateTag('experiments');
   return {
     success: true,
     field_errors: undefined,

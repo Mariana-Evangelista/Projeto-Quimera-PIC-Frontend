@@ -29,7 +29,14 @@ export async function updateExperimentSettings(
   };
 
   try {
-    await UpdateExperimentService(settingsData);
+    await UpdateExperimentService(
+      {
+        liberateSend: settingsData.liberateSend,
+        liberateResult: settingsData.liberateResult,
+      },
+      settingsData._id ?? ''
+    );
+
     return { allowSubmissions, shareResults };
   } catch (error) {
     if (error instanceof ApiError) {
