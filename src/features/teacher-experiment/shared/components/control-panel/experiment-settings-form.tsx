@@ -16,22 +16,26 @@ import { updateExperimentSettings } from '../../actions/update-experiment-settin
 import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import { ExperimentStatus } from '@/types/experiment-data-types';
 
+type SwitchRule = { checked: boolean; disabled: boolean };
+
+const SWITCH_RULES: Record<ExperimentStatus, { send: SwitchRule; results: SwitchRule }> = {
+  'Não iniciado': {
+    send: { checked: false, disabled: false },
+    results: { checked: false, disabled: true },
+  },
+  'Em progresso': {
+    send: { checked: true, disabled: false },
+    results: { checked: false, disabled: false },
+  },
+  Finalizado: {
+    send: { checked: true, disabled: true },
+    results: { checked: true, disabled: true },
+  },
+};
+
 interface ExperimentSettingsFormProps {
   experimentId: string;
   status: ExperimentStatus;
-}
-
-function settingsFromStatus(status: ExperimentStatus): ExperimentSettingsStateTypes {
-  return {
-    allowSubmissions: status !== 'Não iniciado',
-    shareResults: status === 'Finalizado',
-  };
-}
-
-function statusFromSettings(settings: ExperimentSettingsStateTypes): ExperimentStatus {
-  if (settings.shareResults) return 'Finalizado';
-  if (settings.allowSubmissions) return 'Em progresso';
-  return 'Não iniciado';
 }
 
 export function ExperimentSettingsForm({ experimentId, status }: ExperimentSettingsFormProps) {
@@ -39,7 +43,10 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
 
   const [state, formAction, isPending] = useActionState<ExperimentSettingsStateTypes, FormData>(
     updateExperimentSettings.bind(null, experimentId),
-    settingsFromStatus(status)
+    {
+      allowSubmissions: status !== 'Não iniciado',
+      shareResults: status === 'Finalizado',
+    }
   );
 
   const [settings, setOptimistic] = useOptimistic(state);
@@ -55,23 +62,15 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
     });
   }
 
-  function handleConfirmClose() {
-    change({ allowSubmissions: false, shareResults: true });
-    setConfirmOpen(false);
-  }
+  const currentStatus: ExperimentStatus = settings.shareResults
+    ? 'Finalizado'
+    : settings.allowSubmissions
+      ? 'Em progresso'
+      : 'Não iniciado';
 
-  const currentStatus = statusFromSettings(settings);
-  const isNotStarted = currentStatus === 'Não iniciado';
-  const isInProgress = currentStatus === 'Em progresso';
-  const isFinished = currentStatus === 'Finalizado';
-
-  const sendChecked = !isNotStarted;
-
-  const sendDisabled = isFinished || isPending;
-
-  const resultsChecked = isFinished;
-
-  const resultsDisabled = !isInProgress || isPending;
+  const { send, results } = SWITCH_RULES[currentStatus];
+  const sendDisabled = send.disabled || isPending;
+  const resultsDisabled = results.disabled || isPending;
 
   return (
     <>
@@ -87,7 +86,7 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
             <Switch
               className="cursor-pointer"
               id="liberate-send-response"
-              checked={sendChecked}
+              checked={send.checked}
               disabled={sendDisabled}
               onCheckedChange={(checked) =>
                 change({ allowSubmissions: checked, shareResults: false })
@@ -108,11 +107,9 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
             <Switch
               className="cursor-pointer"
               id="liberate-results"
-              checked={resultsChecked}
+              checked={results.checked}
               disabled={resultsDisabled}
-              onCheckedChange={(checked) => {
-                if (checked) setConfirmOpen(true);
-              }}
+              onCheckedChange={(checked) => checked && setConfirmOpen(true)}
             />
           </Field>
         </FieldLabel>
@@ -131,7 +128,10 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
         isPending={isPending}
         title="Liberar Resultados?"
         description="Ao compartilhar os resultados, o envio de respostas será encerrado e os alunos não poderão mais responder. Esta ação não pode ser desfeita."
-        onConfirmAction={handleConfirmClose}
+        onConfirmAction={() => {
+          change({ allowSubmissions: false, shareResults: true });
+          setConfirmOpen(false);
+        }}
       />
     </>
   );
