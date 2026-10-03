@@ -1,6 +1,6 @@
 import { ExperimentsMap } from '@/constants/experiments-map';
 
-export type ExperimentStatus = 'Não iniciado' | 'Em progresso' | 'Finalizado';
+export type ExperimentStatus = 'Não iniciado' | 'Em Progresso' | 'Finalizado';
 
 export interface ExperimentDataTypes {
   _id: string;

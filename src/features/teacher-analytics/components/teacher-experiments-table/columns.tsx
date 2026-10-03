@@ -7,6 +7,7 @@ import { ExperimentDataTypes } from '@/types/experiment-data-types';
 import { GetExperiment } from '@/utils/get-experiment-by-slug';
 
 import { ExperimentActionsCell } from './columns-actions-cell';
+import { ExperimentStatusBadge } from '@/components/experiment-status-badge';
 
 const columnHelper = createColumnHelper<DataTableFeatures, ExperimentDataTypes>();
 
@@ -23,6 +24,10 @@ export const columns = columnHelper.columns([
   }),
   columnHelper.accessor('class', {
     header: 'Turma',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Status',
+    cell: ({ row }) => <ExperimentStatusBadge status={row.original.status} />,
   }),
   columnHelper.accessor('responsesNumber', {
     header: 'Respostas',
