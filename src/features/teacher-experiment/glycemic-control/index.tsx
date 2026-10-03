@@ -2,6 +2,9 @@ import { GLYCEMIC_CONTROL_DEFAULT_DATA } from '@/features/experiment/glycemic-co
 import { ExperimentHeaderTypes } from '@/features/experiment/shared/types/experiment-header-types';
 import { ExperimentControlRoomHeader } from '../shared/components/experiment-control-room-header';
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
+import { ControlPanel } from '../shared/components/control-panel';
+import { ContentDialog } from '../shared/components/content-dialog';
+import { QuestionsDialogGc } from './components/questions-dialog-gc';
 
 export function TeacherGlycemicControlView({ experiment }: { experiment: ExperimentDataTypes }) {
   const image: Pick<ExperimentHeaderTypes, 'imageSrc' | 'imageAlt'> = {
@@ -11,6 +14,12 @@ export function TeacherGlycemicControlView({ experiment }: { experiment: Experim
   return (
     <div className="theme-glycemic-control">
       <ExperimentControlRoomHeader image={image} experiment={experiment} />
+      <ControlPanel experimentId={experiment._id} status={experiment.status}>
+        <>
+          <ContentDialog content={GLYCEMIC_CONTROL_DEFAULT_DATA.content} />
+          <QuestionsDialogGc />
+        </>
+      </ControlPanel>
     </div>
   );
 }

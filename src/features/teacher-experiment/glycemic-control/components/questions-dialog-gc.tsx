@@ -15,14 +15,14 @@ import {
   QuestionnaireSubmit,
   QuestionnaireTitle,
 } from '@/components/ui/questionnaire';
-import { BODY_WATER_LOSS_EXPERIMENT_QUESTIONS } from '@/features/experiment/body-water-loss/constants/body-water-loss-experiment-questions';
+import { GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS } from '@/features/experiment/glycemic-control/constants/glycemic-control-experiment-questions';
 import { Eye } from 'lucide-react';
 import { useState } from 'react';
 
-export function QuestionsDialogBwl() {
+export function QuestionsDialogGc() {
   const [open, setOpen] = useState(false);
 
-  const experimentQuestions = BODY_WATER_LOSS_EXPERIMENT_QUESTIONS;
+  const experimentQuestions = GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -67,10 +67,10 @@ export function QuestionsDialogBwl() {
                     <QuestionnaireChoice
                       key={option.value}
                       value={option.value}
-                      defaultChecked={option.weight > 0}
-                      disabled={option.weight === 0}
+                      defaultChecked={option.value === question.answer}
+                      disabled={option.value !== question.answer}
                     >
-                      {option.value}
+                      {option.label}
                     </QuestionnaireChoice>
                   ))}
                 </QuestionnaireChoices>
