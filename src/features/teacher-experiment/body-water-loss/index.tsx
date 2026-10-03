@@ -3,6 +3,8 @@ import { ExperimentControlRoomHeader } from '../shared/components/experiment-con
 import { ExperimentHeaderTypes } from '@/features/experiment/shared/types/experiment-header-types';
 import { BODY_WATER_LOSS_DEFAULT_DATA } from '@/features/experiment/body-water-loss/constants/body-water-loss-default-data';
 import { ControlPanel } from '../shared/components/control-panel';
+import { ContentDialog } from '../shared/components/content-dialog';
+import { QuestionsDialog } from './components/questions-dialog-bwl';
 
 export function TeacherBodyWaterLossView({ experiment }: { experiment: ExperimentDataTypes }) {
   const image: Pick<ExperimentHeaderTypes, 'imageSrc' | 'imageAlt'> = {
@@ -12,7 +14,12 @@ export function TeacherBodyWaterLossView({ experiment }: { experiment: Experimen
   return (
     <div className="theme-experiment">
       <ExperimentControlRoomHeader image={image} experiment={experiment} />
-      <ControlPanel experimentId={experiment._id} status={experiment.status} />
+      <ControlPanel experimentId={experiment._id} status={experiment.status}>
+        <>
+          <ContentDialog content={BODY_WATER_LOSS_DEFAULT_DATA.content} />
+          <QuestionsDialog />
+        </>
+      </ControlPanel>
     </div>
   );
 }
