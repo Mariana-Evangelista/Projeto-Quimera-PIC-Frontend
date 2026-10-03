@@ -74,7 +74,7 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
 
   return (
     <>
-      <FieldGroup className="w-full max-w-sm">
+      <FieldGroup className="w-full">
         <FieldLabel htmlFor="liberate-send-response" className="border-border">
           <Field orientation="horizontal" data-disabled={sendDisabled}>
             <FieldContent>
