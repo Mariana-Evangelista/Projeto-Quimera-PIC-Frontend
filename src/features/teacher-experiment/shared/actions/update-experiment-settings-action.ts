@@ -3,6 +3,7 @@
 import { ExperimentSettingsStateTypes } from '../types/experiment-settings-state-types';
 import { UpdateExperimentService } from '@/features/teacher-experiment-manage/services/update-experiment-service';
 import { ApiError } from '@/lib/api/errors/api-error';
+import { updateTag } from 'next/cache';
 
 export async function updateExperimentSettings(
   experimentId: string,
@@ -36,6 +37,8 @@ export async function updateExperimentSettings(
       },
       settingsData._id ?? ''
     );
+
+    updateTag(`experiment-${experimentId}`);
 
     return { allowSubmissions, shareResults };
   } catch (error) {

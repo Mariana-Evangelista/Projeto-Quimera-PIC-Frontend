@@ -5,7 +5,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
-import { BodyWaterLossResponseChartTypes } from '../types/body-water-loss-response-chart-types';
+import { BodyWaterLossChartTypes } from '../types/body-water-loss-response-chart-types';
 
 const chartConfig = {
   students: {
@@ -14,7 +14,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function BodyWaterLossResponseChart({ data }: { data: BodyWaterLossResponseChartTypes[] }) {
+export function BodyWaterLossResponseChart({ data }: { data: BodyWaterLossChartTypes[] }) {
   return (
     <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80">
       <LineChart

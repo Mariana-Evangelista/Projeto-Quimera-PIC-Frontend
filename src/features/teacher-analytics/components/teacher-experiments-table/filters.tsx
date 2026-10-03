@@ -18,6 +18,11 @@ interface FilterProps<TData extends RowData> {
 export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
   const createdAtColumn = table.getColumn('createdAt');
   const typeColumn = table.getColumn('type');
+  const statusColumn = table.getColumn('status');
+
+  const typeValue = (typeColumn?.getFilterValue() as string | undefined) || 'all';
+  const statusValue = (statusColumn?.getFilterValue() as string | undefined) || 'all';
+  const sortValue = createdAtColumn?.getIsSorted() === 'asc' ? 'oldest' : 'newest';
 
   return (
     <section className="mb-8 flex gap-8">
@@ -25,8 +30,11 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
         <Label className="text-sm">Tipo</Label>
 
         <Select
-          value={(typeColumn?.getFilterValue() as string) ?? 'all'}
-          onValueChange={(value) => typeColumn?.setFilterValue(value === 'all' ? undefined : value)}
+          value={typeValue}
+          onValueChange={(value) => {
+            if (!value) return;
+            typeColumn?.setFilterValue(value === 'all' ? undefined : value);
+          }}
         >
           <div className="flex items-center gap-4">
             <SelectTrigger className="border-border cursor-pointer border">
@@ -49,23 +57,65 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
           </SelectContent>
         </Select>
       </div>
+
+      <div className="space-y-2">
+        <Label className="text-sm">Status</Label>
+
+        <Select
+          value={statusValue}
+          onValueChange={(value) => {
+            if (!value) return;
+            statusColumn?.setFilterValue(value === 'all' ? undefined : value);
+          }}
+        >
+          <div className="flex items-center gap-4">
+            <SelectTrigger className="border-border cursor-pointer border">
+              <SelectValue placeholder="Selecione um status" />
+            </SelectTrigger>
+          </div>
+
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="all" className="text-foreground font-normal">
+                Ver Todos
+              </SelectItem>
+              <SelectItem value="Não iniciado" className="text-foreground font-normal">
+                Não iniciado
+              </SelectItem>
+              <SelectItem value="Em Progresso" className="text-foreground font-normal">
+                Em Progresso
+              </SelectItem>
+              <SelectItem value="Finalizado" className="text-foreground font-normal">
+                Finalizado
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
       <div className="space-y-2">
         <Label className="text-sm">Ordenar por</Label>
+
         <Select
-          defaultValue="asc"
-          onValueChange={(value) => createdAtColumn?.toggleSorting(value === 'asc')}
+          value={sortValue}
+          onValueChange={(value) => {
+            if (!value) return;
+
+            createdAtColumn?.toggleSorting(value === 'newest');
+          }}
         >
           <SelectTrigger className="border-border cursor-pointer border">
             <SelectValue placeholder="Ordenar" />
           </SelectTrigger>
+
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="asc" className="text-foreground font-normal">
-                <SortAsc />
+              <SelectItem value="newest" className="text-foreground font-normal">
+                <SortDesc />
                 Mais Recente
               </SelectItem>
-              <SelectItem value="desc" className="text-foreground font-normal">
-                <SortDesc />
+              <SelectItem value="oldest" className="text-foreground font-normal">
+                <SortAsc />
                 Mais Antigo
               </SelectItem>
             </SelectGroup>
