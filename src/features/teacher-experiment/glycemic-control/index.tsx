@@ -5,6 +5,7 @@ import { ExperimentDataTypes } from '@/types/experiment-data-types';
 import { ControlPanel } from '../shared/components/control-panel';
 import { ContentDialog } from '../shared/components/content-dialog';
 import { QuestionsDialogGc } from './components/questions-dialog-gc';
+import { GlycemicControlDashboard } from './components/glycemic-control-dashboard';
 
 export function TeacherGlycemicControlView({ experiment }: { experiment: ExperimentDataTypes }) {
   const image: Pick<ExperimentHeaderTypes, 'imageSrc' | 'imageAlt'> = {
@@ -20,6 +21,7 @@ export function TeacherGlycemicControlView({ experiment }: { experiment: Experim
           <QuestionsDialogGc />
         </>
       </ControlPanel>
+      <GlycemicControlDashboard experiment={experiment} />
     </div>
   );
 }

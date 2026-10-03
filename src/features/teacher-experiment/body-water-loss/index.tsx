@@ -5,6 +5,7 @@ import { BODY_WATER_LOSS_DEFAULT_DATA } from '@/features/experiment/body-water-l
 import { ControlPanel } from '../shared/components/control-panel';
 import { ContentDialog } from '../shared/components/content-dialog';
 import { QuestionsDialogBwl } from './components/questions-dialog-bwl';
+import { BodyWaterLossDashboard } from './components/body-water-loss-dashboard';
 
 export function TeacherBodyWaterLossView({ experiment }: { experiment: ExperimentDataTypes }) {
   const image: Pick<ExperimentHeaderTypes, 'imageSrc' | 'imageAlt'> = {
@@ -20,6 +21,7 @@ export function TeacherBodyWaterLossView({ experiment }: { experiment: Experimen
           <QuestionsDialogBwl />
         </>
       </ControlPanel>
+      <BodyWaterLossDashboard experiment={experiment} />
     </div>
   );
 }
