@@ -6,9 +6,9 @@ import { GlycemicControlResponseChartTypes } from '../types/glycemic-control-res
 
 export async function GetGlycemicControlResponseChartService(
   pin: string
-): Promise<GlycemicControlResponseChartTypes[]> {
+): Promise<GlycemicControlResponseChartTypes> {
   try {
-    const { data } = await api.get<GlycemicControlResponseChartTypes[]>(
+    const { data } = await api.get<GlycemicControlResponseChartTypes>(
       `/glycemic-control-response/analytics/${pin}`,
       { auth: 'public' }
     );

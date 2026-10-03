@@ -8,12 +8,17 @@ export async function GlycemicControlDashboard({
 }: {
   experiment: ExperimentDataTypes;
 }) {
-  let initialState: GlycemicControlResponseChartTypes[] = [];
+  let initialState: GlycemicControlResponseChartTypes;
   try {
     initialState = await GetGlycemicControlResponseChartService(experiment.pin);
-    console.log('GlycemicControlDashboard initialState:', initialState);
   } catch {
-    initialState = [];
+    initialState = {
+      chart: [],
+      kpis: {
+        totalResponses: 0,
+        averageScore: 0,
+      },
+    };
   }
   return <GlycemicControlDashboardContent pin={experiment.pin} initialState={initialState} />;
 }

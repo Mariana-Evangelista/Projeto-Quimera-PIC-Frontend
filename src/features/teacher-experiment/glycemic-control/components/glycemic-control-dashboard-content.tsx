@@ -12,7 +12,7 @@ export function GlycemicControlDashboardContent({
   initialState,
 }: {
   pin: string;
-  initialState: GlycemicControlResponseChartTypes[];
+  initialState: GlycemicControlResponseChartTypes;
 }) {
   const { data, error } = useGlycemicControlChartSocket(pin, initialState);
 
@@ -25,9 +25,9 @@ export function GlycemicControlDashboardContent({
     );
   }
 
-  if (data.length === 0) {
+  if (!data) {
     return <Skeleton className="h-64 md:h-80" />;
   }
 
-  return <GlycemicControlResponseChart data={data} />;
+  return <GlycemicControlResponseChart data={data.chart} />;
 }

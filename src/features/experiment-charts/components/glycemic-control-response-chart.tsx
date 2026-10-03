@@ -5,7 +5,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
-import { GlycemicControlResponseChartTypes } from '../types/glycemic-control-response-chart-types';
+import { GlycemicControlChartTypes } from '../types/glycemic-control-response-chart-types';
 
 const chartConfig = {
   students: {
@@ -14,11 +14,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function GlycemicControlResponseChart({
-  data,
-}: {
-  data: GlycemicControlResponseChartTypes[];
-}) {
+export function GlycemicControlResponseChart({ data }: { data: GlycemicControlChartTypes[] }) {
   return (
     <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80">
       <LineChart

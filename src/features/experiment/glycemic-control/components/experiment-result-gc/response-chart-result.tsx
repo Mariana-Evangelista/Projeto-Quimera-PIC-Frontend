@@ -18,7 +18,7 @@ export function ResponseChartResult() {
         </CardDescription>
       </CardHeader>
       <CardContent className="sm:py-8">
-        {!isLoading && data && <GlycemicControlResponseChart data={data} />}
+        {!isLoading && data && <GlycemicControlResponseChart data={data.chart} />}
         {isLoading && <Skeleton className="h-64 md:h-80" />}
         {!data && isError && error && (
           <Alert variant="destructive" className="mb-4 text-start">

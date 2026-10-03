@@ -8,13 +8,13 @@ import {
 import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
 
 export interface GlycemicControlChartSocketState {
-  data: GlycemicControlResponseChartTypes[];
+  data: GlycemicControlResponseChartTypes;
   error?: string;
 }
 
 export function createGlycemicControlChartSocketStore(
   joinPayload: JoinPayload,
-  initialState: GlycemicControlResponseChartTypes[]
+  initialState: GlycemicControlResponseChartTypes
 ) {
   let snapshot: GlycemicControlChartSocketState = {
     data: initialState,
@@ -37,7 +37,7 @@ export function createGlycemicControlChartSocketStore(
       };
 
       const handleUpdate = (payload: UpdatePayload) => {
-        snapshot = { ...snapshot, data: payload.chart, error: undefined };
+        snapshot = { ...snapshot, data: payload, error: undefined };
         onStoreChange();
       };
 

@@ -1,12 +1,15 @@
 'use client';
 
 import { useMemo, useSyncExternalStore } from 'react';
-import { createGlycemicControlChartSocketStore, type GlycemicControlChartSocketState } from '../store/glycemic-control-chart-socket-store';
+import {
+  createGlycemicControlChartSocketStore,
+  type GlycemicControlChartSocketState,
+} from '../store/glycemic-control-chart-socket-store';
 import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
 
 export function useGlycemicControlChartSocket(
   pin: string,
-  initialState: GlycemicControlResponseChartTypes[]
+  initialState: GlycemicControlResponseChartTypes
 ): GlycemicControlChartSocketState {
   const store = useMemo(
     () => createGlycemicControlChartSocketStore({ pin }, initialState),

@@ -1,12 +1,17 @@
 import { SocketService } from '@/lib/socket';
-import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
+import {
+  GlycemicControlChartTypes,
+  GlycemicControlKPIsTypes,
+} from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
 
 export interface JoinPayload {
   pin: string;
 }
 
 export type UpdatePayload = {
-  chart: GlycemicControlResponseChartTypes[];
+  chart: GlycemicControlChartTypes[];
+  kpis: GlycemicControlKPIsTypes;
+
   experimentId: string;
 };
 

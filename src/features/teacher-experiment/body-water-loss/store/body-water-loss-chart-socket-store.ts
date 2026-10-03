@@ -8,13 +8,13 @@ import {
 import { BodyWaterLossResponseChartTypes } from '@/features/experiment-charts/types/body-water-loss-response-chart-types';
 
 export interface BodyWaterLossChartSocketState {
-  data: BodyWaterLossResponseChartTypes[];
+  data: BodyWaterLossResponseChartTypes;
   error?: string;
 }
 
 export function createBodyWaterLossChartSocketStore(
   joinPayload: JoinPayload,
-  initialState: BodyWaterLossResponseChartTypes[]
+  initialState: BodyWaterLossResponseChartTypes
 ) {
   let snapshot: BodyWaterLossChartSocketState = {
     data: initialState,
@@ -37,7 +37,7 @@ export function createBodyWaterLossChartSocketStore(
       };
 
       const handleUpdate = (payload: UpdatePayload) => {
-        snapshot = { ...snapshot, data: payload.chart, error: undefined };
+        snapshot = { ...snapshot, data: payload, error: undefined };
         onStoreChange();
       };
 

@@ -12,7 +12,7 @@ export function BodyWaterLossDashboardContent({
   initialState,
 }: {
   pin: string;
-  initialState: BodyWaterLossResponseChartTypes[];
+  initialState: BodyWaterLossResponseChartTypes;
 }) {
   const { data, error } = useBodyWaterLossChartSocket(pin, initialState);
 
@@ -25,9 +25,9 @@ export function BodyWaterLossDashboardContent({
     );
   }
 
-  if (data.length === 0) {
+  if (!data) {
     return <Skeleton className="h-64 md:h-80" />;
   }
 
-  return <BodyWaterLossResponseChart data={data} />;
+  return <BodyWaterLossResponseChart data={data.chart} />;
 }

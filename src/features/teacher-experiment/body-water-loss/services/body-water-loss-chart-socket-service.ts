@@ -1,11 +1,18 @@
 import { SocketService } from '@/lib/socket';
-import { BodyWaterLossResponseChartTypes } from '@/features/experiment-charts/types/body-water-loss-response-chart-types';
+import {
+  BodyWaterLossChartTypes,
+  BodyWaterLossKPIsTypes,
+} from '@/features/experiment-charts/types/body-water-loss-response-chart-types';
 
 export interface JoinPayload {
   pin: string;
 }
 
-export type UpdatePayload = { chart: BodyWaterLossResponseChartTypes[]; experimentId: string };
+export type UpdatePayload = {
+  chart: BodyWaterLossChartTypes[];
+  experimentId: string;
+  kpis: BodyWaterLossKPIsTypes;
+};
 
 export interface RejectedPayload {
   message: string;

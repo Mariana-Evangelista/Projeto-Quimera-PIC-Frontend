@@ -6,9 +6,9 @@ import { BodyWaterLossResponseChartTypes } from '../types/body-water-loss-respon
 
 export async function GetBodyWaterLossResponseChartService(
   pin: string
-): Promise<BodyWaterLossResponseChartTypes[]> {
+): Promise<BodyWaterLossResponseChartTypes> {
   try {
-    const { data } = await api.get<BodyWaterLossResponseChartTypes[]>(
+    const { data } = await api.get<BodyWaterLossResponseChartTypes>(
       `/body-water-loss-response/analytics/${pin}`,
       { auth: 'public' }
     );
