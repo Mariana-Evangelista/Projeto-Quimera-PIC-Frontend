@@ -1,49 +1,56 @@
-import Image from 'next/image';
+'use client';
 
 import { ExperimentDataTypes } from '@/types/experiment-data-types';
-import { ExperimentHeaderTypes } from '@/features/experiment/shared/types/experiment-header-types';
 import { GetExperiment } from '@/utils/get-experiment-by-slug';
 import { ExperimentStatusBadge } from '@/components/experiment-status-badge';
+import { Bookmark, Calendar, CircleDashed, Landmark, Undo2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 interface ExperimentControlRoomHeaderProps {
-  image: Pick<ExperimentHeaderTypes, 'imageSrc' | 'imageAlt'>;
   experiment: ExperimentDataTypes;
 }
 
-export function ExperimentControlRoomHeader({
-  image,
-  experiment,
-}: ExperimentControlRoomHeaderProps) {
+export function ExperimentControlRoomHeader({ experiment }: ExperimentControlRoomHeaderProps) {
   const date = new Date(experiment.createdAt).toLocaleDateString();
 
-  return (
-    <header className="mt-10 mb-16 flex flex-col-reverse items-center justify-center gap-8 sm:flex-row sm:justify-between">
-      <section className="space-y-4 sm:max-w-lg">
-        <div>
-          <p className="text-muted-foreground font-medium lg:text-lg">Experimento</p>
-          <h1 className="text-primary text-4xl font-semibold min-[496px]:text-5xl lg:text-6xl">
-            {GetExperiment(experiment.type)?.title}
-          </h1>
-        </div>
+  const router = useRouter();
 
-        <div className="space-y-1 text-sm">
-          <p>
-            Status: <ExperimentStatusBadge status={experiment.status} />
-          </p>
-          <p>
+  return (
+    <>
+      <Button variant={'outline'} className="my-8 cursor-pointer" onClick={() => router.back()}>
+        <Undo2 />
+        Voltar
+      </Button>
+      <header className="mb-16 grid grid-rows-2 items-center gap-8 sm:grid-cols-2 sm:grid-rows-1">
+        <section className="space-y-4">
+          <div>
+            <p className="text-muted-foreground">Experimento</p>
+            <h1 className="text-primary text-4xl font-semibold min-[496px]:text-5xl">
+              {GetExperiment(experiment.type)?.title}
+            </h1>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-2 grid-rows-2 gap-4 text-xs sm:text-sm">
+          <p className="flex items-center gap-2">
+            <Bookmark size={16} />
             Pin: <span className="font-medium">{experiment.pin}</span>
           </p>
-
-          <p>{`${experiment.university}, Turma ${experiment.class}`}</p>
-          <p>{date}</p>
-        </div>
-      </section>
-      <Image
-        src={image.imageSrc}
-        alt={image.imageAlt}
-        className="w-full max-w-xs lg:max-w-sm"
-        priority={true}
-      />
-    </header>
+          <p className="flex items-center gap-2">
+            <CircleDashed size={16} />
+            Status: <ExperimentStatusBadge status={experiment.status} />
+          </p>
+          <p className="flex items-center gap-2">
+            <Landmark size={16} />
+            {`${experiment.university}, Turma ${experiment.class}`}
+          </p>
+          <p className="flex items-center gap-2">
+            <Calendar size={16} />
+            {date}
+          </p>
+        </section>
+      </header>
+    </>
   );
 }

@@ -1,4 +1,6 @@
 import { DialogCreateNewExperiment } from '@/features/teacher-experiment-manage';
+import TeacherAnalyticsImg from '../assets/TeacherAnalyticsHeaderImg.png';
+import Image from 'next/image';
 
 export function TeacherAnalyticsHeader() {
   return (
@@ -15,7 +17,12 @@ export function TeacherAnalyticsHeader() {
 
         <DialogCreateNewExperiment />
       </section>
-      <section className="bg-border h-72 w-72 rounded-full"></section>
+      <Image
+        src={TeacherAnalyticsImg}
+        alt={'Cão e gato juntos com chapéu de graduação'}
+        className="w-full max-w-xs lg:max-w-sm"
+        priority={true}
+      />
     </header>
   );
 }

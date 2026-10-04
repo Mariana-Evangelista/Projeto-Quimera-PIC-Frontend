@@ -11,13 +11,15 @@ interface ControlPanelProps {
 
 export function ControlPanel({ experimentId, status, children }: ControlPanelProps) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full lg:max-w-sm">
       <CardHeader className="border-border border-b">
         <CardTitle>Painel de Controle</CardTitle>
       </CardHeader>
       <CardContent>
         <ExperimentSettingsForm experimentId={experimentId} status={status} />
-        <div className="mt-24 flex w-full flex-col gap-2">{children}</div>
+        <div className="mt-8 flex w-full flex-col gap-2 sm:flex-row sm:justify-end lg:mt-24 lg:flex-col">
+          {children}
+        </div>
       </CardContent>
     </Card>
   );
