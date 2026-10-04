@@ -13,15 +13,18 @@ export function TeacherBodyWaterLossView({ experiment }: { experiment: Experimen
     imageSrc: BODY_WATER_LOSS_DEFAULT_DATA.header.imageSrc,
   };
   return (
-    <div className="theme-experiment">
+    <div className="theme-experiment w-full">
       <ExperimentControlRoomHeader image={image} experiment={experiment} />
-      <ControlPanel experimentId={experiment._id} status={experiment.status}>
-        <>
-          <ContentDialog content={BODY_WATER_LOSS_DEFAULT_DATA.content} />
-          <QuestionsDialogBwl />
-        </>
-      </ControlPanel>
-      <BodyWaterLossDashboard experiment={experiment} />
+
+      <section className="mb-16 flex flex-col gap-8 lg:flex-row">
+        <ControlPanel experimentId={experiment._id} status={experiment.status}>
+          <>
+            <ContentDialog content={BODY_WATER_LOSS_DEFAULT_DATA.content} />
+            <QuestionsDialogBwl />
+          </>
+        </ControlPanel>
+        <BodyWaterLossDashboard experiment={experiment} />
+      </section>
     </div>
   );
 }

@@ -23,7 +23,7 @@ const SWITCH_RULES: Record<ExperimentStatus, { send: SwitchRule; results: Switch
     send: { checked: false, disabled: false },
     results: { checked: false, disabled: true },
   },
-  'Em progresso': {
+  'Em Progresso': {
     send: { checked: true, disabled: false },
     results: { checked: false, disabled: false },
   },
@@ -65,7 +65,7 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
   const currentStatus: ExperimentStatus = settings.shareResults
     ? 'Finalizado'
     : settings.allowSubmissions
-      ? 'Em progresso'
+      ? 'Em Progresso'
       : 'Não iniciado';
 
   const { send, results } = SWITCH_RULES[currentStatus];
@@ -74,7 +74,7 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
 
   return (
     <>
-      <FieldGroup className="w-full">
+      <FieldGroup className="flex w-full flex-col sm:flex-row lg:flex-col">
         <FieldLabel htmlFor="liberate-send-response" className="border-border">
           <Field orientation="horizontal" data-disabled={sendDisabled}>
             <FieldContent>
