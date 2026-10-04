@@ -3,19 +3,19 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AlertCircleIcon } from 'lucide-react';
-import { BodyWaterLossResponseChart } from '@/features/experiment-charts';
-import { BodyWaterLossResponseChartTypes } from '@/features/experiment-charts/types/body-water-loss-response-chart-types';
-import { useBodyWaterLossChartSocket } from '../../hooks/use-body-water-loss-chart-socket';
+import { GlycemicControlResponseChart } from '@/features/experiment-charts';
+import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
+import { useGlycemicControlChartSocket } from '../../hooks/use-glycemic-control-chart-socket';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-export function BodyWaterLossDashboardContent({
+export function GlycemicControlDashboardContent({
   pin,
   initialState,
 }: {
   pin: string;
-  initialState: BodyWaterLossResponseChartTypes;
+  initialState: GlycemicControlResponseChartTypes;
 }) {
-  const { data, error } = useBodyWaterLossChartSocket(pin, initialState);
+  const { data, error } = useGlycemicControlChartSocket(pin, initialState);
 
   if (error) {
     return (
@@ -53,7 +53,7 @@ export function BodyWaterLossDashboardContent({
         </div>
       </CardHeader>
       <CardContent className="my-auto px-2 sm:p-4">
-        <BodyWaterLossResponseChart data={data.chart} />
+        <GlycemicControlResponseChart data={data.chart} />;
       </CardContent>
     </Card>
   );
