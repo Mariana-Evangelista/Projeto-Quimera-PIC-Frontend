@@ -4,6 +4,7 @@ import { ExperimentSettingsStateTypes } from '../types/experiment-settings-state
 import { UpdateExperimentService } from '@/features/teacher-experiment-manage/services/update-experiment-service';
 import { ApiError } from '@/lib/api/errors/api-error';
 import { updateTag } from 'next/cache';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function updateExperimentSettings(
   experimentId: string,
@@ -43,7 +44,7 @@ export async function updateExperimentSettings(
     return { allowSubmissions, shareResults };
   } catch (error) {
     if (error instanceof ApiError) {
-      return { ...prev, error: error.error.message };
+      return { ...prev, error: GetErrorMessage(error) };
     }
 
     return { ...prev, error: 'Não foi possível salvar as configurações.' };

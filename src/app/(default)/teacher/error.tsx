@@ -2,6 +2,7 @@
 import LogoQuimera from '@/assets/LogoQuimeraSymbol.svg';
 import { Button } from '@/components/ui/button';
 import { ApiError } from '@/lib/api/errors/api-error';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 interface ErrorProps {
   error: Error | ApiError;
@@ -11,7 +12,7 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   const getErrorMessage = () => {
     if (error instanceof ApiError) {
-      return error.error.message;
+      return GetErrorMessage(error);
     }
 
     return error?.message || 'Erro desconhecido, entre em contato com o suporte.';

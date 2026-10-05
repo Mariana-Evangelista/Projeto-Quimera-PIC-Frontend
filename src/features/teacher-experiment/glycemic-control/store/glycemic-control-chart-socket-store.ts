@@ -10,15 +10,53 @@ import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/
 export interface GlycemicControlChartSocketState {
   data: GlycemicControlResponseChartTypes;
   error?: string;
+  isConnected: boolean;
+}
+
+export interface GlycemicControlChartSocketStore {
+  getSnapshot(): GlycemicControlChartSocketState;
+  subscribe(onStoreChange: () => void): () => void;
+  reconnect(): void;
 }
 
 export function createGlycemicControlChartSocketStore(
   joinPayload: JoinPayload,
   initialState: GlycemicControlResponseChartTypes
-) {
+): GlycemicControlChartSocketStore {
   let snapshot: GlycemicControlChartSocketState = {
     data: initialState,
     error: undefined,
+    isConnected: glycemicControlChartSocketService.isConnected(),
+  };
+
+  const attemptJoin = () => {
+    glycemicControlChartSocketService.join(joinPayload, (ack: AckResponse) => {
+      if (!ack.success) {
+        snapshot = { ...snapshot, error: ack.error ?? 'Não foi possível entrar na sala.' };
+      }
+    });
+  };
+
+  const handleUpdate = (payload: UpdatePayload) => {
+    snapshot = { ...snapshot, data: payload, error: undefined, isConnected: true };
+  };
+
+  const handleJoinRejected = (payload: RejectedPayload) => {
+    snapshot = { ...snapshot, error: payload.message, isConnected: false };
+  };
+
+  const handleConnect = () => {
+    snapshot = { ...snapshot, isConnected: true };
+    attemptJoin();
+  };
+
+  const handleConnectError = (error: Error) => {
+    snapshot = { ...snapshot, error: error.message, isConnected: false };
+  };
+
+  const reconnect = () => {
+    snapshot = { ...snapshot, error: undefined };
+    attemptJoin();
   };
 
   return {
@@ -27,41 +65,44 @@ export function createGlycemicControlChartSocketStore(
     },
 
     subscribe(onStoreChange: () => void): () => void {
-      const attemptJoin = () => {
-        glycemicControlChartSocketService.join(joinPayload, (ack: AckResponse) => {
-          if (!ack.success) {
-            snapshot = { ...snapshot, error: ack.error ?? 'Não foi possível entrar na sala.' };
-            onStoreChange();
-          }
-        });
-      };
-
-      const handleUpdate = (payload: UpdatePayload) => {
-        snapshot = { ...snapshot, data: payload, error: undefined };
+      const handleUpdateWrapped = (payload: UpdatePayload) => {
+        handleUpdate(payload);
         onStoreChange();
       };
 
-      const handleJoinRejected = (payload: RejectedPayload) => {
-        snapshot = { ...snapshot, error: payload.message };
+      const handleJoinRejectedWrapped = (payload: RejectedPayload) => {
+        handleJoinRejected(payload);
         onStoreChange();
       };
 
-      const handleConnect = () => attemptJoin();
-      glycemicControlChartSocketService.onConnect(handleConnect);
+      const handleConnectWrapped = () => {
+        handleConnect();
+        onStoreChange();
+      };
+
+      const handleConnectErrorWrapped = (error: Error) => {
+        handleConnectError(error);
+        onStoreChange();
+      };
+
+      glycemicControlChartSocketService.onUpdate(handleUpdateWrapped);
+      glycemicControlChartSocketService.onJoinRejected(handleJoinRejectedWrapped);
+      glycemicControlChartSocketService.onConnect(handleConnectWrapped);
+      glycemicControlChartSocketService.onConnectError(handleConnectErrorWrapped);
 
       if (glycemicControlChartSocketService.isConnected()) {
         attemptJoin();
       }
 
-      glycemicControlChartSocketService.onUpdate(handleUpdate);
-      glycemicControlChartSocketService.onJoinRejected(handleJoinRejected);
-
       return () => {
-        glycemicControlChartSocketService.offUpdate(handleUpdate);
-        glycemicControlChartSocketService.offJoinRejected(handleJoinRejected);
-        glycemicControlChartSocketService.offConnect(handleConnect);
+        glycemicControlChartSocketService.offUpdate(handleUpdateWrapped);
+        glycemicControlChartSocketService.offJoinRejected(handleJoinRejectedWrapped);
+        glycemicControlChartSocketService.offConnect(handleConnectWrapped);
+        glycemicControlChartSocketService.offConnectError(handleConnectErrorWrapped);
         glycemicControlChartSocketService.leave(joinPayload);
       };
     },
+
+    reconnect,
   };
 }

@@ -10,6 +10,7 @@ import { GetExperimentByPinService } from '../services/get-experiment-by-pin-ser
 import { ApiError } from '@/lib/api/errors/api-error';
 import { ExperimentAccessClaims, setExperimentAccessCookie } from '../services/set-data-cookies';
 import { redirect } from 'next/navigation';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function ExperimentAccessAction(
   _prevState: ExperimentAccessFormState,
@@ -46,7 +47,7 @@ export async function ExperimentAccessAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: { pin, student },
       };
     }

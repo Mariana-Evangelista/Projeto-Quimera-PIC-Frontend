@@ -10,6 +10,7 @@ import {
 } from '../schema/experiment-manage-schema';
 import { CreateNewExperimentService } from '../services/create-new-experiment-service';
 import { updateTag } from 'next/cache';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function CreateNewExperimentAction(
   _prevState: ExperimentManageFormState,
@@ -38,7 +39,7 @@ export async function CreateNewExperimentAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: ExperimentData,
       };
     }

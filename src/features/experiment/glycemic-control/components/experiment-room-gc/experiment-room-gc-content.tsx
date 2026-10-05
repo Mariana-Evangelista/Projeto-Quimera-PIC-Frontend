@@ -5,7 +5,7 @@ import { ExperimentWaitingRoom } from '@/features/experiment/shared/components/e
 import { ExperimentState } from '@/features/experiment/shared/store/experiment-socket-store';
 
 import { useExperimentSocket } from '@/features/experiment/shared/hooks/use-experiment-socket';
-import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
+import { SocketErrorRoom } from '@/components/socket-error-room';
 import { useSearchParams } from 'next/navigation';
 import { ExperimentStatementGC } from '../experiment-statement-gc';
 import { ExperimentResultGC } from '../experiment-result-gc';
@@ -17,16 +17,20 @@ interface ExperimentRoomGCContentProps {
 }
 
 export function ExperimentRoomGCContent({ pin, slug, initialState }: ExperimentRoomGCContentProps) {
-  const { liberateSend, liberateResult, error } = useExperimentSocket(pin, slug, initialState);
+  const { liberateSend, liberateResult, error, isConnected, reconnect } = useExperimentSocket(
+    pin,
+    slug,
+    initialState
+  );
 
   const searchParams = useSearchParams();
 
   const isSendResponse = searchParams.get('is_send_response');
 
-  if (error !== undefined) {
+  if (error !== undefined && !isConnected) {
     return (
       <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160">
-        <ExperimentErrorRoom message={error} />
+        <SocketErrorRoom message={error} onReconnect={reconnect} />
       </section>
     );
   }

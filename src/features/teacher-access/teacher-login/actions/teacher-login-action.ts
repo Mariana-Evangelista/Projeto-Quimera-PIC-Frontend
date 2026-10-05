@@ -7,6 +7,7 @@ import { LoginTeacherService } from '../services/login-teacher-service';
 import { setTeacherAuthCookies } from '../services/set-teacher-auth-cookies';
 import { ApiError } from '@/lib/api/errors/api-error';
 import { redirect } from 'next/navigation';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function TeacherLoginAction(
   _prevState: TeacherLoginFormState,
@@ -45,7 +46,7 @@ export async function TeacherLoginAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: { email },
       };
     }
