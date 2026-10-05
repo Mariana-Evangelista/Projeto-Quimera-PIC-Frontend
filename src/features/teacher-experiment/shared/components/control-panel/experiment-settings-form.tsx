@@ -15,6 +15,8 @@ import { ExperimentSettingsStateTypes } from '../../types/experiment-settings-st
 import { updateExperimentSettings } from '../../actions/update-experiment-settings-action';
 import { DialogConfirmAction } from '@/components/dialog-confirm-action';
 import { ExperimentStatus } from '@/types/experiment-data-types';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertCircleIcon } from 'lucide-react';
 
 type SwitchRule = { checked: boolean; disabled: boolean };
 
@@ -113,13 +115,14 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
             />
           </Field>
         </FieldLabel>
-
-        {state.error && (
-          <p role="alert" className="text-destructive text-sm">
-            {state.error}
-          </p>
-        )}
       </FieldGroup>
+
+      {state.error && (
+        <Alert variant="destructive" className="mt-4 text-start">
+          <AlertCircleIcon className="mr-2 h-4 w-4" />
+          <AlertDescription>{state.error}s</AlertDescription>
+        </Alert>
+      )}
 
       <DialogConfirmAction
         variant="success"

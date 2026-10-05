@@ -46,6 +46,14 @@ export class SocketService<
     this.socket.off('connect', listener);
   }
 
+  onConnectError(listener: (error: Error) => void): void {
+    this.socket.on('connect_error', listener);
+  }
+
+  offConnectError(listener: (error: Error) => void): void {
+    this.socket.off('connect_error', listener);
+  }
+
   isConnected(): boolean {
     return this.socket.connected;
   }

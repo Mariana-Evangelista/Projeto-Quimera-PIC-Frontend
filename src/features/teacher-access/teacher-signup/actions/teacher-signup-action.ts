@@ -5,6 +5,7 @@ import { TeacherSignupSchema, TeacherSignupFormData } from '../schemas/teacher-s
 import { TeacherSignupFormState } from '../types/teacher-signup-form-state';
 import { SignupTeacherService } from '../services/signup-teacher-service';
 import { ApiError } from '@/lib/api/errors/api-error';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function TeacherSignupAction(
   _prevState: TeacherSignupFormState,
@@ -41,7 +42,7 @@ export async function TeacherSignupAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: { name, email },
       };
     }

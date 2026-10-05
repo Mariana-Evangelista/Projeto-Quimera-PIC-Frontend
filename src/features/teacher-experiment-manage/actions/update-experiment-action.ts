@@ -10,6 +10,7 @@ import {
 } from '../schema/experiment-manage-schema';
 import { UpdateExperimentService } from '../services/update-experiment-service';
 import { updateTag } from 'next/cache';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function UpdateExperimentAction(
   _prevState: ExperimentManageFormState,
@@ -45,7 +46,7 @@ export async function UpdateExperimentAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: ExperimentData,
       };
     }

@@ -24,11 +24,16 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { UseCreateGlycemicControlResponse } from '../../hooks/use-create-glycemic-control-response';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertCircleIcon } from 'lucide-react';
+import { useState } from 'react';
 
 export function ExperimentQuestions() {
   const experimentQuestions = GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS;
 
-  const { isLoading, onSubmit } = UseCreateGlycemicControlResponse();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const { isLoading, onSubmit, state } = UseCreateGlycemicControlResponse();
 
   const { control, handleSubmit } = useForm<GlycemicControlResponseFormData>({
     resolver: zodResolver(GlycemicControlResponseSchema),
@@ -43,6 +48,12 @@ export function ExperimentQuestions() {
 
   return (
     <Questionnaire className="mt-12">
+      {!state.success && state.message && (
+        <Alert variant="destructive" className="text-start">
+          <AlertCircleIcon className="mr-2 h-4 w-4" />
+          <AlertDescription>{state.message}</AlertDescription>
+        </Alert>
+      )}
       <QuestionnaireProgress
         className="w-full"
         render={(props, state) => (
@@ -108,7 +119,12 @@ export function ExperimentQuestions() {
           title="Tem certeza que deseja enviar sua resposta?"
           description="Não será possível voltar para editar ao clicar em confirmar."
           isPending={isLoading}
-          onConfirmAction={handleSubmit(onSubmit)}
+          open={openDialog}
+          setOpen={setOpenDialog}
+          onConfirmAction={handleSubmit((data) => {
+            onSubmit(data);
+            setOpenDialog(false);
+          })}
         >
           <QuestionnaireSubmit className="cursor-pointer">Enviar Respostas</QuestionnaireSubmit>
         </DialogConfirmAction>

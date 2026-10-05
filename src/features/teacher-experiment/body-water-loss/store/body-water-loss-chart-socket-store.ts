@@ -10,15 +10,53 @@ import { BodyWaterLossResponseChartTypes } from '@/features/experiment-charts/ty
 export interface BodyWaterLossChartSocketState {
   data: BodyWaterLossResponseChartTypes;
   error?: string;
+  isConnected: boolean;
+}
+
+export interface BodyWaterLossChartSocketStore {
+  getSnapshot(): BodyWaterLossChartSocketState;
+  subscribe(onStoreChange: () => void): () => void;
+  reconnect(): void;
 }
 
 export function createBodyWaterLossChartSocketStore(
   joinPayload: JoinPayload,
   initialState: BodyWaterLossResponseChartTypes
-) {
+): BodyWaterLossChartSocketStore {
   let snapshot: BodyWaterLossChartSocketState = {
     data: initialState,
     error: undefined,
+    isConnected: bodyWaterLossChartSocketService.isConnected(),
+  };
+
+  const attemptJoin = () => {
+    bodyWaterLossChartSocketService.join(joinPayload, (ack: AckResponse) => {
+      if (!ack.success) {
+        snapshot = { ...snapshot, error: ack.error ?? 'Não foi possível entrar na sala.' };
+      }
+    });
+  };
+
+  const handleUpdate = (payload: UpdatePayload) => {
+    snapshot = { ...snapshot, data: payload, error: undefined, isConnected: true };
+  };
+
+  const handleJoinRejected = (payload: RejectedPayload) => {
+    snapshot = { ...snapshot, error: payload.message, isConnected: false };
+  };
+
+  const handleConnect = () => {
+    snapshot = { ...snapshot, isConnected: true };
+    attemptJoin();
+  };
+
+  const handleConnectError = (error: Error) => {
+    snapshot = { ...snapshot, error: error.message, isConnected: false };
+  };
+
+  const reconnect = () => {
+    snapshot = { ...snapshot, error: undefined };
+    attemptJoin();
   };
 
   return {
@@ -27,41 +65,44 @@ export function createBodyWaterLossChartSocketStore(
     },
 
     subscribe(onStoreChange: () => void): () => void {
-      const attemptJoin = () => {
-        bodyWaterLossChartSocketService.join(joinPayload, (ack: AckResponse) => {
-          if (!ack.success) {
-            snapshot = { ...snapshot, error: ack.error ?? 'Não foi possível entrar na sala.' };
-            onStoreChange();
-          }
-        });
-      };
-
-      const handleUpdate = (payload: UpdatePayload) => {
-        snapshot = { ...snapshot, data: payload, error: undefined };
+      const handleUpdateWrapped = (payload: UpdatePayload) => {
+        handleUpdate(payload);
         onStoreChange();
       };
 
-      const handleJoinRejected = (payload: RejectedPayload) => {
-        snapshot = { ...snapshot, error: payload.message };
+      const handleJoinRejectedWrapped = (payload: RejectedPayload) => {
+        handleJoinRejected(payload);
         onStoreChange();
       };
 
-      const handleConnect = () => attemptJoin();
-      bodyWaterLossChartSocketService.onConnect(handleConnect);
+      const handleConnectWrapped = () => {
+        handleConnect();
+        onStoreChange();
+      };
+
+      const handleConnectErrorWrapped = (error: Error) => {
+        handleConnectError(error);
+        onStoreChange();
+      };
+
+      bodyWaterLossChartSocketService.onUpdate(handleUpdateWrapped);
+      bodyWaterLossChartSocketService.onJoinRejected(handleJoinRejectedWrapped);
+      bodyWaterLossChartSocketService.onConnect(handleConnectWrapped);
+      bodyWaterLossChartSocketService.onConnectError(handleConnectErrorWrapped);
 
       if (bodyWaterLossChartSocketService.isConnected()) {
         attemptJoin();
       }
 
-      bodyWaterLossChartSocketService.onUpdate(handleUpdate);
-      bodyWaterLossChartSocketService.onJoinRejected(handleJoinRejected);
-
       return () => {
-        bodyWaterLossChartSocketService.offUpdate(handleUpdate);
-        bodyWaterLossChartSocketService.offJoinRejected(handleJoinRejected);
-        bodyWaterLossChartSocketService.offConnect(handleConnect);
+        bodyWaterLossChartSocketService.offUpdate(handleUpdateWrapped);
+        bodyWaterLossChartSocketService.offJoinRejected(handleJoinRejectedWrapped);
+        bodyWaterLossChartSocketService.offConnect(handleConnectWrapped);
+        bodyWaterLossChartSocketService.offConnectError(handleConnectErrorWrapped);
         bodyWaterLossChartSocketService.leave(joinPayload);
       };
     },
+
+    reconnect,
   };
 }
