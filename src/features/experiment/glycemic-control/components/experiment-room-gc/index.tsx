@@ -4,9 +4,9 @@ import {
   EXPERIMENT_ACCESS_COOKIE,
   ExperimentAccessClaims,
 } from '@/features/experiment-access/services/set-data-cookies';
-import { ExperimentUpdatePayload } from '@/features/experiment/shared/services/experiment-socket-service';
-import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
+import { ExperimentState } from '@/features/experiment/shared/store/experiment-socket-store';
 import { GetExperimentByPinService } from '@/features/experiment-access/services/get-experiment-by-pin-service';
+import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 
 export async function ExperimentRoomGC() {
   const socketAccessData = await getSignedCookieAccess<ExperimentAccessClaims>(
@@ -19,10 +19,11 @@ export async function ExperimentRoomGC() {
 
     const experimentData = await GetExperimentByPinService(pin, type);
 
-    const initialState: ExperimentUpdatePayload = {
+    const initialState: ExperimentState = {
       experimentId: experimentData._id,
       liberateSend: experimentData.liberateSend,
       liberateResult: experimentData.liberateResult,
+      isConnected: false,
     };
 
     return <ExperimentRoomGCContent pin={pin} slug={type} initialState={initialState} />;

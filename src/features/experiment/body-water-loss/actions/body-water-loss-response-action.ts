@@ -15,6 +15,7 @@ import {
 } from '@/features/experiment-access/services/set-data-cookies';
 import { BodyWaterLossResponseTypes } from '../types/body-water-loss-response-types';
 import { CreateBodyWaterLossResponseService } from '../services/create-body-water-loss-response-service';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function BodyWaterLossResponseAction(
   _prevState: BodyWaterLossResponseFormState,
@@ -71,7 +72,7 @@ export async function BodyWaterLossResponseAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: { option_1, option_2 },
       };
     }

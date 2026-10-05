@@ -17,6 +17,7 @@ import { GlycemicControlResponseTypes } from '../types/glycemic-control-response
 import { OptionValue } from '../types/glycemic-control-question-types';
 import { CreateGlycemicControlResponseService } from '../services/create-glycemic-control-response-service';
 import { GLYCEMIC_CONTROL_EXPERIMENT_QUESTIONS } from '../constants/glycemic-control-experiment-questions';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function GlycemicControlResponseAction(
   _prevState: GlycemicControlResponseFormState,
@@ -95,7 +96,7 @@ export async function GlycemicControlResponseAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: { question_1, question_2, question_3, question_4, question_5 },
       };
     }

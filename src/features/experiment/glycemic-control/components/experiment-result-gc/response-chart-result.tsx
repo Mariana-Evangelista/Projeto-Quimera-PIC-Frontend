@@ -1,10 +1,9 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AlertCircleIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useGetGlycemicControlResponseChart } from '@/features/experiment-charts/hooks/use-get-glycemic-control-response-chart';
 import { GlycemicControlResponseChart } from '@/features/experiment-charts';
+import { ExperimentErrorRoom } from '@/features/experiment/shared/components/experiment-error-room';
 
 export function ResponseChartResult() {
   const params = useParams<{ pin: string }>();
@@ -21,11 +20,9 @@ export function ResponseChartResult() {
         {!isLoading && data && <GlycemicControlResponseChart data={data.chart} />}
         {isLoading && <Skeleton className="h-64 md:h-80" />}
         {!data && isError && error && (
-          <Alert variant="destructive" className="mb-4 text-start">
-            <AlertCircleIcon className="mr-2 h-4 w-4" />
-
-            <AlertDescription>{error.message}</AlertDescription>
-          </Alert>
+          <div className="border-border flex h-64 items-center justify-center rounded-lg border md:h-80">
+            <ExperimentErrorRoom message={error.message} />
+          </div>
         )}
       </CardContent>
     </Card>

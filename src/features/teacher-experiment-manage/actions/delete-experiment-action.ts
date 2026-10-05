@@ -5,6 +5,7 @@ import { ExperimentManageFormState } from '../types/experiment-manage-form-state
 
 import { DeleteExperimentsService } from '../services/delete-experiment-service';
 import { updateTag } from 'next/cache';
+import { GetErrorMessage } from '@/utils/get-error-message';
 
 export async function DeleteExperimentAction(
   _prevState: ExperimentManageFormState,
@@ -17,7 +18,7 @@ export async function DeleteExperimentAction(
       return {
         success: false,
         field_errors: undefined,
-        message: error.error.message,
+        message: GetErrorMessage(error),
         inputs: undefined,
       };
     }

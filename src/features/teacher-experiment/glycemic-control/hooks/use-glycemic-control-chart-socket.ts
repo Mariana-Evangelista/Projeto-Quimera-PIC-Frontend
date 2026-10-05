@@ -4,18 +4,28 @@ import { useMemo, useSyncExternalStore } from 'react';
 import {
   createGlycemicControlChartSocketStore,
   type GlycemicControlChartSocketState,
+  type GlycemicControlChartSocketStore,
 } from '../store/glycemic-control-chart-socket-store';
 import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
+
+interface UseGlycemicControlChartSocketReturn extends GlycemicControlChartSocketState {
+  reconnect: GlycemicControlChartSocketStore['reconnect'];
+}
 
 export function useGlycemicControlChartSocket(
   pin: string,
   initialState: GlycemicControlResponseChartTypes
-): GlycemicControlChartSocketState {
+): UseGlycemicControlChartSocketReturn {
   const store = useMemo(
     () => createGlycemicControlChartSocketStore({ pin }, initialState),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pin]
   );
 
-  return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
+  const snapshot = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
+
+  return {
+    ...snapshot,
+    reconnect: store.reconnect,
+  };
 }

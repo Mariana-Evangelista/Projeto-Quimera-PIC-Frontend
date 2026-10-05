@@ -23,7 +23,7 @@ export default async function DefaultLayout({ children }: { children: React.Reac
           </Suspense>
         }
       />
-      <main className="mx-5 flex flex-1 flex-col justify-center">{children}</main>
+      <main className="mx-5 flex flex-1 flex-col">{children}</main>
       <Footer />
     </div>
   );

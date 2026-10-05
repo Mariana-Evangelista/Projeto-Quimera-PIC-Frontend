@@ -1,12 +1,11 @@
 'use client';
 
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AlertCircleIcon } from 'lucide-react';
 import { GlycemicControlResponseChart } from '@/features/experiment-charts';
 import { GlycemicControlResponseChartTypes } from '@/features/experiment-charts/types/glycemic-control-response-chart-types';
 import { useGlycemicControlChartSocket } from '../../hooks/use-glycemic-control-chart-socket';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { SocketErrorRoom } from '@/components/socket-error-room';
 
 export function GlycemicControlDashboardContent({
   pin,
@@ -15,14 +14,13 @@ export function GlycemicControlDashboardContent({
   pin: string;
   initialState: GlycemicControlResponseChartTypes;
 }) {
-  const { data, error } = useGlycemicControlChartSocket(pin, initialState);
+  const { data, error, isConnected, reconnect } = useGlycemicControlChartSocket(pin, initialState);
 
-  if (error) {
+  if (error && !isConnected) {
     return (
-      <Alert variant="destructive" className="mb-4">
-        <AlertCircleIcon className="mr-2 h-4 w-4" />
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
+      <Card className="w-full sm:py-0">
+        <SocketErrorRoom message={error} onReconnect={reconnect} />
+      </Card>
     );
   }
 
