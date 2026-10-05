@@ -12,18 +12,22 @@ export async function setTeacherAuthCookies(response: TeacherLoginResponse): Pro
   const tokenSign = await signCookiePayload(
     { token: response.token },
     SECRET_ENV_NAME,
-    privateCookieDefaults.maxAgeSeconds
+    24 * 60 * 60
   );
   const teacherIdSign = await signCookiePayload(
     { teacher: response.teacher._id },
     SECRET_ENV_NAME,
-    privateCookieDefaults.maxAgeSeconds
+    24 * 60 * 60
   );
 
   const cookieStore = await cookies();
 
   cookieStore.set(config.tokenCookieName, tokenSign, {
     ...privateCookieDefaults,
+    maxAge: 24 * 60 * 60,
   });
-  cookieStore.set('teacher-id', teacherIdSign, { ...privateCookieDefaults });
+  cookieStore.set('teacher-id', teacherIdSign, {
+    ...privateCookieDefaults,
+    maxAge: 24 * 60 * 60,
+  });
 }
