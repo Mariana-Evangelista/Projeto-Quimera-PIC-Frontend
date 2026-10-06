@@ -29,14 +29,14 @@ export function ExperimentRoomGCContent({ pin, slug, initialState }: ExperimentR
 
   if (error !== undefined && !isConnected) {
     return (
-      <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160">
+      <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160" data-testid="socket-error-room">
         <SocketErrorRoom message={error} onReconnect={reconnect} />
       </section>
     );
   }
 
   return (
-    <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160">
+    <section className="border-border mb-16 flex min-h-80 w-full items-center justify-center rounded-2xl border p-4 shadow-md md:min-h-160" data-testid="student-experiment-room-gc">
       {!liberateSend && !isSendResponse && (
         <ExperimentWaitingRoom message="O professor logo irá liberar a sala do experimento." />
       )}
