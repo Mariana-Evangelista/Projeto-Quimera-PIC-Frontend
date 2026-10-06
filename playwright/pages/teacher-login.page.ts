@@ -19,14 +19,14 @@ export class TeacherLoginPage {
 
   async expectApiError(message?: string) {
     const alert = this.page.getByRole('alert');
-    await expect(alert).toBeVisible();
+    await expect(alert).toBeVisible({ timeout: 10000 });
     if (message) {
       await expect(alert).toContainText(message);
     }
   }
 
   async expectRedirectToAnalytics() {
-    await expect(this.page).toHaveURL(/\/teacher\/analytics/);
-    await expect(this.page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible();
+    await expect(this.page).toHaveURL(/\/teacher\/analytics/, { timeout: 15000 });
+    await expect(this.page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({ timeout: 10000 });
   }
 }

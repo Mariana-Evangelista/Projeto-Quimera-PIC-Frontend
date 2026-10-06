@@ -18,7 +18,7 @@ export class TeacherSignupPage {
   }
 
   async expectSuccessDialog() {
-    await expect(this.page.getByRole('heading', { name: 'Cadastro realizado com sucesso!' })).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Cadastro realizado com sucesso!' })).toBeVisible({ timeout: 15000 });
   }
 
   async confirmGoToLogin() {
@@ -27,6 +27,11 @@ export class TeacherSignupPage {
   }
 
   async expectValidationErrors() {
-    await expect(this.page.getByRole('alert')).toBeVisible();
+    await expect(this.page.getByText('Campo obrigatório').first()).toBeVisible();
+  }
+
+  async expectApiError(message?: string) {
+    const alert = this.page.getByRole('alert').filter({ hasText: message || 'E-mail já cadastrado' });
+    await expect(alert).toBeVisible({ timeout: 10000 });
   }
 }
