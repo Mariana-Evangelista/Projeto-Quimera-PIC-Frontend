@@ -1,0 +1,43 @@
+services:
+  mongodb-e2e:
+    image: mongo:7
+    container_name: mongodb-e2e
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: quimera_e2e
+    volumes:
+      - mongo-e2e-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend-e2e:
+    build:
+      context: ${QUIMERA_BACKEND_PATH:-../Projeto-Quimera-PIC-2024}
+      dockerfile: Dockerfile
+    container_name: backend-e2e
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8001:8000"
+    environment:
+      PORT: 8000
+      MONGO_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb-e2e:27017/quimera_e2e?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      mongodb-e2e:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mongo-e2e-data:
