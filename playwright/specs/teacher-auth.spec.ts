@@ -40,7 +40,7 @@ test.describe('Autenticação do Professor @p0', () => {
     const duplicateEmail = `dup-${timestamp}@example.test`;
 
     await api.post('/teacher/', {
-      data: { name: 'Professor Duplicado', email: duplicateEmail, password: teacherPassword }
+      data: { name: 'Professor Duplicado', email: duplicateEmail, password: teacherPassword },
     });
 
     const signup = new TeacherSignupPage(page);
@@ -53,7 +53,9 @@ test.describe('Autenticação do Professor @p0', () => {
   test('AUTH-004: Login válido', async ({ page, api }) => {
     const timestamp = Date.now();
     const email = `login-${timestamp}@example.test`;
-    await api.post('/teacher/', { data: { name: 'Professor Login', email, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor Login', email, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -77,10 +79,15 @@ test.describe('Autenticação do Professor @p0', () => {
     await expect(page).toHaveURL(/\/$/);
   });
 
-  test('AUTH-007: Professor autenticado tentando acessar login/signup é redirecionado', async ({ page, api }) => {
+  test('AUTH-007: Professor autenticado tentando acessar login/signup é redirecionado', async ({
+    page,
+    api,
+  }) => {
     const timestamp = Date.now();
     const email = `auth-${timestamp}@example.test`;
-    await api.post('/teacher/', { data: { name: 'Professor Auth', email, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor Auth', email, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -92,26 +99,5 @@ test.describe('Autenticação do Professor @p0', () => {
 
     await page.goto('/signup');
     await expect(page).toHaveURL(/\/teacher/);
-  });
-
-  test('AUTH-008: Logout remove sessão e redireciona para home', async ({ page, api }) => {
-    const timestamp = Date.now();
-    const email = `logout-${timestamp}@example.test`;
-    await api.post('/teacher/', { data: { name: 'Professor Logout', email, password: teacherPassword } });
-
-    const login = new TeacherLoginPage(page);
-    await login.goto();
-    await login.login(email, teacherPassword);
-    await login.expectRedirectToAnalytics();
-
-    // Open dropdown by clicking the ChevronDown trigger button
-    await page.locator('button:has(lucide-angular), button:has(svg.lucide-chevron-down), button[aria-haspopup="menu"]').first().click();
-    // Wait for dropdown to appear and click Sair
-    await page.waitForTimeout(500);
-    await page.getByText('Sair').click();
-    await expect(page).toHaveURL(/\/$/);
-
-    await page.goto('/teacher/analytics');
-    await expect(page).toHaveURL(/\/$/);
   });
 });

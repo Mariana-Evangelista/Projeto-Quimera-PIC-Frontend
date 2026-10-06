@@ -1,3 +1,4 @@
+import { Page } from '@playwright/test';
 import { test, expect } from '../fixtures/test';
 import { TeacherAnalyticsPage } from '../pages/teacher-analytics.page';
 import { TeacherExperimentPage } from '../pages/teacher-experiment.page';
@@ -12,11 +13,13 @@ test.describe('Gestão de Experimentos @p0', () => {
     teacherEmail = `quimera-e2e-${timestamp}@example.test`;
   });
 
-  async function ensureAnalyticsPage(page) {
+  async function ensureAnalyticsPage(page: Page) {
     // Navigate to the analytics page directly
     await page.goto('/teacher/analytics');
     // Wait for analytics content to be visible
-    await expect(page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({ timeout: 15000 });
+    await expect(page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({
+      timeout: 15000,
+    });
     await expect(page.getByText('Histórico de Experimentos')).toBeVisible({ timeout: 15000 });
     // Wait for table to be loaded
     await expect(page.getByTestId('teacher-experiments-table')).toBeVisible({ timeout: 15000 });
@@ -27,7 +30,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   }
 
   test('EXP-001: Analytics vazio', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-001', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-001', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -40,7 +45,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   test('EXP-002: Criar BWL', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-002', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-002', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -63,7 +70,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   test('EXP-003: Criar GC', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-003', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-003', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -86,7 +95,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   test('EXP-004: Criar inválido', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-004', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-004', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -101,7 +112,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   test('EXP-005: Editar experimento', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-005', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-005', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -130,7 +143,9 @@ test.describe('Gestão de Experimentos @p0', () => {
     await page.getByLabel('Turma').fill('Turma Editada');
     await page.getByRole('button', { name: 'Editar Experimento' }).click();
 
-    await expect(page.getByRole('heading', { name: 'Experimento atualizado com sucesso' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Experimento atualizado com sucesso' })
+    ).toBeVisible();
     await page.getByRole('button', { name: 'Confirmar' }).click();
 
     await ensureAnalyticsPage(page);
@@ -140,7 +155,9 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   test('EXP-006: Excluir cancelando', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-006', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-006', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -170,11 +187,15 @@ test.describe('Gestão de Experimentos @p0', () => {
     await ensureAnalyticsPage(page);
     await analytics.expectTableLoaded();
     // Check within the table that the experiment is still visible
-    await expect(page.getByTestId('teacher-experiments-table').getByText('Universidade Para Excluir')).toBeVisible();
+    await expect(
+      page.getByTestId('teacher-experiments-table').getByText('Universidade Para Excluir')
+    ).toBeVisible();
   });
 
   test('EXP-007: Excluir confirmando', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-007', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-007', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -205,11 +226,17 @@ test.describe('Gestão de Experimentos @p0', () => {
     await ensureAnalyticsPage(page);
     await analytics.expectTableLoaded();
     // Check that the experiment is no longer in the table
-    await expect(page.getByTestId('teacher-experiments-table').getByText('Universidade Para Excluir Confirmado')).not.toBeVisible();
+    await expect(
+      page
+        .getByTestId('teacher-experiments-table')
+        .getByText('Universidade Para Excluir Confirmado')
+    ).not.toBeVisible();
   });
 
   test('EXP-008: Filtrar tabela', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-008', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-008', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -219,14 +246,22 @@ test.describe('Gestão de Experimentos @p0', () => {
     await ensureAnalyticsPage(page);
 
     const analytics = new TeacherAnalyticsPage(page);
-    await analytics.createExperiment({ type: 'body-water-loss', university: 'Uni BWL', class: 'Turma BWL' });
+    await analytics.createExperiment({
+      type: 'body-water-loss',
+      university: 'Uni BWL',
+      class: 'Turma BWL',
+    });
     await analytics.expectSuccessDialog();
     await analytics.confirmOpenExperiment();
     await page.waitForURL(/\/teacher\/experiment\/[a-f0-9]{24}/);
     await page.goto('/teacher');
     await ensureAnalyticsPage(page);
 
-    await analytics.createExperiment({ type: 'glycemic-control', university: 'Uni GC', class: 'Turma GC' });
+    await analytics.createExperiment({
+      type: 'glycemic-control',
+      university: 'Uni GC',
+      class: 'Turma GC',
+    });
     await analytics.expectSuccessDialog();
     await analytics.confirmOpenExperiment();
     await page.waitForURL(/\/teacher\/experiment\/[a-f0-9]{24}/);
@@ -245,11 +280,15 @@ test.describe('Gestão de Experimentos @p0', () => {
 
     await analytics.filterByType('body-water-loss');
     await analytics.filterByStatus('Não iniciado');
-    await expect(page.getByTestId('teacher-experiments-table').getByText('Não iniciado')).toBeVisible();
+    await expect(
+      page.getByTestId('teacher-experiments-table').getByText('Não iniciado')
+    ).toBeVisible();
   });
 
   test('EXP-009: Ordenar tabela', async ({ page, api }) => {
-    await api.post('/teacher/', { data: { name: 'Professor EXP-009', email: teacherEmail, password: teacherPassword } });
+    await api.post('/teacher/', {
+      data: { name: 'Professor EXP-009', email: teacherEmail, password: teacherPassword },
+    });
 
     const login = new TeacherLoginPage(page);
     await login.goto();
@@ -259,16 +298,24 @@ test.describe('Gestão de Experimentos @p0', () => {
     await ensureAnalyticsPage(page);
 
     const analytics = new TeacherAnalyticsPage(page);
-    await analytics.createExperiment({ type: 'body-water-loss', university: 'Primeiro', class: 'Turma 1' });
+    await analytics.createExperiment({
+      type: 'body-water-loss',
+      university: 'Primeiro',
+      class: 'Turma 1',
+    });
     await analytics.expectSuccessDialog();
     await analytics.confirmOpenExperiment();
     await page.waitForURL(/\/teacher\/experiment\/[a-f0-9]{24}/);
     await page.goto('/teacher');
     await ensureAnalyticsPage(page);
 
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise((r) => setTimeout(r, 100));
 
-    await analytics.createExperiment({ type: 'glycemic-control', university: 'Segundo', class: 'Turma 2' });
+    await analytics.createExperiment({
+      type: 'glycemic-control',
+      university: 'Segundo',
+      class: 'Turma 2',
+    });
     await analytics.expectSuccessDialog();
     await analytics.confirmOpenExperiment();
     await page.waitForURL(/\/teacher\/experiment\/[a-f0-9]{24}/);
@@ -277,7 +324,11 @@ test.describe('Gestão de Experimentos @p0', () => {
 
     await analytics.expectTableLoaded();
 
-    const firstRowUniversity = page.locator('[data-testid^="experiment-row-"]').first().locator('td').nth(2);
+    const firstRowUniversity = page
+      .locator('[data-testid^="experiment-row-"]')
+      .first()
+      .locator('td')
+      .nth(2);
     await expect(firstRowUniversity).toContainText('Segundo');
 
     await analytics.sortByDate('oldest');
