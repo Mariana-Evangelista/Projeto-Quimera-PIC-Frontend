@@ -30,6 +30,7 @@ services:
       MONGO_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb-e2e:27017/quimera_e2e?authSource=admin
       JWT_SECRET: ${JWT_SECRET}
       CORS_ORIGIN: ${CORS_ORIGIN}
+      E2E_TEST: "true"
     depends_on:
       mongodb-e2e:
         condition: service_healthy

@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const baseURL = process.env.PLAYWRIGHT_TEST_BASE_URL ?? 'http://127.0.0.1:3000';
 const isCI = Boolean(process.env.CI);
+const apiBaseURL = process.env.API_BASE_URL ?? (isCI ? 'http://127.0.0.1:8001' : 'http://127.0.0.1:8001');
 
 export default defineConfig({
   testDir: './playwright/specs',
@@ -44,7 +45,7 @@ export default defineConfig({
     reuseExistingServer: !isCI,
     timeout: 120_000,
     env: {
-      API_BASE_URL: process.env.API_BASE_URL ?? 'http://localhost:8000',
+      API_BASE_URL: apiBaseURL,
       API_TIMEOUT_MS: process.env.API_TIMEOUT_MS ?? '30000',
       TEACHER_ACCESS_TOKEN_SECRET: process.env.TEACHER_ACCESS_TOKEN_SECRET ?? 'test-teacher-secret-min-32-chars-long',
       EXPERIMENT_ACCESS_SECRET: process.env.EXPERIMENT_ACCESS_SECRET ?? 'test-experiment-secret-min-32-chars-long',
