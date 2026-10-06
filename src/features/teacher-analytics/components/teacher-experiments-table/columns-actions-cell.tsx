@@ -34,11 +34,12 @@ export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDa
           <DropdownMenuItem
             className="cursor-pointer"
             onSelect={() => router.push(`/teacher/experiment/${experiment._id}`)}
+            data-testid={`experiment-action-open-${experiment._id}`}
           >
             <ExternalLink />
             Abrir
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onSelect={() => setUpdateOpen(true)}>
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => setUpdateOpen(true)} data-testid={`experiment-action-edit-${experiment._id}`}>
             <Pencil />
             Editar
           </DropdownMenuItem>
@@ -47,6 +48,7 @@ export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDa
             className="cursor-pointer"
             onSelect={() => setDeleteOpen(true)}
             variant="destructive"
+            data-testid={`experiment-action-delete-${experiment._id}`}
           >
             <Trash2 />
             Excluir

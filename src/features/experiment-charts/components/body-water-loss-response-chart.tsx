@@ -16,7 +16,7 @@ const chartConfig = {
 
 export function BodyWaterLossResponseChart({ data }: { data: BodyWaterLossChartTypes[] }) {
   return (
-    <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80">
+    <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80" data-testid="body-water-loss-chart">
       <LineChart
         accessibilityLayer
         data={data}

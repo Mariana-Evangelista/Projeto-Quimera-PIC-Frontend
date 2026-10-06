@@ -56,7 +56,7 @@ export function DataTable<TData extends RowData>({ columns, data }: DataTablePro
       <Filters table={table} />
 
       <div className="border-border overflow-hidden rounded-md border">
-        <Table>
+        <Table data-testid="teacher-experiments-table">
           <TableHeader className="bg-accent">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="border-border">
@@ -79,6 +79,7 @@ export function DataTable<TData extends RowData>({ columns, data }: DataTablePro
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  data-testid={`experiment-row-${(row.original as unknown as { _id: string })._id}`}
                   data-state={row.getIsSelected() && 'selected'}
                   className="border-b-border"
                 >

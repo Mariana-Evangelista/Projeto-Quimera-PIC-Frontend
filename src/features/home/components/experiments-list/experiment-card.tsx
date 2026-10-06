@@ -15,9 +15,10 @@ interface ExperimentCardProps {
 
 export function ExperimentCard({ experiment }: ExperimentCardProps) {
   const Icon = experiment.Icon;
+  const testId = `home-experiment-card-${experiment.slug}`;
 
   return (
-    <Card className="w-full max-w-md px-4 py-8">
+    <Card className="w-full max-w-md px-4 py-8" data-testid={testId}>
       <CardHeader className="text-center">
         <div className="border-border mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border">
           <Icon className="h-8 w-8" strokeWidth={1.4} />

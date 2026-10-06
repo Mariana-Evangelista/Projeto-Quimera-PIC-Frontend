@@ -16,7 +16,7 @@ const chartConfig = {
 
 export function GlycemicControlResponseChart({ data }: { data: GlycemicControlChartTypes[] }) {
   return (
-    <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80">
+    <ChartContainer config={chartConfig} className="aspect-auto h-64 w-full md:h-80" data-testid="glycemic-control-chart">
       <LineChart
         accessibilityLayer
         data={data}

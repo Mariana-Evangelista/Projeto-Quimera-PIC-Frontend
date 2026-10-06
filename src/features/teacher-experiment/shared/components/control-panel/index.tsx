@@ -11,7 +11,7 @@ interface ControlPanelProps {
 
 export function ControlPanel({ experimentId, status, children }: ControlPanelProps) {
   return (
-    <Card className="w-full lg:max-w-sm">
+    <Card className="w-full lg:max-w-sm" data-testid="control-panel">
       <CardHeader className="border-border border-b">
         <CardTitle>Painel de Controle</CardTitle>
       </CardHeader>
