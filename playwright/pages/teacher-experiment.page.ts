@@ -8,8 +8,9 @@ export class TeacherExperimentPage {
   }
 
   async expectHeader(pin: string, status: string) {
-    await expect(this.page.getByText(`PIN: ${pin}`)).toBeVisible();
-    await expect(this.page.getByText(status)).toBeVisible();
+    await expect(this.page.locator('text=Pin:').locator('..').locator('span.font-medium').first()).toHaveText(pin);
+    // Status appears in header and table, use the one in the header section
+    await expect(this.page.locator('header').getByText(status)).toBeVisible();
   }
 
   async expectControlPanel() {
@@ -47,8 +48,13 @@ export class TeacherExperimentPage {
   }
 
   async getExperimentPin(): Promise<string> {
-    const pinText = await this.page.getByText(/PIN: (\w+)/).textContent();
-    const match = pinText?.match(/PIN: (\w+)/);
+    const pinText = await this.page.locator('text=Pin:').locator('..').locator('span.font-medium').first().textContent();
+    return pinText?.trim() || '';
+  }
+
+  async getExperimentId(): Promise<string> {
+    const url = this.page.url();
+    const match = url.match(/\/teacher\/experiment\/([a-f0-9]{24})/);
     return match?.[1] || '';
   }
 
