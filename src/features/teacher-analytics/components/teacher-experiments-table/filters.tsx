@@ -37,7 +37,7 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
           }}
         >
           <div className="flex items-center gap-4">
-            <SelectTrigger className="border-border cursor-pointer border">
+            <SelectTrigger className="border-border cursor-pointer border" data-testid="filter-type-trigger">
               <SelectValue placeholder="Selecione um tipo" />
             </SelectTrigger>
           </div>
@@ -69,7 +69,7 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
           }}
         >
           <div className="flex items-center gap-4">
-            <SelectTrigger className="border-border cursor-pointer border">
+            <SelectTrigger className="border-border cursor-pointer border" data-testid="filter-status-trigger">
               <SelectValue placeholder="Selecione um status" />
             </SelectTrigger>
           </div>
@@ -104,9 +104,9 @@ export function Filters<TData extends RowData>({ table }: FilterProps<TData>) {
             createdAtColumn?.toggleSorting(value === 'newest');
           }}
         >
-          <SelectTrigger className="border-border cursor-pointer border">
-            <SelectValue placeholder="Ordenar" />
-          </SelectTrigger>
+<SelectTrigger className="border-border cursor-pointer border" data-testid="filter-sort-trigger">
+              <SelectValue placeholder="Ordenar" />
+            </SelectTrigger>
 
           <SelectContent>
             <SelectGroup>

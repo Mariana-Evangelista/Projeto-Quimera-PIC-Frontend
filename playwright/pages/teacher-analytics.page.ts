@@ -15,11 +15,8 @@ export class TeacherAnalyticsPage {
   async createExperiment(data: { type: 'body-water-loss' | 'glycemic-control'; university: string; class: string }) {
     await this.openCreateExperiment();
 
-    if (data.type === 'body-water-loss') {
-      await this.page.getByLabel('Queda de Água Corporal').click();
-    } else {
-      await this.page.getByLabel('Controle Glicêmico').click();
-    }
+    const typeId = data.type === 'body-water-loss' ? 'experiment-type-body-water-loss' : 'experiment-type-glycemic-control';
+    await this.page.getByTestId(typeId).click();
 
     await this.page.getByLabel('Universidade').fill(data.university);
     await this.page.getByLabel('Turma').fill(data.class);
@@ -34,37 +31,43 @@ export class TeacherAnalyticsPage {
     await this.page.getByRole('button', { name: 'Confirmar' }).click();
   }
 
-  async findExperimentRow(pin: string) {
-    return this.page.getByTestId(`experiment-row-${pin}`);
+  async findExperimentRow(experimentId: string) {
+    return this.page.getByTestId(`experiment-row-${experimentId}`);
   }
 
   async filterByType(type: 'body-water-loss' | 'glycemic-control') {
-    await this.page.getByRole('combobox', { name: 'Filtrar por tipo' }).click();
+    await this.page.getByTestId('filter-type-trigger').click();
     await this.page.getByRole('option', { name: type === 'body-water-loss' ? 'Queda de Água Corporal' : 'Controle Glicêmico' }).click();
   }
 
   async filterByStatus(status: 'Não iniciado' | 'Em Progresso' | 'Finalizado') {
-    await this.page.getByRole('combobox', { name: 'Filtrar por status' }).click();
+    await this.page.getByTestId('filter-status-trigger').click();
     await this.page.getByRole('option', { name: status }).click();
   }
 
   async sortByDate(order: 'recent' | 'oldest') {
-    await this.page.getByRole('button', { name: order === 'recent' ? 'Mais recentes' : 'Mais antigos' }).click();
+    await this.page.getByTestId('filter-sort-trigger').click();
+    await this.page.getByRole('option', { name: order === 'recent' ? 'Mais Recente' : 'Mais Antigo' }).click();
   }
 
-  async openExperiment(pin: string) {
-    const row = await this.findExperimentRow(pin);
-    await row.getByTestId(`experiment-action-open-${pin}`).click();
+  async openExperiment(experimentId: string) {
+    const row = await this.findExperimentRow(experimentId);
+    await row.getByTestId(`experiment-action-open-${experimentId}`).click();
   }
 
-  async openEdit(pin: string) {
-    const row = await this.findExperimentRow(pin);
-    await row.getByTestId(`experiment-action-edit-${pin}`).click();
+  async openEdit(experimentId: string) {
+    const row = await this.findExperimentRow(experimentId);
+    // Click the dropdown trigger (button with MoreHorizontal icon)
+    await row.locator('button[aria-haspopup="menu"]').first().click();
+    // Dropdown menu items might be in a portal, search globally
+    await this.page.getByTestId(`experiment-action-edit-${experimentId}`).click();
   }
 
-  async openDelete(pin: string) {
-    const row = await this.findExperimentRow(pin);
-    await row.getByTestId(`experiment-action-delete-${pin}`).click();
+  async openDelete(experimentId: string) {
+    const row = await this.findExperimentRow(experimentId);
+    await row.locator('button[aria-haspopup="menu"]').first().click();
+    // Dropdown menu items might be in a portal, search globally
+    await this.page.getByTestId(`experiment-action-delete-${experimentId}`).click();
   }
 
   async expectTableLoaded() {
