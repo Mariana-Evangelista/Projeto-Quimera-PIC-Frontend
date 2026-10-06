@@ -88,6 +88,7 @@ export function ExperimentSettingsForm({ experimentId, status }: ExperimentSetti
             <Switch
               className="cursor-pointer"
               id="liberate-send-response"
+              data-testid="liberate-send-response"
               checked={send.checked}
               disabled={sendDisabled}
               onCheckedChange={(checked) =>

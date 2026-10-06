@@ -17,18 +17,20 @@ export class ExperimentAccessPage {
   }
 
   async expectAccessError(message?: string) {
-    const alert = this.page.getByRole('alert');
+    const alert = this.page.getByRole('alert').first();
     await expect(alert).toBeVisible();
     if (message) {
       await expect(alert).toContainText(message);
     }
   }
 
-  async expectRedirectToContent(slug: 'body-water-loss' | 'glycemic-control', pin: string) {
-    await expect(this.page).toHaveURL(new RegExp(`/experiment/${slug}/${pin}\\?start_experiment_room=false`));
+  async expectRedirectToContent(slug: 'body-water-loss' | 'glycemic-control') {
+    // The application redirects to the base experiment URL after successful authentication
+    // The PIN is stored in a cookie, not in the URL path
+    await expect(this.page).toHaveURL(new RegExp(`/experiment/${slug}(\\?.*)?$`));
   }
 
   async expectValidationErrors() {
-    await expect(this.page.getByRole('alert')).toBeVisible();
+    await expect(this.page.getByText('Campo obrigatório').first()).toBeVisible();
   }
 }

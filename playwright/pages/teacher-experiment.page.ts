@@ -18,7 +18,8 @@ export class TeacherExperimentPage {
   }
 
   async allowSubmissions() {
-    await this.page.getByRole('switch', { name: 'Permitir Envio de Respostas' }).click();
+    // Use the switch by its ID since the role might not be detected correctly
+    await this.page.getByTestId('liberate-send-response').click();
   }
 
   async shareResults() {
