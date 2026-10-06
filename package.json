@@ -14,7 +14,12 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:smoke": "playwright test --grep @smoke",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "e2e:backend:up": "docker compose -f e2e/docker-compose.e2e.yml --env-file e2e/.env.e2e up -d --build",
+    "e2e:backend:down": "docker compose -f e2e/docker-compose.e2e.yml --env-file e2e/.env.e2e down -v",
+    "e2e:backend:reset": "npm run e2e:backend:down && npm run e2e:backend:up",
+    "e2e:backend:logs": "docker compose -f e2e/docker-compose.e2e.yml --env-file e2e/.env.e2e logs -f",
+    "e2e:wait-for-api": "tsx e2e/wait-for-api.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -59,6 +64,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
