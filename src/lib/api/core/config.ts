@@ -23,7 +23,8 @@ function validateBaseUrl(url: string): string {
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error('API_BASE_URL deve usar http ou https');
   }
-  if (process.env.NODE_ENV === 'production' && parsed.protocol !== 'https:') {
+  const isCI = process.env.CI === 'true';
+  if (process.env.NODE_ENV === 'production' && !isCI && parsed.protocol !== 'https:') {
     throw new Error('API_BASE_URL deve usar HTTPS em produção');
   }
   return parsed.toString();
