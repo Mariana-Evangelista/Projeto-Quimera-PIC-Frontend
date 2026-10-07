@@ -2,24 +2,24 @@ name: Playwright E2E
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   e2e:
-    if: github.ref == 'refs/heads/main'
-    timeout-minutes: 60
+    if: github.ref == 'refs/heads/master'
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     env:
       CI: true
       PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
       API_BASE_URL: http://127.0.0.1:8001
       API_TIMEOUT_MS: 30000
-      TEACHER_ACCESS_TOKEN_SECRET: ${{ secrets.E2E_TEACHER_ACCESS_TOKEN_SECRET }}
-      EXPERIMENT_ACCESS_SECRET: ${{ secrets.E2E_EXPERIMENT_ACCESS_SECRET }}
-      MONGO_ROOT_USERNAME: ${{ secrets.E2E_MONGO_ROOT_USERNAME }}
-      MONGO_ROOT_PASSWORD: ${{ secrets.E2E_MONGO_ROOT_PASSWORD }}
-      JWT_SECRET: ${{ secrets.E2E_JWT_SECRET }}
-      CORS_ORIGIN: ${{ secrets.E2E_CORS_ORIGIN }}
+      TEACHER_ACCESS_TOKEN_SECRET: ${{ secrets.TEACHER_ACCESS_TOKEN_SECRET }}
+      EXPERIMENT_ACCESS_SECRET: ${{ secrets.EXPERIMENT_ACCESS_SECRET }}
+      MONGO_ROOT_USERNAME: ${{ secrets.MONGO_ROOT_USERNAME }}
+      MONGO_ROOT_PASSWORD: ${{ secrets.MONGO_ROOT_PASSWORD }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
     steps:
       - name: Checkout frontend
         uses: actions/checkout@v4
@@ -48,10 +48,10 @@ jobs:
           cd ${{ github.workspace }}
           cat > e2e/.env.e2e <<EOF
           QUIMERA_BACKEND_PATH=./backend
-          MONGO_ROOT_USERNAME=${{ secrets.E2E_MONGO_ROOT_USERNAME }}
-          MONGO_ROOT_PASSWORD=${{ secrets.E2E_MONGO_ROOT_PASSWORD }}
-          JWT_SECRET=${{ secrets.E2E_JWT_SECRET }}
-          CORS_ORIGIN=${{ secrets.E2E_CORS_ORIGIN }}
+          MONGO_ROOT_USERNAME=${{ secrets.MONGO_ROOT_USERNAME }}
+          MONGO_ROOT_PASSWORD=${{ secrets.MONGO_ROOT_PASSWORD }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}
           PORT=8000
           EOF
           npm run e2e:backend:up
@@ -64,7 +64,6 @@ jobs:
 
       - name: Run Playwright tests
         run: npm run test:e2e
-        continue-on-error: true
 
       - name: Collect backend logs on failure
         if: failure()
