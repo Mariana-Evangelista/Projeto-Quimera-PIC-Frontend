@@ -35,7 +35,7 @@ export function ExperimentControlRoomHeader({ experiment }: ExperimentControlRoo
         <section className="grid grid-cols-2 grid-rows-2 gap-4 text-xs sm:text-sm">
           <p className="flex items-center gap-2">
             <Bookmark size={16} />
-            Pin: <span className="font-medium">{experiment.pin}</span>
+            Pin: <span className="font-medium" data-testid="experiment-pin">{experiment.pin}</span>
           </p>
           <p className="flex items-center gap-2">
             <CircleDashed size={16} />
