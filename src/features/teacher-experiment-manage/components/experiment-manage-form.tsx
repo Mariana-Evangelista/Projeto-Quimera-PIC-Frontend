@@ -53,6 +53,7 @@ export function ExperimentManageForm({ control, type }: ExperimentManageFormProp
                         <RadioGroupItem
                           value={data.slug}
                           id={`experiment-type-${data.slug}`}
+                          data-testid={`experiment-type-${data.slug}`}
                           aria-invalid={fieldState.invalid}
                           className="after:bg-background relative after:absolute after:top-1/2 after:left-1/2 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full data-[state=checked]:after:hidden"
                         />

@@ -11,7 +11,7 @@ interface SocketErrorRoomProps {
 
 export function SocketErrorRoom({ message, onReconnect }: SocketErrorRoomProps) {
   return (
-    <main className="flex items-center justify-center px-4">
+    <main className="flex items-center justify-center px-4" data-testid="socket-error-room">
       <div className="flex flex-col items-center gap-3 text-center">
         <LogoQuimera className="text-destructive border-border rounded-full border text-7xl sm:text-8xl" />
         <div className="space-y-2">
