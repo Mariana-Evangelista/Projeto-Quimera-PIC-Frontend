@@ -47,7 +47,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           cat > e2e/.env.e2e <<EOF
-          QUIMERA_BACKEND_PATH=.backend
+          QUIMERA_BACKEND_PATH=../.backend
           MONGO_ROOT_USERNAME=${{ secrets.MONGO_ROOT_USERNAME }}
           MONGO_ROOT_PASSWORD=${{ secrets.MONGO_ROOT_PASSWORD }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
