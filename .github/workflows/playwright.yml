@@ -1,0 +1,99 @@
+name: Playwright E2E
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  e2e:
+    if: github.ref == 'refs/heads/master'
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
+      API_BASE_URL: http://127.0.0.1:8001
+      API_TIMEOUT_MS: 30000
+      TEACHER_ACCESS_TOKEN_SECRET: ${{ secrets.TEACHER_ACCESS_TOKEN_SECRET }}
+      EXPERIMENT_ACCESS_SECRET: ${{ secrets.EXPERIMENT_ACCESS_SECRET }}
+      MONGO_ROOT_USERNAME: ${{ secrets.MONGO_ROOT_USERNAME }}
+      MONGO_ROOT_PASSWORD: ${{ secrets.MONGO_ROOT_PASSWORD }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+    steps:
+      - name: Checkout frontend
+        uses: actions/checkout@v4
+
+      - name: Checkout backend (develop)
+        uses: actions/checkout@v4
+        with:
+          repository: Mariana-Evangelista/Projeto-Quimera-PIC-2024
+          ref: develop
+          path: backend
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start E2E backend (MongoDB + API)
+        run: |
+          cd ${{ github.workspace }}
+          cat > e2e/.env.e2e <<EOF
+          QUIMERA_BACKEND_PATH=./backend
+          MONGO_ROOT_USERNAME=${{ secrets.MONGO_ROOT_USERNAME }}
+          MONGO_ROOT_PASSWORD=${{ secrets.MONGO_ROOT_PASSWORD }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}
+          PORT=8000
+          EOF
+          npm run e2e:backend:up
+
+      - name: Wait for API health
+        run: npm run e2e:wait-for-api
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+
+      - name: Collect backend logs on failure
+        if: failure()
+        run: |
+          docker compose -f e2e/docker-compose.e2e.yml --env-file e2e/.env.e2e logs --no-color > backend-logs.txt 2>&1 || true
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 14
+
+      - name: Upload backend logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-logs
+          path: backend-logs.txt
+          retention-days: 14
+
+      - name: Cleanup E2E backend
+        if: always()
+        run: npm run e2e:backend:down
