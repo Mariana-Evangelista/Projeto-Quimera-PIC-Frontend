@@ -80,7 +80,6 @@ Aborda a atuação dos hormônios na regulação da glicose sanguínea e os proc
 ## Links
 
 - **Aplicação em produção:** [quimera.mevangelista.com](https://quimera.mevangelista.com)
-- **Frontend:** [Mariana-Evangelista/Projeto-Quimera-PIC-Frontend](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-Frontend)
 - **Backend:** [Mariana-Evangelista/Projeto-Quimera-PIC-2024](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024)
 
 ## Tecnologias
@@ -193,17 +192,6 @@ npm run e2e:backend:down
 
 A configuração de testes utiliza uma instância separada do MongoDB e não deve compartilhar dados com desenvolvimento ou produção. Consulte [`e2e/README.md`](./e2e/README.md) para detalhes sobre variáveis, isolamento e execução em CI.
 
-## Deploy
-
-A aplicação está publicada em produção em [quimera.mevangelista.com](https://quimera.mevangelista.com). O frontend pode ser executado como uma aplicação Next.js em um ambiente compatível com Node.js ou em uma plataforma de deploy para Next.js.
-
-Antes do deploy, configure pelo menos:
-
-- `API_BASE_URL`, apontando para a API de produção;
-- `NEXT_PUBLIC_SOCKET_URL`, apontando para o servidor Socket.IO de produção;
-- os segredos utilizados pelo backend e pelos cookies de acesso, quando aplicável;
-- as regras de CORS do backend para aceitar o domínio do frontend.
-
 ## Contexto acadêmico
 
 O Quimera integra tecnologia e metodologias ativas de aprendizagem para aproximar os conceitos de Fisiologia Animal da prática em sala de aula. A dinâmica de respostas anônimas e resultados compartilhados favorece a participação da turma e oferece ao professor uma visão rápida das principais dificuldades de aprendizagem.
@@ -211,7 +199,3 @@ O Quimera integra tecnologia e metodologias ativas de aprendizagem para aproxima
 ## Autoria
 
 Projeto desenvolvido por **Mariana Evangelista** para o PIC 2024 do Centro Universitário Barão de Mauá, em parceria com o curso de Medicina Veterinária.
-
-## Licença
-
-Este projeto é de caráter acadêmico. Consulte os responsáveis pelo repositório antes de reutilizar, distribuir ou publicar partes do código e dos materiais didáticos.
