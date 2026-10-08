@@ -18,7 +18,7 @@ export const GLYCEMIC_CONTROL_DEFAULT_DATA: ExperimentDefaultDataTypes = {
       description:
         'Compreenda os mecanismos hormonais de controle glicêmico e seus limiares de regulação.',
       markdown: MakdownReadContent(
-        '@/features/experiment/glycemic-control/content/content-introduction-gc.md'
+        'src/features/experiment/glycemic-control/content/content-introduction-gc.md'
       ),
       imgSrc: GraphGlycemicVariation,
       imgAlt:
@@ -30,7 +30,7 @@ export const GLYCEMIC_CONTROL_DEFAULT_DATA: ExperimentDefaultDataTypes = {
       description:
         'Analise um caso clínico real e aplique os conceitos de glicemia e Diabetes Mellitus.',
       markdown: MakdownReadContent(
-        '@/features/experiment/glycemic-control/content/content-clinic-case-gc.md'
+        'src/features/experiment/glycemic-control/content/content-clinic-case-gc.md'
       ),
       imgSrc: SickDog,
       imgAlt: 'Imagem de um cachorro doente deitado, com expressão triste.',

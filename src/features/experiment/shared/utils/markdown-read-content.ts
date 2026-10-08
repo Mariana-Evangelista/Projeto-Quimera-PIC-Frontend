@@ -1,6 +1,7 @@
 import fs from 'fs';
+import path from 'path';
 
-export const MakdownReadContent = (path: string): string => {
-  const markdown = fs.readFileSync(path, 'utf8');
-  return markdown;
+export const MakdownReadContent = (relativePath: string): string => {
+  const fullPath = path.join(process.cwd(), relativePath);
+  return fs.readFileSync(fullPath, 'utf8');
 };

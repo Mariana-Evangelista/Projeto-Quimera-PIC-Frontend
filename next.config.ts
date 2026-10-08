@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  outputFileTracingIncludes: {
+    '/': ['./src/features/experiment/**/content/*.md'],
+    '/**/*': ['./src/features/experiment/**/content/*.md'],
+  },
 };
 
 export default nextConfig;
