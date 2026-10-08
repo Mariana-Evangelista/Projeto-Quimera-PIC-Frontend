@@ -25,7 +25,7 @@ export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDa
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger className="cursor-pointer rounded-full">
           <MoreHorizontal size={16} />
         </DropdownMenuTrigger>
@@ -39,7 +39,11 @@ export function ExperimentActionsCell({ experiment }: { experiment: ExperimentDa
             <ExternalLink />
             Abrir
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onSelect={() => setUpdateOpen(true)} data-testid={`experiment-action-edit-${experiment._id}`}>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() => setUpdateOpen(true)}
+            data-testid={`experiment-action-edit-${experiment._id}`}
+          >
             <Pencil />
             Editar
           </DropdownMenuItem>

@@ -8,7 +8,7 @@ export function DefaultData() {
       <Link href={`/login`} passHref>
         <Button variant="secondary" className="cursor-pointer text-xs sm:text-sm">
           Faça Login
-        </Button>{' '}
+        </Button>
       </Link>
     </div>
   );
