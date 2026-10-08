@@ -1,11 +1,13 @@
 import { NavBar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { connection } from 'next/server';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { GetTeacherDataService } from '@/features/teacher-access/services/get-teacher-data';
 import { TeacherData } from '@/components/layout/user/teacher-data';
 
 export default async function DefaultLayout({ children }: { children: React.ReactNode }) {
+  await connection();
   const data = await GetTeacherDataService();
   return (
     <div className="flex min-h-screen flex-col antialiased">
