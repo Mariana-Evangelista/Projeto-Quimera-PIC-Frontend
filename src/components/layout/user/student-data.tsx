@@ -8,11 +8,11 @@ export async function StudentData({ student }: { student: ExperimentAccessClaims
   }
 
   return (
-    <div className="flex min-w-40 items-center gap-4 text-end text-xs sm:text-start sm:text-sm">
+    <div className="flex items-center justify-end text-end text-xs sm:min-w-40 sm:justify-start sm:gap-4 sm:text-start sm:text-sm">
       <div className="bg-muted text-muted-foreground/60 hidden h-9 w-9 items-center justify-center rounded-full sm:flex">
         <FaUser size={24} />
       </div>
-      <div>
+      <div className="mr-4 sm:mr-0">
         <p className="font-semibold">Olá, {student.studentName}</p>
         <span>Turma {student.class}</span>
       </div>
