@@ -18,7 +18,7 @@ export const BODY_WATER_LOSS_DEFAULT_DATA: ExperimentDefaultDataTypes = {
       description:
         'Compreenda os mecanismos fisiológicos de homeostase hídrica e seus limiares de regulação.',
       markdown: MakdownReadContent(
-        'src/features/experiment/body-water-loss/content/content-introduction-bwl.md'
+        '@/features/experiment/body-water-loss/content/content-introduction-bwl.md'
       ),
       imgSrc: CatWater,
       imgAlt: 'Imagem de um gato bebendo águana torneira.',
@@ -29,7 +29,7 @@ export const BODY_WATER_LOSS_DEFAULT_DATA: ExperimentDefaultDataTypes = {
       description:
         'Analise um caso clínico real e aplique os conceitos de desidratação e balanço hídrico.',
       markdown: MakdownReadContent(
-        'src/features/experiment/body-water-loss/content/content-clinic-case-bwl.md'
+        '@/features/experiment/body-water-loss/content/content-clinic-case-bwl.md'
       ),
       imgSrc: CatVet,
       imgAlt: 'Imagem de um gato sendo examinado por um veterinário.',
