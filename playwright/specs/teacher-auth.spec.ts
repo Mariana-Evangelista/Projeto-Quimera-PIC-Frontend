@@ -62,7 +62,6 @@ test.describe('Autenticação do Professor @p0', () => {
     await login.login(email, teacherPassword);
     await login.expectRedirectToAnalytics();
 
-    // Check for teacher name in navbar
     await expect(page.getByText('Olá, Professor')).toBeVisible();
   });
 

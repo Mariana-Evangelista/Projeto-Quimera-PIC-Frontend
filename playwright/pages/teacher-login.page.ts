@@ -26,8 +26,9 @@ export class TeacherLoginPage {
   }
 
   async expectRedirectToAnalytics() {
-    // The proxy redirects /teacher to /teacher/analytics, but there might be an intermediate redirect
     await expect(this.page).toHaveURL(/\/teacher/, { timeout: 15000 });
-    await expect(this.page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({ timeout: 10000 });
+    await expect(this.page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({
+      timeout: 10000,
+    });
   }
 }

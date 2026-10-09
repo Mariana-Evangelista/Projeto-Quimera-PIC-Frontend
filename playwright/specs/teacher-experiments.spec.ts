@@ -14,16 +14,12 @@ test.describe('Gestão de Experimentos @p0', () => {
   });
 
   async function ensureAnalyticsPage(page: Page) {
-    // Navigate to the analytics page directly
     await page.goto('/teacher/analytics');
-    // Wait for analytics content to be visible
     await expect(page.getByRole('heading', { name: 'Área do Professor' })).toBeVisible({
       timeout: 15000,
     });
     await expect(page.getByText('Histórico de Experimentos')).toBeVisible({ timeout: 15000 });
-    // Wait for table to be loaded
     await expect(page.getByTestId('teacher-experiments-table')).toBeVisible({ timeout: 15000 });
-    // Wait for filter and sort controls to be loaded
     await expect(page.getByTestId('filter-type-trigger')).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId('filter-status-trigger')).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId('filter-sort-trigger')).toBeVisible({ timeout: 15000 });
@@ -186,7 +182,6 @@ test.describe('Gestão de Experimentos @p0', () => {
 
     await ensureAnalyticsPage(page);
     await analytics.expectTableLoaded();
-    // Check within the table that the experiment is still visible
     await expect(
       page.getByTestId('teacher-experiments-table').getByText('Universidade Para Excluir')
     ).toBeVisible();
@@ -221,11 +216,9 @@ test.describe('Gestão de Experimentos @p0', () => {
 
     await analytics.openDelete(experimentId);
     await page.getByRole('button', { name: 'Confirmar' }).click();
-    // Wait for deletion to complete and table to refresh
     await page.waitForTimeout(1000);
     await ensureAnalyticsPage(page);
     await analytics.expectTableLoaded();
-    // Check that the experiment is no longer in the table
     await expect(
       page
         .getByTestId('teacher-experiments-table')

@@ -38,12 +38,16 @@ export function TeacherData({ data }: { data: TeacherDataTypes | null }) {
           <DropdownMenuTrigger className="cursor-pointer rounded-full">
             <ChevronDown size={16} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-fit rounded-lg md:mr-4" align="start">
+          <DropdownMenuContent className="mr-2 w-fit rounded-lg md:mr-4" align="start">
             <DropdownMenuGroup>
               <DropdownMenuLabel className="pb-0">Nome</DropdownMenuLabel>
-              <DropdownMenuItem className="focus:bg-transparent">{data.name}</DropdownMenuItem>
+              <DropdownMenuItem className="text-xs focus:bg-transparent sm:text-sm">
+                {data.name}
+              </DropdownMenuItem>
               <DropdownMenuLabel className="pb-0">Email</DropdownMenuLabel>
-              <DropdownMenuItem className="focus:bg-transparent">{data.email}</DropdownMenuItem>
+              <DropdownMenuItem className="text-xs focus:bg-transparent sm:text-sm">
+                {data.email}
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
 

@@ -25,8 +25,6 @@ export class ExperimentAccessPage {
   }
 
   async expectRedirectToContent(slug: 'body-water-loss' | 'glycemic-control') {
-    // The application redirects to the base experiment URL after successful authentication
-    // The PIN is stored in a cookie, not in the URL path
     await expect(this.page).toHaveURL(new RegExp(`/experiment/${slug}(\\?.*)?$`));
   }
 

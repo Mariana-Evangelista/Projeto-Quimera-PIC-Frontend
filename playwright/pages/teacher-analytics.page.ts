@@ -12,10 +12,17 @@ export class TeacherAnalyticsPage {
     await this.page.getByRole('button', { name: 'Novo Experimento' }).click();
   }
 
-  async createExperiment(data: { type: 'body-water-loss' | 'glycemic-control'; university: string; class: string }) {
+  async createExperiment(data: {
+    type: 'body-water-loss' | 'glycemic-control';
+    university: string;
+    class: string;
+  }) {
     await this.openCreateExperiment();
 
-    const typeId = data.type === 'body-water-loss' ? 'experiment-type-body-water-loss' : 'experiment-type-glycemic-control';
+    const typeId =
+      data.type === 'body-water-loss'
+        ? 'experiment-type-body-water-loss'
+        : 'experiment-type-glycemic-control';
     await this.page.getByTestId(typeId).click();
 
     await this.page.getByLabel('Universidade').fill(data.university);
@@ -24,7 +31,9 @@ export class TeacherAnalyticsPage {
   }
 
   async expectSuccessDialog() {
-    await expect(this.page.getByRole('heading', { name: 'Experimento criado com sucesso' })).toBeVisible();
+    await expect(
+      this.page.getByRole('heading', { name: 'Experimento criado com sucesso' })
+    ).toBeVisible();
   }
 
   async confirmOpenExperiment() {
@@ -37,7 +46,11 @@ export class TeacherAnalyticsPage {
 
   async filterByType(type: 'body-water-loss' | 'glycemic-control') {
     await this.page.getByTestId('filter-type-trigger').click();
-    await this.page.getByRole('option', { name: type === 'body-water-loss' ? 'Queda de Água Corporal' : 'Controle Glicêmico' }).click();
+    await this.page
+      .getByRole('option', {
+        name: type === 'body-water-loss' ? 'Queda de Água Corporal' : 'Controle Glicêmico',
+      })
+      .click();
   }
 
   async filterByStatus(status: 'Não iniciado' | 'Em Progresso' | 'Finalizado') {
@@ -47,7 +60,9 @@ export class TeacherAnalyticsPage {
 
   async sortByDate(order: 'recent' | 'oldest') {
     await this.page.getByTestId('filter-sort-trigger').click();
-    await this.page.getByRole('option', { name: order === 'recent' ? 'Mais Recente' : 'Mais Antigo' }).click();
+    await this.page
+      .getByRole('option', { name: order === 'recent' ? 'Mais Recente' : 'Mais Antigo' })
+      .click();
   }
 
   async openExperiment(experimentId: string) {
@@ -57,16 +72,13 @@ export class TeacherAnalyticsPage {
 
   async openEdit(experimentId: string) {
     const row = await this.findExperimentRow(experimentId);
-    // Click the dropdown trigger (button with MoreHorizontal icon)
     await row.locator('button[aria-haspopup="menu"]').first().click();
-    // Dropdown menu items might be in a portal, search globally
     await this.page.getByTestId(`experiment-action-edit-${experimentId}`).click();
   }
 
   async openDelete(experimentId: string) {
     const row = await this.findExperimentRow(experimentId);
     await row.locator('button[aria-haspopup="menu"]').first().click();
-    // Dropdown menu items might be in a portal, search globally
     await this.page.getByTestId(`experiment-action-delete-${experimentId}`).click();
   }
 

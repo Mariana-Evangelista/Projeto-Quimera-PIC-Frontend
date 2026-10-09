@@ -17,7 +17,6 @@ export class TeacherExperimentPage {
   }
 
   async allowSubmissions() {
-    // Use the switch by its ID since the role might not be detected correctly
     await this.page.getByTestId('liberate-send-response').click();
   }
 

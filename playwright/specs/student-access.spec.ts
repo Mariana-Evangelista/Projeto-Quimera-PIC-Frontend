@@ -15,7 +15,6 @@ test.describe('Acesso do Aluno e Conteúdo @p0', () => {
   }
 
   async function createExperimentsViaAuthenticatedAPI(page: Page, email: string, password: string) {
-    // 1. Create teacher via API first
     const teacherResponse = await page.request.post(`${apiBaseURL}/teacher/`, {
       data: { name: 'Professor E2E', email, password },
     });
@@ -24,7 +23,6 @@ test.describe('Acesso do Aluno e Conteúdo @p0', () => {
       throw new Error(`Teacher creation failed: ${JSON.stringify(teacherResp)}`);
     }
 
-    // 2. Login via API to get raw JWT token
     const loginResponse = await page.request.post(`${apiBaseURL}/auth/login`, {
       data: { email, password },
     });
@@ -34,7 +32,6 @@ test.describe('Acesso do Aluno e Conteúdo @p0', () => {
       throw new Error(`Login failed, no token returned: ${JSON.stringify(loginData)}`);
     }
 
-    // 2. Use token in Authorization header for experiment creation
     const headers = { Authorization: `Bearer ${token}` };
 
     const bwlResponse = await page.request.post(`${apiBaseURL}/experiment/`, {
@@ -80,7 +77,6 @@ test.describe('Acesso do Aluno e Conteúdo @p0', () => {
     await access.fillStudentAccess(studentName, pin);
     await access.submit();
     await access.expectRedirectToContent(slug);
-    // Wait for the content page to load - use a more generous timeout and wait for network idle
     await page.waitForLoadState('networkidle');
     await expect(page.getByRole('heading', { name: 'Introdução' })).toBeVisible({ timeout: 30000 });
   }
@@ -103,7 +99,6 @@ test.describe('Acesso do Aluno e Conteúdo @p0', () => {
 
     test('STU-003: PIN inexistente mostra erro', async ({ page }) => {
       const email = uniqueEmail();
-      // Create teacher and experiment via API for this test
       await page.request.post(`${apiBaseURL}/teacher/`, {
         data: { name: 'Professor E2E', email, password: teacherPassword },
       });

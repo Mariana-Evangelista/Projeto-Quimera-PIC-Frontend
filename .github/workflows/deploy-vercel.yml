@@ -1,7 +1,5 @@
 name: Deploy Vercel (produção)
 
-# Só faz deploy depois que o "Playwright E2E" passar na master.
-# Também pode ser disparado manualmente (Actions > Run workflow).
 on:
   workflow_run:
     workflows: ['Playwright E2E']
