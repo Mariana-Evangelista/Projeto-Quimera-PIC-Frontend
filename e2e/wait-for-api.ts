@@ -1,7 +1,3 @@
-#!/usr/bin/env node
-// Wait for the E2E backend API to be healthy
-// Usage: node e2e/wait-for-api.js [timeoutMs]
-
 const HEALTH_URL = process.env.E2E_API_HEALTH_URL || 'http://127.0.0.1:8001/health';
 const DEFAULT_TIMEOUT = 60_000;
 const POLL_INTERVAL = 1_000;
@@ -32,7 +28,7 @@ async function waitForApi(timeoutMs: number) {
     const remaining = timeoutMs - elapsed;
     if (remaining > 0) {
       process.stdout.write(`\rWaiting for API... ${elapsed}ms / ${timeoutMs}ms`);
-      await new Promise(r => setTimeout(r, POLL_INTERVAL));
+      await new Promise((r) => setTimeout(r, POLL_INTERVAL));
     }
   }
 
