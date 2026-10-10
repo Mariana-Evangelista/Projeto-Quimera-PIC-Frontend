@@ -1,134 +1,163 @@
-# Quimera
+<div align="center">
 
-<!-- Substitua este comentário pela imagem final do mockup quando ela estiver pronta. -->
-<p align="center">
-  <img src="./docs/mockup-quimera.png" alt="Mockup da plataforma Quimera" width="900" />
-</p>
+# 🧪 Quimera
 
-<p align="center">
-  Plataforma interativa para apoiar o ensino de Fisiologia Animal na graduação em Medicina Veterinária.
-</p>
+**Sala de aula interativa em tempo real para o ensino de Fisiologia Animal.**
+O professor cria a sala, a turma entra com um PIN e as respostas viram gráficos ao vivo.
 
-<p align="center">
-  <a href="https://quimera.mevangelista.com">Acessar a aplicação</a>
-  ·
-  <a href="https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024">Repositório do backend</a>
-</p>
+[**Ver em produção**](https://quimera.mevangelista.com) · [Repositório do backend](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024)
 
-<!-- Substitua este bloco pelo GIF ou vídeo de demonstração quando o material estiver pronto. -->
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-realtime-010101?logo=socketdotio&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-deploy-000000?logo=vercel&logoColor=white)
 
-## Demonstração
+</div>
 
-> **GIF ou vídeo em breve:** adicione aqui uma gravação curta mostrando a criação de um experimento pelo professor, a entrada dos alunos com o PIN e a liberação dos resultados.
->
-> Sugestão de arquivo: `docs/demo-quimera.gif` ou um link para um vídeo hospedado.
+---
 
-![Demonstração do funcionamento do Quimera](./docs/demo-quimera.gif)
+## O problema
 
-## Sobre o projeto
+Fisiologia Animal é uma disciplina densa. Em aulas expositivas, o professor raramente sabe **onde** a turma está errando até a prova.
 
-O **Quimera** foi criado para o **PIC 2024 (Projeto de Iniciação Científica)** do **Centro Universitário Barão de Mauá**, em parceria com o curso de Medicina Veterinária.
+O Quimera transforma casos clínicos veterinários em uma atividade colaborativa: cada aluno responde no próprio dispositivo e o professor vê as dificuldades da turma **na hora**, para discutir e ajustar a aula.
 
-Uma versão inicial do projeto foi apresentada a uma banca especializada em 2025. Em 2026, a plataforma passou por uma revitalização que incluiu correção de bugs, melhorias de UI e responsividade, novas funcionalidades e publicação em produção.
+## A história do projeto
 
-O objetivo do Quimera é **dinamizar e tornar mais leve o aprendizado de Fisiologia Animal**, promovendo uma experiência colaborativa entre professor e alunos durante a aula.
+**2024 · Origem.** O Quimera nasceu como projeto de Iniciação Científica (PIC) do Centro Universitário Barão de Mauá, em parceria com o curso de Medicina Veterinária, seu objetivo era deixar o aprendizado de Fisiologia Animal mais leve e participativo. Entrei no projeto com uma versão inicial que englobava somente o experimento **Queda de Água Corporal**, mas o professor me deu um desafio: "Faça tudo do zero, do seu jeito, e adicione um novo experimento"
 
-## Como funciona
+**2025 · Banca.** Apresentação da minha versão para uma banca especializada.
 
-O Quimera foi pensado para ser utilizado em sala de aula, em um fluxo simples e colaborativo:
+**2026 · Revitalização e produção.** Retomei o projeto com um objetivo diferente: transformá-lo de protótipo acadêmico em um produto confiável, que um professor possa usar em sala sem medo de falhar, aplicando novas habilidades adquiridas ao longo do último ano. Isso significou: 
+- Corrigir bugs e redesenhar a interface, com foco em **responsividade**
+- Adicionar novas funcionalidades: edição e exclusão de experimentos, filtros na tabela de experimentos, painel de controle do professor que controla o status do experimento, atualizações em tempo real que conectam sala do experimento e professor.
+- Escrever **testes end-to-end** e montar uma **pipeline que só publica o que passou nos testes**
+- Publicar em **produção**, com domínio próprio e monitoramento de desempenho
 
-1. O professor acessa a plataforma e cria um dos experimentos disponíveis.
-2. A plataforma gera um **PIN público de acesso**, que é compartilhado com a turma.
-3. Os alunos entram na sala de forma anônima, sem autenticação, evitando a coleta de dados pessoais e de RA.
-4. O professor controla quando a turma pode começar a enviar respostas, garantindo tempo para que todos acessem a sala.
-5. Durante a atividade, as respostas são sincronizadas em tempo real para a sala do experimento.
-6. Ao final, o professor libera os resultados e os gráficos para a turma.
-7. Os resultados servem como ponto de partida para uma discussão em sala, permitindo identificar dúvidas, dificuldades e oportunidades para ajustar o ensino.
 
-## Experimentos disponíveis
+## Como uma aula funciona
 
-### Queda de Água Corporal
+| # | Quem | O que acontece |
+| :-: | --- | --- |
+| 1 | Professor | Escolhe um experimento pronto e cria a sala. A plataforma gera um **PIN de 6 caracteres** |
+| 2 | Alunos | Entram com o PIN, sem criar conta e sem informar RA. Aguardam em uma sala de espera |
+| 3 | Professor | Quando todos entraram, **libera o envio de respostas** |
+| 4 | Alunos | Leem o conteúdo, o caso clínico e respondem às questões |
+| 5 | Professor | Acompanha as respostas chegando e os gráficos mudando **em tempo real** |
+| 6 | Professor | **Libera os resultados**. Cada aluno vê gabarito e desempenho, e a turma discute os erros mais comuns |
 
-Explora como a perda de água afeta o organismo dos animais e apresenta os mecanismos fisiológicos envolvidos na manutenção do equilíbrio hídrico.
+Os dois "interruptores" do professor (envio e resultados) são uma decisão pedagógica: dão tempo para todos entrarem e permitem que os alunos troquem ideias antes de responder.
 
-### Controle Glicêmico
+## Experimentos
 
-Aborda a atuação dos hormônios na regulação da glicose sanguínea e os processos relacionados ao diagnóstico do Diabetes Mellitus.
+| 💧 Queda de Água Corporal | 🧬 Controle Glicêmico |
+| --- | --- |
+| Como a perda de água afeta o organismo e quais mecanismos mantêm o equilíbrio hídrico. *(já existia na versão original)* | Como os hormônios regulam a glicose sanguínea e como se chega ao diagnóstico de Diabetes Mellitus, a partir de um caso clínico canino. *(adicionado na versão 2026)* |
 
 ## Funcionalidades
 
-### Para professores
+**Professor**
+- Cadastro e login
+- Criação, edição e exclusão de experimentos a partir de modelos prontos
+- Tabela de experimentos com filtro e ordenação
+- Sala de controle: status da atividade, liberação de envio e de resultados
+- Dashboard em tempo real com gráficos e indicadores (total de respostas e pontuação média)
 
-- Cadastro e autenticação de professores.
-- Criação de experimentos a partir de modelos predefinidos.
-- Gerenciamento de experimentos e informações da turma.
-- Sala de controle do experimento.
-- Controle do status da atividade e do envio de respostas.
-- Liberação dos resultados para os alunos.
-- Visualização de respostas e gráficos em tempo real.
-- Consulta e filtragem dos experimentos criados.
+**Aluno**
+- Entrada por PIN, sem conta e sem RA
+- Sala de espera até o professor liberar a atividade
+- Conteúdo didático e caso clínico em Markdown, seguido das questões
+- Resultado individual (gabarito × resposta) e comparativo com a turma
+- Interface responsiva, pensada para o celular em sala
 
-### Para alunos
+## Desafios e decisões
 
-- Entrada por PIN público.
-- Participação anônima, sem necessidade de criar uma conta.
-- Sala de espera enquanto o professor organiza a atividade.
-- Resposta às questões do experimento.
-- Acompanhamento dos resultados após a liberação pelo professor.
-- Interface responsiva para uso em diferentes tamanhos de tela.
+### 🔐 Como proteger o sistema sem pedir login dos alunos?
 
-## Links
+Alunos precisam entrar rápido e sem dar dados pessoais, mas ninguém deve entrar na sala errada ou se passar por outra pessoa.
 
-- **Aplicação em produção:** [quimera.mevangelista.com](https://quimera.mevangelista.com)
-- **Backend:** [Mariana-Evangelista/Projeto-Quimera-PIC-2024](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024)
+**Solução:** sessões em **cookies assinados com HMAC-SHA256**, usando Web Crypto, sem biblioteca externa. O cookie do aluno guarda nome, PIN e experimento, e o servidor só libera `/experiment/:slug/:pin` se o cookie bater com a URL. O professor usa o mesmo mecanismo, com um segredo próprio.
 
-## Tecnologias
+O token JWT do backend fica **dentro** do cookie `httpOnly` e só é usado no servidor. O cliente HTTP é `server-only`, então o JavaScript do navegador nunca toca no token.
 
-- [Next.js](https://nextjs.org/) 16 com App Router
-- [React](https://react.dev/) 19
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) 4
-- [shadcn/ui](https://ui.shadcn.com/) e [Radix UI](https://www.radix-ui.com/)
-- [React Hook Form](https://react-hook-form.com/) e [Zod](https://zod.dev/)
-- [TanStack Query](https://tanstack.com/query/latest) e TanStack Table
-- [Socket.IO Client](https://socket.io/), para comunicação em tempo real
-- [Recharts](https://recharts.org/), para visualização dos resultados
-- [Playwright](https://playwright.dev/), para testes end-to-end
-- [Vercel Analytics](https://vercel.com/analytics) e Speed Insights
+### ⚡ Como manter várias telas sincronizadas?
 
-## Arquitetura do frontend
+O dashboard do professor e a sala dos alunos reagem a eventos do servidor a qualquer momento: queda de conexão, reconexão, sala errada, nova resposta.
 
-O frontend utiliza uma organização orientada a funcionalidades, separando as áreas principais da aplicação:
+**Solução:** uma **camada de socket genérica e tipada** (`SocketService<Join, Update, Rejected, Ack>`) com um `SocketManager` que mantém uma conexão por namespace. O estado de cada sala é uma **store externa** lida com `useSyncExternalStore`, sem `useEffect` espalhado para sincronizar estado. Eventos de outras salas são descartados, a entrada na sala usa *acknowledgement*, e a UI mostra um erro com botão de reconexão em vez de travar.
+
+### 🎛️ Como evitar que o professor faça uma ação inválida no meio da aula?
+
+Liberar resultados antes de abrir o envio, ou reabrir uma atividade encerrada, geraria dados inconsistentes na frente da turma inteira.
+
+**Solução:** o ciclo de vida do experimento é uma **máquina de estados declarativa**: `Não iniciado → Em Progresso → Finalizado`. Cada estado define quais controles ficam habilitados, então o caminho inválido não existe na interface. A resposta é instantânea com `useOptimistic`.
+
+### 🧱 Como crescer de 2 para N experimentos com o menor custo?
+
+**Solução:** arquitetura **por feature** e um registro tipado. Adicionar um slug em `EXPERIMENTS_MAP` **quebra o build** até que os renderers de aluno e de professor existam (`as const` + `satisfies Record<ExperimentsMap, ComponentType>`). O conteúdo didático fica em arquivos Markdown, editável sem mexer em componentes.
+
+### 🚦 Como ter confiança para publicar um sistema em uso?
+
+**Solução:** suíte E2E com **Playwright** (mais de 20 cenários, Page Object Model e fixtures) rodando contra o **backend real e um MongoDB descartável** em Docker, com portas e banco isolados. O deploy para a Vercel só acontece se os testes passarem, no **mesmo commit** testado. O deploy automático da Vercel está desligado, então o pipeline é o único caminho até produção.
+
+## Estrutura do Projeto
 
 ```text
 src/
-├── app/                         # Rotas e layouts do Next.js
-├── components/                  # Componentes compartilhados e UI
-├── constants/                   # Mapas e dados dos experimentos
-├── features/
-│   ├── experiment/              # Experiência do aluno
-│   ├── experiment-access/       # Entrada por PIN
-│   ├── experiment-charts/       # Gráficos de resultados
-│   ├── home/                    # Página inicial
-│   ├── teacher-access/          # Login e cadastro do professor
-│   ├── teacher-analytics/       # Consulta dos experimentos
-│   ├── teacher-experiment/      # Sala de controle do professor
-│   └── teacher-experiment-manage/ # Criação, edição e exclusão
-├── lib/                         # Cliente HTTP e conexão Socket.IO
-└── types/                       # Tipos compartilhados
+├── app/                          # Rotas, layouts e route handlers (App Router)
+├── components/                   # Componentes compartilhados e primitivos de UI (shadcn)
+├── constants/                    # Registro tipado de experimentos
+├── features/                     # Organização por funcionalidade
+│   ├── experiment/               # Experiência do aluno (sala, questões, resultados)
+│   │   ├── shared/               #   Socket store, hooks, espera, erro, conteúdo
+│   │   ├── body-water-loss/      #   Experimento completo e isolado
+│   │   └── glycemic-control/     #   Experimento completo e isolado
+│   ├── experiment-access/        # Entrada por PIN (action, schema, cookie)
+│   ├── experiment-charts/        # Gráficos reutilizáveis (Recharts)
+│   ├── teacher-access/           # Login e cadastro do professor
+│   ├── teacher-analytics/        # Tabela de experimentos (TanStack Table)
+│   ├── teacher-experiment/       # Sala de controle e dashboards em tempo real
+│   └── teacher-experiment-manage/# Criar, editar e excluir
+├── lib/
+│   ├── api/                      # Cliente HTTP server-only, erros e config
+│   ├── socket/                   # SocketService genérico + SocketManager
+│   └── signed-cookies.ts         # HMAC-SHA256 com Web Crypto
+├── proxy/                        # Guards de rota
+└── proxy.ts                      # Entrada do proxy do Next.js
 ```
 
-A comunicação entre as salas de experimento e o backend utiliza **Socket.IO**, permitindo atualizar o estado da atividade e os gráficos sem a necessidade de recarregar a página.
 
-## Pré-requisitos
+## Destaques técnicos
 
-- [Node.js](https://nodejs.org/) 20 ou superior
-- npm
-- Backend do Quimera em execução ou uma instância acessível
+| Decisão | Por que importa |
+| --- | --- |
+| Cookies assinados (HMAC-SHA256) com Web Crypto | Autenticação sem biblioteca de JWT, `httpOnly`, rodando no runtime do proxy do Next.js |
+| Token da API nunca chega ao navegador | Cliente HTTP `server-only`, com allowlist de headers e HTTPS obrigatório em produção |
+| Socket.IO tipado + `useSyncExternalStore` | Tempo real com reconexão e tratamento de erro, sem estado duplicado |
+| Máquina de estados para o ciclo da aula | Ações inválidas simplesmente não existem na interface |
+| `as const` + `satisfies` no registro de experimentos | Experimento incompleto vira erro de compilação |
+| E2E contra backend real em CI | Só vai para produção o que passou nos testes |
+| Next.js 16 moderno | Server Actions, `useActionState`, `useOptimistic`, React Compiler e Cache Components |
+| Mobile first | shadcn/ui + Radix, skeletons e estados de erro e vazio |
 
-## Instalação e execução local
+## Stack
 
-Clone o repositório e instale as dependências:
+**Frontend:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui + Radix UI · React Hook Form + Zod 4 · TanStack Query + Table · Recharts · react-markdown
+
+**Tempo real:** Socket.IO Client
+
+**Qualidade:** Playwright (Page Object Model + fixtures) · ESLint · Prettier
+
+**Infra:** GitHub Actions · Docker Compose (ambiente E2E) · Vercel (Analytics + Speed Insights)
+
+**Backend** (repositório separado): API REST + Socket.IO + MongoDB
+
+## Rodando localmente
+
+**Requisitos:** Node.js 20.9+ e o [backend do Quimera](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024) rodando.
 
 ```bash
 git clone https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-Frontend.git
@@ -136,66 +165,39 @@ cd Projeto-Quimera-PIC-Frontend
 npm install
 ```
 
-Crie um arquivo `.env.local` na raiz do projeto:
+Crie o arquivo `.env.local`:
 
 ```env
-# URL HTTP da API do backend
 API_BASE_URL=http://localhost:8000
-
-# URL base do Socket.IO
 NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
 
-# Timeout das requisições em milissegundos (opcional)
-API_TIMEOUT_MS=30000
+# Segredos de assinatura dos cookies (mínimo de 32 caracteres cada).
+# Gere com: openssl rand -base64 48
+TEACHER_ACCESS_TOKEN_SECRET=
+EXPERIMENT_ACCESS_SECRET=
 ```
-
-Em seguida, inicie o servidor de desenvolvimento:
 
 ```bash
-npm run dev
+npm run dev   # http://localhost:3000
 ```
 
-A aplicação ficará disponível em [http://localhost:3000](http://localhost:3000).
+<details>
+<summary><strong>Scripts disponíveis</strong></summary>
 
-> Em produção, `API_BASE_URL` deve utilizar HTTPS. As variáveis relacionadas a segredos e cookies devem ser configuradas no ambiente de execução e nunca devem ser versionadas.
+| Comando | Descrição |
+| --- | --- |
+| `npm run dev` / `build` / `start` | Desenvolvimento, build e execução em produção |
+| `npm run lint` / `lint:fix` | ESLint |
+| `npm run format` / `format:check` | Prettier |
+| `npm run test:e2e` | Suíte E2E completa (Playwright) |
+| `npm run test:e2e:smoke` | Apenas testes `@smoke` |
+| `npm run test:e2e:ui` / `debug` / `report` | Modos interativo, depuração e relatório |
+| `npm run e2e:backend:up` / `down` / `reset` / `logs` | Ambiente E2E isolado (API + MongoDB em Docker) |
 
-## Scripts disponíveis
+</details>
 
-| Comando                   | Descrição                                              |
-| ------------------------- | ------------------------------------------------------ |
-| `npm run dev`             | Inicia o servidor de desenvolvimento.                  |
-| `npm run build`           | Gera o build de produção.                              |
-| `npm run start`           | Inicia a aplicação em modo produção.                   |
-| `npm run lint`            | Executa o ESLint.                                      |
-| `npm run lint:fix`        | Corrige automaticamente problemas possíveis do ESLint. |
-| `npm run format`          | Formata os arquivos com Prettier.                      |
-| `npm run format:check`    | Verifica a formatação sem alterar arquivos.            |
-| `npm run test:e2e`        | Executa todos os testes end-to-end com Playwright.     |
-| `npm run test:e2e:smoke`  | Executa os testes E2E marcados como smoke.             |
-| `npm run test:e2e:ui`     | Abre a interface do Playwright.                        |
-| `npm run test:e2e:debug`  | Executa os testes em modo de depuração.                |
-| `npm run test:e2e:report` | Abre o relatório dos testes E2E.                       |
-
-## Testes end-to-end
-
-O projeto possui uma configuração isolada para testes E2E, com backend, MongoDB e portas próprias. Para utilizá-la:
-
-```bash
-cp e2e/.env.e2e.example e2e/.env.e2e
-# Edite e2e/.env.e2e e preencha os segredos de teste
-
-npm run e2e:backend:up
-npm run e2e:wait-for-api
-npm run test:e2e:smoke
-npm run e2e:backend:down
-```
-
-A configuração de testes utiliza uma instância separada do MongoDB e não deve compartilhar dados com desenvolvimento ou produção. Consulte [`e2e/README.md`](./e2e/README.md) para detalhes sobre variáveis, isolamento e execução em CI.
-
-## Contexto acadêmico
-
-O Quimera integra tecnologia e metodologias ativas de aprendizagem para aproximar os conceitos de Fisiologia Animal da prática em sala de aula. A dinâmica de respostas anônimas e resultados compartilhados favorece a participação da turma e oferece ao professor uma visão rápida das principais dificuldades de aprendizagem.
+Para rodar os testes E2E localmente, veja [`e2e/README.md`](./e2e/README.md).
 
 ## Autoria
 
-Projeto desenvolvido por **Mariana Evangelista** para o PIC 2024 do Centro Universitário Barão de Mauá, em parceria com o curso de Medicina Veterinária.
+Projeto original de Iniciação Científica (PIC 2024) do Centro Universitário Barão de Mauá. A versão atual do frontend, com o experimento de Controle Glicêmico, a nova interface, a mudança de tecnologias, os testes e o deploy, foi feita por **Mariana Evangelista**.
