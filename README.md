@@ -2,10 +2,10 @@
 
 # 🧪 Quimera
 
-**Sala de aula interativa em tempo real para o ensino de Fisiologia Animal.**
-O professor cria a sala, a turma entra com um PIN e as respostas viram gráficos ao vivo.
+**A real-time interactive classroom for teaching Animal Physiology.**
+The teacher creates a room, the class joins with a PIN, and the answers turn into live charts.
 
-[**Ver em produção**](https://quimera.mevangelista.com) · [Repositório do backend](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024)
+[**See it in production**](https://quimera.mevangelista.com) · [Backend repository](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024)
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
@@ -19,145 +19,145 @@ O professor cria a sala, a turma entra com um PIN e as respostas viram gráficos
 
 ---
 
-## O problema
+## The problem
 
-Fisiologia Animal é uma disciplina densa. Em aulas expositivas, o professor raramente sabe **onde** a turma está errando até a prova.
+Animal Physiology is a dense subject. In lecture-style classes, the teacher rarely knows **where** the class is going wrong until the exam.
 
-O Quimera transforma casos clínicos veterinários em uma atividade colaborativa: cada aluno responde no próprio dispositivo e o professor vê as dificuldades da turma **na hora**, para discutir e ajustar a aula.
+Quimera turns veterinary clinical cases into a collaborative activity: each student answers on their own device, and the teacher sees the class's difficulties **right away**, so they can discuss them and adjust the lesson.
 
-## A história do projeto
+## Project history
 
-**2024 · Origem.** O Quimera nasceu como projeto de Iniciação Científica (PIC) do Centro Universitário Barão de Mauá, em parceria com o curso de Medicina Veterinária, seu objetivo era deixar o aprendizado de Fisiologia Animal mais leve e participativo. Entrei no projeto com uma versão inicial que englobava somente o experimento **Queda de Água Corporal**, mas o professor me deu um desafio: "Faça tudo do zero, do seu jeito, e adicione um novo experimento"
+**2024 · Origin.** Quimera started as a Scientific Initiation (PIC) project at Centro Universitário Barão de Mauá, in partnership with the Veterinary Medicine program. Its goal was to make learning Animal Physiology lighter and more participatory. I joined the project with an initial version that covered only the **Body Water Loss** experiment, but the professor gave me a challenge: "Build everything from scratch, your own way, and add a new experiment."
 
-**2025 · Banca.** Apresentação da minha versão para uma banca especializada.
+**2025 · Review panel.** I presented my version to a specialized panel.
 
-**2026 · Revitalização e produção.** Retomei o projeto com um objetivo diferente: transformá-lo de protótipo acadêmico em um produto confiável, que um professor possa usar em sala sem medo de falhar, aplicando novas habilidades adquiridas ao longo do último ano. Isso significou: 
-- Corrigir bugs e redesenhar a interface, com foco em **responsividade**
-- Adicionar novas funcionalidades: edição e exclusão de experimentos, filtros na tabela de experimentos, painel de controle do professor que controla o status do experimento, atualizações em tempo real que conectam sala do experimento e professor.
-- Escrever **testes end-to-end** e montar uma **pipeline que só publica o que passou nos testes**
-- Publicar em **produção**, com domínio próprio e monitoramento de desempenho
+**2026 · Revitalization and production.** I came back to the project with a different goal: turning it from an academic prototype into a reliable product that a teacher can use in class without fear of it failing, applying new skills I picked up over the past year. That meant:
+- Fixing bugs and redesigning the interface, with a focus on **responsiveness**
+- Adding new features: editing and deleting experiments, filters on the experiments table, a teacher control panel that manages the experiment status, and real-time updates that connect the experiment room and the teacher
+- Writing **end-to-end tests** and building a **pipeline that only publishes what passed the tests**
+- Shipping to **production**, with a custom domain and performance monitoring
 
 
-## Como uma aula funciona
+## How a class works
 
-| # | Quem | O que acontece |
+| # | Who | What happens |
 | :-: | --- | --- |
-| 1 | Professor | Escolhe um experimento pronto e cria a sala. A plataforma gera um **PIN de 6 caracteres** |
-| 2 | Alunos | Entram com o PIN, sem criar conta e sem informar RA. Aguardam em uma sala de espera |
-| 3 | Professor | Quando todos entraram, **libera o envio de respostas** |
-| 4 | Alunos | Leem o conteúdo, o caso clínico e respondem às questões |
-| 5 | Professor | Acompanha as respostas chegando e os gráficos mudando **em tempo real** |
-| 6 | Professor | **Libera os resultados**. Cada aluno vê gabarito e desempenho, e a turma discute os erros mais comuns |
+| 1 | Teacher | Picks a ready-made experiment and creates the room. The platform generates a **6-character PIN** |
+| 2 | Students | Join with the PIN, with no account and no student ID. They wait in a waiting room |
+| 3 | Teacher | Once everyone has joined, **releases answer submission** |
+| 4 | Students | Read the content and the clinical case, then answer the questions |
+| 5 | Teacher | Watches answers arrive and the charts change **in real time** |
+| 6 | Teacher | **Releases the results**. Each student sees the answer key and their performance, and the class discusses the most common mistakes |
 
-Os dois "interruptores" do professor (envio e resultados) são uma decisão pedagógica: dão tempo para todos entrarem e permitem que os alunos troquem ideias antes de responder.
+The teacher's two "switches" (submission and results) are a pedagogical decision: they give everyone time to join and let students exchange ideas before answering.
 
-## Experimentos
+## Experiments
 
-| 💧 Queda de Água Corporal | 🧬 Controle Glicêmico |
+| 💧 Body Water Loss | 🧬 Glycemic Control |
 | --- | --- |
-| Como a perda de água afeta o organismo e quais mecanismos mantêm o equilíbrio hídrico. *(já existia na versão original)* | Como os hormônios regulam a glicose sanguínea e como se chega ao diagnóstico de Diabetes Mellitus, a partir de um caso clínico canino. *(adicionado na versão 2026)* |
+| How water loss affects the body and which mechanisms keep fluid balance. *(already existed in the original version)* | How hormones regulate blood glucose and how Diabetes Mellitus is diagnosed, based on a canine clinical case. *(added in the 2026 version)* |
 
-## Funcionalidades
+## Features
 
-**Professor**
-- Cadastro e login
-- Criação, edição e exclusão de experimentos a partir de modelos prontos
-- Tabela de experimentos com filtro e ordenação
-- Sala de controle: status da atividade, liberação de envio e de resultados
-- Dashboard em tempo real com gráficos e indicadores (total de respostas e pontuação média)
+**Teacher**
+- Sign-up and login
+- Create, edit, and delete experiments from ready-made templates
+- Experiments table with filtering and sorting
+- Control room: activity status, release of submission and of results
+- Real-time dashboard with charts and indicators (total answers and average score)
 
-**Aluno**
-- Entrada por PIN, sem conta e sem RA
-- Sala de espera até o professor liberar a atividade
-- Conteúdo didático e caso clínico em Markdown, seguido das questões
-- Resultado individual (gabarito × resposta) e comparativo com a turma
-- Interface responsiva, pensada para o celular em sala
+**Student**
+- Join by PIN, with no account and no student ID
+- Waiting room until the teacher releases the activity
+- Educational content and clinical case in Markdown, followed by the questions
+- Individual result (answer key × student's answer) and comparison with the class
+- Responsive interface, designed for phones in the classroom
 
-## Desafios e decisões
+## Challenges and decisions
 
-### 🔐 Como proteger o sistema sem pedir login dos alunos?
+### 🔐 How do you protect the system without asking students to log in?
 
-Alunos precisam entrar rápido e sem dar dados pessoais, mas ninguém deve entrar na sala errada ou se passar por outra pessoa.
+Students need to get in quickly without giving personal data, but nobody should end up in the wrong room or impersonate someone else.
 
-**Solução:** sessões em **cookies assinados com HMAC-SHA256**, usando Web Crypto, sem biblioteca externa. O cookie do aluno guarda nome, PIN e experimento, e o servidor só libera `/experiment/:slug/:pin` se o cookie bater com a URL. O professor usa o mesmo mecanismo, com um segredo próprio.
+**Solution:** sessions in **cookies signed with HMAC-SHA256**, using Web Crypto, with no external library. The student's cookie stores name, PIN, and experiment, and the server only serves `/experiment/:slug/:pin` if the cookie matches the URL. The teacher uses the same mechanism, with a separate secret.
 
-O token JWT do backend fica **dentro** do cookie `httpOnly` e só é usado no servidor. O cliente HTTP é `server-only`, então o JavaScript do navegador nunca toca no token.
+The backend's JWT token lives **inside** the `httpOnly` cookie and is only used on the server. The HTTP client is `server-only`, so the browser's JavaScript never touches the token.
 
-### ⚡ Como manter várias telas sincronizadas?
+### ⚡ How do you keep several screens in sync?
 
-O dashboard do professor e a sala dos alunos reagem a eventos do servidor a qualquer momento: queda de conexão, reconexão, sala errada, nova resposta.
+The teacher's dashboard and the students' room react to server events at any moment: dropped connections, reconnections, wrong room, new answers.
 
-**Solução:** uma **camada de socket genérica e tipada** (`SocketService<Join, Update, Rejected, Ack>`) com um `SocketManager` que mantém uma conexão por namespace. O estado de cada sala é uma **store externa** lida com `useSyncExternalStore`, sem `useEffect` espalhado para sincronizar estado. Eventos de outras salas são descartados, a entrada na sala usa *acknowledgement*, e a UI mostra um erro com botão de reconexão em vez de travar.
+**Solution:** a **generic, typed socket layer** (`SocketService<Join, Update, Rejected, Ack>`) with a `SocketManager` that keeps one connection per namespace. Each room's state is an **external store** read with `useSyncExternalStore`, with no scattered `useEffect` calls to sync state. Events from other rooms are discarded, joining a room uses an *acknowledgement*, and the UI shows an error with a reconnect button instead of freezing.
 
-### 🎛️ Como evitar que o professor faça uma ação inválida no meio da aula?
+### 🎛️ How do you stop the teacher from taking an invalid action mid-class?
 
-Liberar resultados antes de abrir o envio, ou reabrir uma atividade encerrada, geraria dados inconsistentes na frente da turma inteira.
+Releasing results before opening submission, or reopening a finished activity, would create inconsistent data in front of the whole class.
 
-**Solução:** o ciclo de vida do experimento é uma **máquina de estados declarativa**: `Não iniciado → Em Progresso → Finalizado`. Cada estado define quais controles ficam habilitados, então o caminho inválido não existe na interface. A resposta é instantânea com `useOptimistic`.
+**Solution:** the experiment lifecycle is a **declarative state machine**: `Not started → In Progress → Finished`. Each state defines which controls are enabled, so the invalid path simply doesn't exist in the interface. The response is instant with `useOptimistic`.
 
-### 🧱 Como crescer de 2 para N experimentos com o menor custo?
+### 🧱 How do you grow from 2 to N experiments at the lowest cost?
 
-**Solução:** arquitetura **por feature** e um registro tipado. Adicionar um slug em `EXPERIMENTS_MAP` **quebra o build** até que os renderers de aluno e de professor existam (`as const` + `satisfies Record<ExperimentsMap, ComponentType>`). O conteúdo didático fica em arquivos Markdown, editável sem mexer em componentes.
+**Solution:** a **feature-based** architecture and a typed registry. Adding a slug to `EXPERIMENTS_MAP` **breaks the build** until the student and teacher renderers exist (`as const` + `satisfies Record<ExperimentsMap, ComponentType>`). The educational content lives in Markdown files, editable without touching components.
 
-### 🚦 Como ter confiança para publicar um sistema em uso?
+### 🚦 How do you gain the confidence to publish a system that's in use?
 
-**Solução:** suíte E2E com **Playwright** (mais de 20 cenários, Page Object Model e fixtures) rodando contra o **backend real e um MongoDB descartável** em Docker, com portas e banco isolados. O deploy para a Vercel só acontece se os testes passarem, no **mesmo commit** testado. O deploy automático da Vercel está desligado, então o pipeline é o único caminho até produção.
+**Solution:** an E2E suite with **Playwright** (20+ scenarios, Page Object Model, and fixtures) running against the **real backend and a disposable MongoDB** in Docker, with isolated ports and database. The deploy to Vercel only happens if the tests pass, on the **same commit** that was tested. Vercel's automatic deploy is turned off, so the pipeline is the only path to production.
 
-## Estrutura do Projeto
+## Project structure
 
 ```text
 src/
-├── app/                          # Rotas, layouts e route handlers (App Router)
-├── components/                   # Componentes compartilhados e primitivos de UI (shadcn)
-├── constants/                    # Registro tipado de experimentos
-├── features/                     # Organização por funcionalidade
-│   ├── experiment/               # Experiência do aluno (sala, questões, resultados)
-│   │   ├── shared/               #   Socket store, hooks, espera, erro, conteúdo
-│   │   ├── body-water-loss/      #   Experimento completo e isolado
-│   │   └── glycemic-control/     #   Experimento completo e isolado
-│   ├── experiment-access/        # Entrada por PIN (action, schema, cookie)
-│   ├── experiment-charts/        # Gráficos reutilizáveis (Recharts)
-│   ├── teacher-access/           # Login e cadastro do professor
-│   ├── teacher-analytics/        # Tabela de experimentos (TanStack Table)
-│   ├── teacher-experiment/       # Sala de controle e dashboards em tempo real
-│   └── teacher-experiment-manage/# Criar, editar e excluir
+├── app/                          # Routes, layouts, and route handlers (App Router)
+├── components/                   # Shared components and UI primitives (shadcn)
+├── constants/                    # Typed experiment registry
+├── features/                     # Organized by feature
+│   ├── experiment/               # Student experience (room, questions, results)
+│   │   ├── shared/               #   Socket store, hooks, waiting, error, content
+│   │   ├── body-water-loss/      #   Complete, isolated experiment
+│   │   └── glycemic-control/     #   Complete, isolated experiment
+│   ├── experiment-access/        # PIN entry (action, schema, cookie)
+│   ├── experiment-charts/        # Reusable charts (Recharts)
+│   ├── teacher-access/           # Teacher login and sign-up
+│   ├── teacher-analytics/        # Experiments table (TanStack Table)
+│   ├── teacher-experiment/       # Control room and real-time dashboards
+│   └── teacher-experiment-manage/# Create, edit, and delete
 ├── lib/
-│   ├── api/                      # Cliente HTTP server-only, erros e config
-│   ├── socket/                   # SocketService genérico + SocketManager
-│   └── signed-cookies.ts         # HMAC-SHA256 com Web Crypto
-├── proxy/                        # Guards de rota
-└── proxy.ts                      # Entrada do proxy do Next.js
+│   ├── api/                      # Server-only HTTP client, errors, and config
+│   ├── socket/                   # Generic SocketService + SocketManager
+│   └── signed-cookies.ts         # HMAC-SHA256 with Web Crypto
+├── proxy/                        # Route guards
+└── proxy.ts                      # Next.js proxy entry point
 ```
 
 
-## Destaques técnicos
+## Technical highlights
 
-| Decisão | Por que importa |
+| Decision | Why it matters |
 | --- | --- |
-| Cookies assinados (HMAC-SHA256) com Web Crypto | Autenticação sem biblioteca de JWT, `httpOnly`, rodando no runtime do proxy do Next.js |
-| Token da API nunca chega ao navegador | Cliente HTTP `server-only`, com allowlist de headers e HTTPS obrigatório em produção |
-| Socket.IO tipado + `useSyncExternalStore` | Tempo real com reconexão e tratamento de erro, sem estado duplicado |
-| Máquina de estados para o ciclo da aula | Ações inválidas simplesmente não existem na interface |
-| `as const` + `satisfies` no registro de experimentos | Experimento incompleto vira erro de compilação |
-| E2E contra backend real em CI | Só vai para produção o que passou nos testes |
-| Next.js 16 moderno | Server Actions, `useActionState`, `useOptimistic`, React Compiler e Cache Components |
-| Mobile first | shadcn/ui + Radix, skeletons e estados de erro e vazio |
+| Signed cookies (HMAC-SHA256) with Web Crypto | Authentication without a JWT library, `httpOnly`, running in the Next.js proxy runtime |
+| API token never reaches the browser | `server-only` HTTP client, with a header allowlist and mandatory HTTPS in production |
+| Typed Socket.IO + `useSyncExternalStore` | Real time with reconnection and error handling, with no duplicated state |
+| State machine for the class lifecycle | Invalid actions simply don't exist in the interface |
+| `as const` + `satisfies` in the experiment registry | An incomplete experiment becomes a compile error |
+| E2E against the real backend in CI | Only what passed the tests goes to production |
+| Modern Next.js 16 | Server Actions, `useActionState`, `useOptimistic`, React Compiler, and Cache Components |
+| Mobile first | shadcn/ui + Radix, skeletons, and error and empty states |
 
 ## Stack
 
 **Frontend:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui + Radix UI · React Hook Form + Zod 4 · TanStack Query + Table · Recharts · react-markdown
 
-**Tempo real:** Socket.IO Client
+**Real time:** Socket.IO Client
 
-**Qualidade:** Playwright (Page Object Model + fixtures) · ESLint · Prettier
+**Quality:** Playwright (Page Object Model + fixtures) · ESLint · Prettier
 
-**Infra:** GitHub Actions · Docker Compose (ambiente E2E) · Vercel (Analytics + Speed Insights)
+**Infra:** GitHub Actions · Docker Compose (E2E environment) · Vercel (Analytics + Speed Insights)
 
-**Backend** (repositório separado): API REST + Socket.IO + MongoDB
+**Backend** (separate repository): REST API + Socket.IO + MongoDB
 
-## Rodando localmente
+## Running locally
 
-**Requisitos:** Node.js 20.9+ e o [backend do Quimera](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024) rodando.
+**Requirements:** Node.js 20.9+ and the [Quimera backend](https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-2024) running.
 
 ```bash
 git clone https://github.com/Mariana-Evangelista/Projeto-Quimera-PIC-Frontend.git
@@ -165,14 +165,14 @@ cd Projeto-Quimera-PIC-Frontend
 npm install
 ```
 
-Crie o arquivo `.env.local`:
+Create the `.env.local` file:
 
 ```env
 API_BASE_URL=http://localhost:8000
 NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
 
-# Segredos de assinatura dos cookies (mínimo de 32 caracteres cada).
-# Gere com: openssl rand -base64 48
+# Cookie signing secrets (minimum 32 characters each).
+# Generate with: openssl rand -base64 48
 TEACHER_ACCESS_TOKEN_SECRET=
 EXPERIMENT_ACCESS_SECRET=
 ```
@@ -182,22 +182,22 @@ npm run dev   # http://localhost:3000
 ```
 
 <details>
-<summary><strong>Scripts disponíveis</strong></summary>
+<summary><strong>Available scripts</strong></summary>
 
-| Comando | Descrição |
+| Command | Description |
 | --- | --- |
-| `npm run dev` / `build` / `start` | Desenvolvimento, build e execução em produção |
+| `npm run dev` / `build` / `start` | Development, build, and production run |
 | `npm run lint` / `lint:fix` | ESLint |
 | `npm run format` / `format:check` | Prettier |
-| `npm run test:e2e` | Suíte E2E completa (Playwright) |
-| `npm run test:e2e:smoke` | Apenas testes `@smoke` |
-| `npm run test:e2e:ui` / `debug` / `report` | Modos interativo, depuração e relatório |
-| `npm run e2e:backend:up` / `down` / `reset` / `logs` | Ambiente E2E isolado (API + MongoDB em Docker) |
+| `npm run test:e2e` | Full E2E suite (Playwright) |
+| `npm run test:e2e:smoke` | `@smoke` tests only |
+| `npm run test:e2e:ui` / `debug` / `report` | Interactive, debug, and report modes |
+| `npm run e2e:backend:up` / `down` / `reset` / `logs` | Isolated E2E environment (API + MongoDB in Docker) |
 
 </details>
 
-Para rodar os testes E2E localmente, veja [`e2e/README.md`](./e2e/README.md).
+To run the E2E tests locally, see [`e2e/README.md`](./e2e/README.md).
 
-## Autoria
+## Credits
 
-Projeto original de Iniciação Científica (PIC 2024) do Centro Universitário Barão de Mauá. A versão atual do frontend, com o experimento de Controle Glicêmico, a nova interface, a mudança de tecnologias, os testes e o deploy, foi feita por **Mariana Evangelista**.
+Original Scientific Initiation project (PIC 2024) at Centro Universitário Barão de Mauá. The current version of the frontend, with the Glycemic Control experiment, the new interface, the technology changes, the tests, and the deploy, was built by **Mariana Evangelista**.
