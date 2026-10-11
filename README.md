@@ -1,4 +1,6 @@
+
 <div align="center">
+
 
 # 🧪 Quimera
 
@@ -14,6 +16,8 @@ The teacher creates a room, the class joins with a PIN, and the answers turn int
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-realtime-010101?logo=socketdotio&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-deploy-000000?logo=vercel&logoColor=white)
+
+<img width="2065" height="1546" alt="Group 1" src="https://github.com/user-attachments/assets/dc307b52-7f9b-4ca5-a1ee-f206e9f6f217" />
 
 </div>
 
